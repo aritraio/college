@@ -31,30 +31,30 @@ Structured checklist organized by implementation phase. Each phase builds on the
 ## Phase 2 — Surgical Fixes (Quick Wins)
 
 ### 2A — Remove Scroll Progress Bar
-- [ ] **2A.1** Remove scroll progress bar HTML from `index.html` (lines 37-40)
-- [ ] **2A.2** Remove `.scroll-progress-container` and `.scroll-progress-bar` CSS rules
-- [ ] **2A.3** Remove `handleScroll()` function from `app.js`
-- [ ] **2A.4** Remove `window.addEventListener('scroll', handleScroll)` binding from `app.js`
-- [ ] **2A.5** Remove `scrollProgress` width reset in `router()` function
+- [x] **2A.1** Remove scroll progress bar HTML from `index.html` (lines 37-40)
+- [x] **2A.2** Remove `.scroll-progress-container` and `.scroll-progress-bar` CSS rules
+- [x] **2A.3** Remove `handleScroll()` function from `app.js`
+- [x] **2A.4** Remove `window.addEventListener('scroll', handleScroll)` binding from `app.js`
+- [x] **2A.5** Remove `scrollProgress` width reset in `router()` function
 
 ### 2B — Fix Favicon
-- [ ] **2B.1** Replace `<link rel="icon">` in `index.html` with inline SVG "S5" favicon
-- [ ] **2B.2** Optionally delete old `favicon.ico` file
-- [ ] **2B.3** Update sidebar logo text from "B" → "S5" and "BCA Sem 5 Hub" → "Study Hub"
-- [ ] **2B.4** Update mobile header title text to match
-- [ ] **2B.5** Update `.logo-icon` CSS to monochromatic design
+- [x] **2B.1** Replace `<link rel="icon">` in `index.html` with inline SVG "S5" favicon
+- [x] **2B.2** Optionally delete old `favicon.ico` file
+- [x] **2B.3** Update sidebar logo text from "B" → "S5" and "BCA Sem 5 Hub" → "Study Hub"
+- [x] **2B.4** Update mobile header title text to match
+- [x] **2B.5** Update `.logo-icon` CSS to monochromatic design
 
 ### 2C — Fix Subject Click → Module Open
-- [ ] **2C.1** In `renderSubjectLanding()`, make entire `.module-card` div clickable (not just header row)
-- [ ] **2C.2** Add `cursor: pointer` to `.module-card` CSS
-- [ ] **2C.3** Add hover effect: `border-color` change and `→` arrow indicator
-- [ ] **2C.4** Test navigation from subject landing → each module for all 4 subjects
+- [x] **2C.1** In `renderSubjectLanding()`, make entire `.module-card` div clickable (not just header row)
+- [x] **2C.2** Add `cursor: pointer` to `.module-card` CSS
+- [x] **2C.3** Add hover effect: `border-color` change and `→` arrow indicator
+- [x] **2C.4** Test navigation from subject landing → each module for all 4 subjects
 
 ### 2D — Remove Course Outcomes & Textbooks from Subject Landing
-- [ ] **2D.1** Remove the `grid-2-col` section from `renderSubjectLanding()` (Course Outcomes + Textbooks cards)
-- [ ] **2D.2** Remove `outcomesHTML` and `booksHTML` variable construction code
-- [ ] **2D.3** Keep the data in `subjects.json` (don't delete from JSON, just don't render it)
-- [ ] **2D.4** Verify subject landing pages look clean without bottom sections
+- [x] **2D.1** Remove the `grid-2-col` section from `renderSubjectLanding()` (Course Outcomes + Textbooks cards)
+- [x] **2D.2** Remove `outcomesHTML` and `booksHTML` variable construction code
+- [x] **2D.3** Keep the data in `subjects.json` (don't delete from JSON, just don't render it)
+- [x] **2D.4** Verify subject landing pages look clean without bottom sections
 
 ---
 

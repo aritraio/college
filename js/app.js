@@ -373,7 +373,7 @@
       <div class="dashboard-hero hero">
         <div class="graffiti-overlay">${generateGraffitiSVG()}</div>
         <div class="hero-content">
-          <span class="hero-tag">SEMESTER V · 2024</span>
+          <span class="hero-tag">SEMESTER V · 2026</span>
           <h1 class="hero-title">BCA Semester V Study Hub</h1>
           <p class="hero-desc">Your ultimate companion for Brainware University exams. Tracking, quizzes, formulas, and resources for all 5th semester subjects.</p>
           <a href="#/subjects" class="btn btn-primary">

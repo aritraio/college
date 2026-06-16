@@ -231,7 +231,7 @@ Replace the bland hero section with a dynamic, graffiti-art inspired dashboard. 
     <!-- SVG-based abstract graffiti art generated via JS -->
   </div>
   <div class="hero-content">
-    <div class="hero-tag">SEMESTER V · 2024</div>
+    <div class="hero-tag">SEMESTER V · 2026</div>
     <h1 class="hero-title">BCA Study Hub</h1>
     <p class="hero-desc">Your ultimate exam prep companion. 4 subjects, 20 modules, unlimited quizzes.</p>
     <a href="#/subjects" class="btn btn-primary">Start Studying →</a>
@@ -538,7 +538,7 @@ The website currently has no footer at all. Add a minimal monochromatic footer:
 <footer class="site-footer">
   <div class="footer-content">
     <p class="footer-brand">Study Hub</p>
-    <p class="footer-meta">BCA Semester V · Brainware University · 2024</p>
+    <p class="footer-meta">BCA Semester V · Brainware University · 2026</p>
   </div>
 </footer>
 ```

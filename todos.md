@@ -67,7 +67,7 @@ Structured checklist organized by implementation phase. Each phase builds on the
   - [x] Include text fragments ("CODE", "STUDY", "BCA", "SEM5")
   - [x] Make art randomize on each page load
 - [x] **3A.2** Redesign hero section HTML with `.dashboard-hero` container
-- [x] **3A.3** Add `.hero-tag` monospaced label ("SEMESTER V · 2024")
+- [x] **3A.3** Add `.hero-tag` monospaced label ("SEMESTER V · 2026")
 - [x] **3A.4** Style graffiti canvas as subtle SVG background overlay (opacity 0.06-0.08)
 - [x] **3A.5** Test performance — ensure < 50ms render time
 - [x] **3A.6** Verify graffiti renders correctly in both themes

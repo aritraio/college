@@ -7,7 +7,7 @@
 An interactive, mobile-first study website for BCA Semester 5 examination preparation. Built with plain HTML, CSS, and JavaScript — no frameworks, no build step, just open `index.html` and start studying.
 
 **University**: Brainware University
-**Program**: Bachelor of Computer Applications (BCA) — Semester V (2024)
+**Program**: Bachelor of Computer Applications (BCA) — Semester V (2026)
 **Total Credits**: 20 | **Total Subjects**: 6 | **Theory Sections**: 4
 
 ---
@@ -184,7 +184,7 @@ Contains all subject metadata, credit information, and module titles.
 
 ```json
 {
-  "semester": "BCA Semester V — 2024",
+  "semester": "BCA Semester V — 2026",
   "university": "Brainware University",
   "totalCredits": 20,
   "subjects": [

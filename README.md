@@ -2,7 +2,7 @@
 
 An interactive, premium, mobile-first study website for **BCA Semester V** exam preparation. Built as a single-page application (SPA) with pure, dependency-free HTML5, CSS3, and JavaScript (ES6+).
 
-> Brainware University · School of Computational & Applied Sciences · 2024
+> Brainware University · School of Computational & Applied Sciences · 2026
 
 ---
 

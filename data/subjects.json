@@ -1,0 +1,135 @@
+{
+  "semester": "BCA Semester V — 2024",
+  "university": "Brainware University",
+  "totalCredits": 20,
+  "subjects": [
+    {
+      "id": "se",
+      "code": "BCA50112",
+      "name": "Software Engineering",
+      "credits": 4,
+      "hours": { "L": 3, "T": 1, "P": 0 },
+      "evaluation": { "CIA": 40, "ESE": 60, "total": 100 },
+      "type": "Major",
+      "accentColor": "#00cec9",
+      "modules": [
+        { "id": 1, "title": "Introduction to Software Engineering", "hours": "3H" },
+        { "id": 2, "title": "Software Development Process Models", "hours": "3H" },
+        { "id": 3, "title": "Requirement Analysis & Specifications", "hours": "3H" },
+        { "id": 4, "title": "Software Design & Development Tools", "hours": "3H" },
+        { "id": 5, "title": "Software Testing & Project Management", "hours": "3H" }
+      ],
+      "courseObjective": "To understand the phases of software development and project management.",
+      "courseOutcomes": [
+        "CO1: Understand the software lifecycle models",
+        "CO2: Elicit and document requirements in SRS",
+        "CO3: Design software using structured tools",
+        "CO4: Test software systems using black-box and white-box methods",
+        "CO5: Manage projects using estimation models like COCOMO"
+      ],
+      "textbooks": [
+        "Roger S. Pressman, 'Software Engineering: A Practitioner's Approach', McGraw-Hill",
+        "Rajib Mall, 'Fundamentals of Software Engineering', PHI"
+      ],
+      "references": [
+        "Ian Sommerville, 'Software Engineering', Pearson Education"
+      ]
+    },
+    {
+      "id": "daa",
+      "code": "BCA50113",
+      "name": "Design & Analysis of Algorithms",
+      "credits": 4,
+      "hours": { "L": 3, "T": 1, "P": 0 },
+      "evaluation": { "CIA": 40, "ESE": 60, "total": 100 },
+      "type": "Major",
+      "accentColor": "#fd79a8",
+      "modules": [
+        { "id": 1, "title": "Algorithm Development & Complexity Analysis", "hours": "3H" },
+        { "id": 2, "title": "Searching & Sorting Algorithms", "hours": "3H" },
+        { "id": 3, "title": "Algorithm Design Techniques", "hours": "3H" },
+        { "id": 4, "title": "Graph & Tree Algorithms", "hours": "3H" },
+        { "id": 5, "title": "Complexity Classes", "hours": "3H" }
+      ],
+      "courseObjective": "To design efficient algorithms and analyze their time/space complexity.",
+      "courseOutcomes": [
+        "CO1: Apply asymptotic notations to analyze algorithm efficiency",
+        "CO2: Implement and compare search/sort methods",
+        "CO3: Design algorithms using greedy, divide & conquer, and dynamic programming",
+        "CO4: Solve graph problems like shortest path and minimum spanning trees",
+        "CO5: Explain P, NP, NP-complete classes and Cook's theorem"
+      ],
+      "textbooks": [
+        "T.H. Cormen, C.E. Leiserson, R.L. Rivest, and C. Stein, 'Introduction to Algorithms', MIT Press",
+        "Ellis Horowitz, Sartaj Sahni and Sanguthevar Rajasekaran, 'Fundamentals of Computer Algorithms', Universities Press"
+      ],
+      "references": [
+        "Anany Levitin, 'Introduction to the Design and Analysis of Algorithms', Pearson Education"
+      ]
+    },
+    {
+      "id": "fsd",
+      "code": "BCA57115",
+      "name": "Full-stack Development II",
+      "credits": 4,
+      "hours": { "L": 3, "T": 0, "P": 2 },
+      "evaluation": { "CIA": 40, "ESE": 60, "total": 100 },
+      "type": "Major / Practical",
+      "accentColor": "#fdcb6e",
+      "modules": [
+        { "id": 1, "title": "React JS & JSX with Components", "hours": "3H" },
+        { "id": 2, "title": "React CSS, Bootstrap & Router", "hours": "3H" },
+        { "id": 3, "title": "User Input Forms, Events & Deployment", "hours": "3H" },
+        { "id": 4, "title": "API Requests & Data Binding", "hours": "3H" },
+        { "id": 5, "title": "Directives, Controllers, Filters & Services", "hours": "3H" }
+      ],
+      "courseObjective": "To master modern single-page applications using React.js and Angular.js frameworks.",
+      "courseOutcomes": [
+        "CO1: Build UIs using React functional/class components",
+        "CO2: Style React applications and configure client-side routing",
+        "CO3: Manage form state and handle dynamic browser events",
+        "CO4: Fetch and bind external API data in React and Angular",
+        "CO5: Write custom directives, controllers, and services in AngularJS"
+      ],
+      "textbooks": [
+        "Kirupa Chinnathambi, 'Learning React: A Hands-On Guide to Building Web Applications Using React and Redux', Addison-Wesley",
+        "Brad Green and Shyam Seshadri, 'AngularJS', O'Reilly Media"
+      ],
+      "references": [
+        "React and Angular Official Documentation websites"
+      ]
+    },
+    {
+      "id": "ml",
+      "code": "BCA57205",
+      "name": "Machine Learning",
+      "credits": 4,
+      "hours": { "L": 3, "T": 1, "P": 0 },
+      "evaluation": { "CIA": 40, "ESE": 60, "total": 100 },
+      "type": "Minor Elective",
+      "accentColor": "#55efc4",
+      "modules": [
+        { "id": 1, "title": "Introduction to Machine Learning", "hours": "3H" },
+        { "id": 2, "title": "Types of Learning & Applications", "hours": "3H" },
+        { "id": 3, "title": "Training Models in ML", "hours": "3H" },
+        { "id": 4, "title": "AI & ML with Business Problems", "hours": "3H" },
+        { "id": 5, "title": "Ensemble Learning", "hours": "3H" }
+      ],
+      "courseObjective": "To understand machine learning principles, algorithms, and practical applications.",
+      "courseOutcomes": [
+        "CO1: Formulate business problems as machine learning tasks",
+        "CO2: Apply supervised, unsupervised, and reinforcement learning concepts",
+        "CO3: Design ML pipelines including data preparation and training",
+        "CO4: Deploy ML pilot projects for real-world enterprise scenarios",
+        "CO5: Construct ensemble methods like Bagging, Boosting, and Random Forest"
+      ],
+      "textbooks": [
+        "Tom M. Mitchell, 'Machine Learning', McGraw-Hill",
+        "Ethem Alpaydin, 'Introduction to Machine Learning', MIT Press"
+      ],
+      "references": [
+        "Stephen Marsland, 'Machine Learning: An Algorithmic Perspective', CRC Press"
+      ]
+    }
+  ]
+}

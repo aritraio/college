@@ -378,27 +378,6 @@ button {
 }
 
 /* ==========================================
-   SCROLL PROGRESS BAR
-   ========================================== */
-.scroll-progress-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: transparent;
-  z-index: 300;
-}
-
-.scroll-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, var(--accent-primary), var(--accent-se));
-  transition: width 0.1s ease;
-  box-shadow: 0 0 8px var(--accent-primary-glow);
-}
-
-/* ==========================================
    FLOATING THEME TOGGLER
    ========================================== */
 .theme-toggle-btn {
@@ -727,13 +706,33 @@ button {
   display: flex;
   flex-direction: column;
   border-left: 4px solid var(--accent-primary);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.module-card:hover {
+  border-top-color: var(--border-color-hover);
+  border-right-color: var(--border-color-hover);
+  border-bottom-color: var(--border-color-hover);
+  background-color: var(--bg-card-hover);
+}
+
+.module-card .module-arrow {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast), color var(--transition-fast);
+  display: inline-block;
+}
+
+.module-card:hover .module-arrow {
+  color: var(--text-primary);
+  transform: translateX(4px);
 }
 
 .module-header-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
   padding-bottom: var(--space-xs);
 }
 

@@ -47,22 +47,6 @@
     });
   }
 
-  // Scroll Progress Bar Update
-  function handleScroll() {
-    const progressBar = document.getElementById('scrollProgress');
-    if (!progressBar) return;
-    
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    
-    if (height > 0) {
-      const scrolled = (winScroll / height) * 100;
-      progressBar.style.width = scrolled + '%';
-    } else {
-      progressBar.style.width = '0%';
-    }
-  }
-
   // Initialize Theme Configuration
   function initTheme() {
     const savedTheme = localStorage.getItem('theme');
@@ -129,9 +113,6 @@
       overlay.classList.remove('active');
     }
 
-    // Reset scroll progress bar width
-    const progressBar = document.getElementById('scrollProgress');
-    if (progressBar) progressBar.style.width = '0%';
     window.scrollTo(0, 0);
 
     const appContainer = document.getElementById('app');
@@ -339,37 +320,22 @@
         : `<span style="color: var(--text-muted); font-size: 0.85rem;">Incomplete</span>`;
 
       modulesHTML += `
-        <div class="card module-card" style="border-left-color: ${subj.accentColor};">
-          <div class="module-header-row" onclick="window.location.hash = '#/subject/${subj.id}/module/${mod.id}'">
+        <div class="card module-card" style="border-left-color: ${subj.accentColor};" onclick="window.location.hash = '#/subject/${subj.id}/module/${mod.id}'">
+          <div class="module-header-row">
             <div class="module-info">
               <span class="module-num" style="color: ${subj.accentColor};">Module ${mod.id} (${mod.hours})</span>
               <h4 class="module-title">${mod.title}</h4>
             </div>
-            <div>
+            <div style="display: flex; align-items: center; gap: var(--space-sm);">
               ${statusIcon}
+              <span class="module-arrow">&rarr;</span>
             </div>
           </div>
         </div>
       `;
     });
 
-    // Outcomes
-    let outcomesHTML = '';
-    subj.courseOutcomes.forEach(co => {
-      outcomesHTML += `<li style="margin-bottom: var(--space-xs);">${co}</li>`;
-    });
 
-    // Books
-    let booksHTML = '';
-    subj.textbooks.forEach(b => {
-      booksHTML += `<li style="margin-bottom: var(--space-xxs);">${b}</li>`;
-    });
-    if (subj.references && subj.references.length > 0) {
-      booksHTML += `<li style="margin-top: var(--space-sm); list-style: none; font-weight: 600; color: var(--text-primary);">Reference Books:</li>`;
-      subj.references.forEach(r => {
-        booksHTML += `<li style="margin-bottom: var(--space-xxs);">${r}</li>`;
-      });
-    }
 
     container.innerHTML = `
       <div style="margin-bottom: var(--space-lg);">
@@ -405,21 +371,6 @@
         ${modulesHTML}
       </div>
 
-      <div class="grid-2-col m-t-xl" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xxl);">
-        <div class="card">
-          <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: var(--space-md); border-bottom: 1px solid var(--border-color); padding-bottom: var(--space-xs);">Course Outcomes (COs)</h4>
-          <ul style="padding-left: var(--space-md); color: var(--text-secondary);">
-            ${outcomesHTML}
-          </ul>
-        </div>
-        
-        <div class="card">
-          <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: var(--space-md); border-bottom: 1px solid var(--border-color); padding-bottom: var(--space-xs);">Textbooks & Resources</h4>
-          <ul style="padding-left: var(--space-md); color: var(--text-secondary);">
-            ${booksHTML}
-          </ul>
-        </div>
-      </div>
     `;
   }
 
@@ -579,10 +530,6 @@
         }
       });
     });
-
-    // 4. Scroll Event Listeners for progress bar
-    window.addEventListener('scroll', handleScroll);
-
     // 5. Fetch subjects list JSON
     fetch('data/subjects.json')
       .then(response => {

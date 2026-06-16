@@ -1,0 +1,245 @@
+# BCA Sem 5 Study Hub — Todos
+
+---
+
+## Day 1 — Foundation & Design System
+
+- [ ] Create project folder structure (`css/`, `js/`, `data/`, `data/se/`, `data/daa/`, `data/fsd/`, `data/ml/`)
+- [ ] Create `css/style.css`
+  - [ ] CSS custom properties (theme colors, spacing, typography tokens)
+  - [ ] Dark mode and light mode theme variables
+  - [ ] Base reset and typography (Google Fonts: Inter, JetBrains Mono)
+  - [ ] Glassmorphic card component (blur, transparency, borders)
+  - [ ] Button styles (primary, secondary, ghost variants)
+  - [ ] Desktop sidebar navigation
+  - [ ] Mobile bottom tab navigation bar
+  - [ ] Credit table styles (zebra stripes, sticky header, hover rows)
+  - [ ] Subject cards with per-subject accent colors (Teal, Pink, Amber, Mint)
+  - [ ] Progress bar and circular progress ring components
+  - [ ] Module content typography (headings, paragraphs, lists, blockquotes)
+  - [ ] Code block styling (dark theme, copy button)
+  - [ ] Quiz component styles (option cards, correct/wrong states, score display)
+  - [ ] Interview tip callout box component
+  - [ ] All keyframe animations (fadeSlideUp, pulse, shake, confetti, glow)
+  - [ ] Scroll progress bar at page top
+  - [ ] Responsive breakpoints (phone < 480px, tablet 768px, desktop 1024px+)
+  - [ ] Utility classes (spacing, flex, grid helpers)
+- [ ] Create `index.html`
+  - [ ] `<head>` — meta viewport, charset, title, Google Fonts link, MathJax CDN, CSS link
+  - [ ] Desktop sidebar nav structure
+  - [ ] Mobile bottom tab bar (Home, Subjects, Progress, Settings)
+  - [ ] `<main id="app">` content container
+  - [ ] Theme toggle button (sun/moon icon)
+  - [ ] Script tags for app.js, renderer.js, quiz.js
+- [ ] Create `js/app.js`
+  - [ ] Hash-based router (parse `#/`, `#/subject/se`, `#/subject/se/module/1`, etc.)
+  - [ ] Route change listener (`hashchange` event)
+  - [ ] Dashboard view (hero section + credit table + subject cards grid)
+  - [ ] Subject landing page view (overview, module list, textbooks)
+  - [ ] Navigation active-state highlighting
+  - [ ] Theme toggle (save preference to localStorage)
+  - [ ] Scroll progress bar logic (scroll event listener)
+  - [ ] Page transition animations on view switch
+
+---
+
+## Day 2 — Core Engine & Interactivity
+
+- [ ] Create `js/renderer.js`
+  - [ ] Fetch module JSON via `fetch()` API
+  - [ ] Parse JSON and render topic sections as HTML
+  - [ ] Generate table of contents from rendered headings
+  - [ ] Scroll-spy logic to highlight active TOC item
+  - [ ] Trigger `MathJax.typeset()` after injecting content
+  - [ ] Collapsible/accordion sections for mobile
+  - [ ] Interview tip callout rendering with slide-in animation
+  - [ ] Code block rendering with copy-to-clipboard button
+  - [ ] Previous / Next module navigation buttons
+  - [ ] Mark module as completed in localStorage
+  - [ ] Swipe gesture detection for module navigation (touch events)
+- [ ] Create `js/quiz.js`
+  - [ ] Render MCQ questions from module JSON data
+  - [ ] Option selection with visual hover/active feedback
+  - [ ] Submit answer with validation
+  - [ ] Correct answer: green pulse animation + explanation reveal
+  - [ ] Wrong answer: red shake animation + correct answer highlight + explanation
+  - [ ] Score calculation and percentage display
+  - [ ] Save quiz results per module to localStorage
+  - [ ] Retake quiz functionality (reset state)
+  - [ ] Confetti animation trigger on scores >= 80%
+  - [ ] Practice questions section with collapsible model answers
+- [ ] Create `data/subjects.json`
+  - [ ] All 6 subjects (code, name, credits, L-T-P, CIA/ESE marks, course type)
+  - [ ] Module titles for each of the 4 theory subjects
+  - [ ] Course objectives and outcomes per subject
+  - [ ] Textbooks and reference books per subject
+- [ ] End-to-end navigation test
+  - [ ] Dashboard → Subject → Module → Quiz flow
+  - [ ] Back button and breadcrumb navigation
+  - [ ] Mobile bottom nav switching views
+  - [ ] Theme toggle persisting across reloads
+  - [ ] Progress data persisting in localStorage
+
+---
+
+## Day 3 — Content: Software Engineering + DAA
+
+- [ ] `data/se/module1.json` — Introduction to Software Engineering
+  - [ ] Topics: definition of software, types, characteristics, attributes of good software, SE definition, costs, key challenges, systems engineering concept
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/se/module2.json` — Software Development Process Models
+  - [ ] Topics: waterfall, evolutionary, CBSE, process iteration, incremental, spiral, agile, XP, RAD, prototyping, CASE tools classification
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/se/module3.json` — Requirement Analysis & Specifications
+  - [ ] Topics: functional/non-functional/domain requirements, user requirements, elicitation, use-cases, DFDs (physical & logical), ERD, data dictionary, requirement validation, SRS format, feasibility
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/se/module4.json` — Software Design & Development Tools
+  - [ ] Topics: abstraction, architecture, patterns, modularity, cohesion, coupling, information hiding, functional independence, refinement, UI design elements (menus, scroll bars, windows, buttons, icons, panels, error messages), coding standards
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/se/module5.json` — Software Testing & Project Management
+  - [ ] Topics: V&V, testing types, test case design, ISO 9000, CMM, project planning, FPA, LOC estimation, COCOMO II, project scheduling, earned value analysis, risk management (RMMM)
+  - [ ] Math formulas for FPA and COCOMO II using MathJax
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/daa/module1.json` — Algorithm Development & Complexity Analysis
+  - [ ] Topics: Big-O, Big-Ω, Big-Θ notation with MathJax formulas, time-space trade-off, relationships among notations, substitution method, recurrence tree, Master's theorem (all 3 cases with formulas)
+  - [ ] All formulas formatted with MathJax
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/daa/module2.json` — Searching & Sorting Algorithms
+  - [ ] Topics: linear search, binary search, interpolation search, merge sort, quick sort, heap sort — best/worst/average case complexity with formulas
+  - [ ] Complexity comparison table
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/daa/module3.json` — Algorithm Design Techniques
+  - [ ] Topics: brute force, divide & conquer (max-min, Strassen's matrix multiplication), greedy (fractional knapsack, job sequencing), dynamic programming (0/1 knapsack, matrix chain multiplication), backtracking (N-Queens), string matching (Naïve, KMP)
+  - [ ] Step-by-step worked examples
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/daa/module4.json` — Graph & Tree Algorithms
+  - [ ] Topics: DFS, BFS, Dijkstra's algorithm, Bellman-Ford, Floyd-Warshall, disjoint set, Prim's, Kruskal's
+  - [ ] Complexity table for all algorithms
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/daa/module5.json` — Complexity Classes
+  - [ ] Topics: P class, NP class, SAT, Hamiltonian path, NP-complete, Hamiltonian cycle, vertex cover, Cook's theorem, approximation algorithms
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+
+---
+
+## Day 4 — Content: Full-stack Development II + Machine Learning
+
+- [ ] `data/fsd/module1.json` — React JS & JSX with Components
+  - [ ] Topics: React intro, prerequisites, installation, creating app, JSX, file/directory structure, code snippets, JS variables in JSX, comments, class component, function component
+  - [ ] Code examples for each concept
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/fsd/module2.json` — React CSS, Bootstrap & Router
+  - [ ] Topics: inline styling, CSS stylesheet, CSS modules, styled-components, Bootstrap for React, React table, React Router, props (passing, reusable components, validation), state (concept, rules, usage)
+  - [ ] Code examples for each concept
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/fsd/module3.json` — User Input Forms, Events & Deployment
+  - [ ] Topics: arrow functions, form handling, event handlers, React DevTools, deploying React app
+  - [ ] Code examples for each concept
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/fsd/module4.json` — API Requests & Data Binding
+  - [ ] Topics: fetching data, sending data, API with PHP+MySQL, AngularJS intro, MVC architecture, setting up environment, first app, number/string expressions, object binding, arrays, data binding
+  - [ ] Code examples for each concept
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/fsd/module5.json` — Directives, Controllers, Filters & Services
+  - [ ] Topics: conditional directives, $scope object, controllers, nested controllers, scope inheritance, built-in filters, custom filters, form events, custom validations, services, dependency injection
+  - [ ] Code examples for each concept
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/ml/module1.json` — Introduction to Machine Learning
+  - [ ] Topics: ML principles, ML vs AI comparison, big data definition, big data in ML context, leveraging ML power, descriptive vs predictive analytics
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/ml/module2.json` — Types of Learning & Applications
+  - [ ] Topics: statistics & data mining roles, supervised learning, unsupervised learning, reinforcement learning, neural networks, ML techniques, tying methods to outcomes, business applications
+  - [ ] Comparison table of learning types
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/ml/module3.json` — Training Models in ML
+  - [ ] Topics: role of algorithms, types of ML algorithms, training systems, data preparation, identifying relevant data, the ML cycle
+  - [ ] ML cycle diagram description
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/ml/module4.json` — AI & ML with Business Problems
+  - [ ] Topics: how ML helps business, focusing on business problems, pilot projects, choosing best model, ML skills needed, healthcare applications, IT issue response, fraud protection
+  - [ ] Real-world case study examples
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+- [ ] `data/ml/module5.json` — Ensemble Learning
+  - [ ] Topics: model combination schemes, voting, error-correcting output codes, bagging, Random Forest, boosting (AdaBoost), stacking
+  - [ ] Formulas with MathJax where applicable
+  - [ ] Interview tips for key concepts
+  - [ ] 10 MCQs with explanations
+  - [ ] 5 practice questions with model answers
+
+---
+
+## Day 5 — Polish, Testing & Deploy
+
+- [ ] Cross-browser testing
+  - [ ] Chrome
+  - [ ] Firefox
+  - [ ] Safari
+  - [ ] MathJax rendering in all browsers
+- [ ] Mobile responsive testing
+  - [ ] iPhone SE (375px width)
+  - [ ] iPhone 14 (390px width)
+  - [ ] iPad (768px width)
+  - [ ] iPad Pro (1024px width)
+  - [ ] Bottom nav usability on all phone sizes
+  - [ ] Swipe gestures working on touch devices
+  - [ ] Accordion sections smooth on mobile
+  - [ ] No horizontal overflow anywhere
+- [ ] Content quality review
+  - [ ] All module topics match syllabus PDF
+  - [ ] All MCQ answers verified correct
+  - [ ] MathJax formulas render properly
+  - [ ] No typos or broken formatting
+  - [ ] Code examples are syntactically correct
+- [ ] Performance check
+  - [ ] JSON files lazy-loaded (fetch on navigate, not upfront)
+  - [ ] Remove any unused CSS
+  - [ ] Page loads in under 2 seconds
+- [ ] Final visual polish
+  - [ ] All transitions and hover effects smooth
+  - [ ] Animations not janky on low-end devices
+  - [ ] localStorage persistence confirmed
+  - [ ] Confetti works on quiz high scores
+  - [ ] Dark/light theme toggle seamless
+- [ ] Project wrap-up
+  - [ ] Add favicon
+  - [ ] Add Open Graph meta tags (for sharing link previews)
+  - [ ] Update `README.md` with project description, tech stack, how to use
+  - [ ] Final commit

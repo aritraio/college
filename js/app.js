@@ -61,9 +61,13 @@
     localStorage.setItem('theme', theme);
     state.theme = theme;
     
-    const themeIcon = document.getElementById('themeIcon');
-    if (themeIcon) {
-      themeIcon.innerHTML = theme === 'dark' ? icons.sun : icons.moon;
+    const sidebarThemeIcon = document.getElementById('sidebarThemeIcon');
+    const sidebarThemeText = document.getElementById('sidebarThemeText');
+    if (sidebarThemeIcon) {
+      sidebarThemeIcon.innerHTML = theme === 'dark' ? icons.sun : icons.moon;
+    }
+    if (sidebarThemeText) {
+      sidebarThemeText.textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
     }
   }
 
@@ -263,37 +267,40 @@
       overlay.classList.remove('active');
     }
 
-    window.scrollTo(0, 0);
-
     const appContainer = document.getElementById('app');
     
-    // Transition effect by re-triggering class
-    appContainer.classList.remove('fade-in-view');
-    void appContainer.offsetWidth; // Force reflow
-    appContainer.classList.add('fade-in-view');
+    // Add fade-out transition class
+    appContainer.classList.add('fade-out');
 
-    // Route logic
-    if (hash === '#/' || hash === '') {
-      renderDashboard(appContainer);
-    } else if (hash === '#/subjects') {
-      renderSubjectsList(appContainer);
-    } else if (hash.startsWith('#/subject/')) {
-      const parts = hash.split('/');
-      const subjectId = parts[2];
-      
-      if (parts[3] === 'module' && parts[4]) {
-        const moduleId = parseInt(parts[4], 10);
-        renderModuleView(appContainer, subjectId, moduleId);
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+
+      // Route logic
+      if (hash === '#/' || hash === '') {
+        renderDashboard(appContainer);
+      } else if (hash === '#/subjects') {
+        renderSubjectsList(appContainer);
+      } else if (hash.startsWith('#/subject/')) {
+        const parts = hash.split('/');
+        const subjectId = parts[2];
+        
+        if (parts[3] === 'module' && parts[4]) {
+          const moduleId = parseInt(parts[4], 10);
+          renderModuleView(appContainer, subjectId, moduleId);
+        } else {
+          renderSubjectLanding(appContainer, subjectId);
+        }
+      } else if (hash === '#/progress') {
+        renderProgressStats(appContainer);
+      } else if (hash === '#/settings') {
+        renderSettings(appContainer);
       } else {
-        renderSubjectLanding(appContainer, subjectId);
+        renderNotFound(appContainer);
       }
-    } else if (hash === '#/progress') {
-      renderProgressStats(appContainer);
-    } else if (hash === '#/settings') {
-      renderSettings(appContainer);
-    } else {
-      renderNotFound(appContainer);
-    }
+
+      // Remove fade-out transition class to trigger fade-in
+      appContainer.classList.remove('fade-out');
+    }, 150);
   }
 
   // View: Dashboard
@@ -440,29 +447,51 @@
   // View: Subjects List
   function renderSubjectsList(container) {
     let listHTML = '';
-    state.subjects.forEach(subj => {
+    state.subjects.forEach((subj, idx) => {
       const percent = getSubjectProgressPercent(subj.id);
+      const completedCount = Object.values(state.progress[subj.id] || {}).filter(v => v === true).length;
+      
+      // Determine resume module link
+      let resumeModuleId = 1;
+      const progressObj = state.progress[subj.id] || {};
+      for (let i = 1; i <= 5; i++) {
+        if (!progressObj[i]) {
+          resumeModuleId = i;
+          break;
+        }
+      }
+      
+      const isAllCompleted = completedCount === 5;
+      const resumeText = isAllCompleted ? 'Review Module 1' : `Resume Module ${resumeModuleId}`;
+      const resumeHref = `#/subject/${subj.id}/module/${isAllCompleted ? 1 : resumeModuleId}`;
+
       listHTML += `
-        <div class="card m-b-md" style="display: flex; flex-direction: column; gap: var(--space-md);">
-          <div class="flex justify-between align-center" style="flex-wrap: wrap; gap: var(--space-sm);">
+        <div class="card subject-list-card" style="border-left: 4px solid ${subj.accentColor || 'var(--accent-primary)'}; display: flex; flex-direction: column; gap: var(--space-md);">
+          <div class="flex justify-between align-start">
             <div>
               <span style="font-family: var(--font-mono); color: var(--text-muted); font-size: 0.85rem;">${subj.code} · ${subj.type}</span>
-              <h3 style="font-size: 1.4rem; font-weight: 700; margin-top: 2px;">${subj.name}</h3>
+              <h3 style="font-size: 1.3rem; font-weight: 700; margin-top: 2px; line-height: 1.3;">${subj.name}</h3>
             </div>
-            <div style="font-size: 1.15rem; font-weight: 700; color: var(--accent-primary);">${percent}% Completed</div>
+            <span class="subject-number">0${idx + 1}</span>
           </div>
           
-          <p style="color: var(--text-secondary);">${subj.courseObjective}</p>
+          <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-bottom: auto;">${subj.courseObjective}</p>
           
-          <div class="progress-container">
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill" style="width: ${percent}%; background-color: ${subj.accentColor};"></div>
+          <div class="progress-container" style="margin-top: var(--space-sm);">
+            <div class="flex justify-between align-center" style="font-size: 0.85rem; margin-bottom: var(--space-xxs); font-family: var(--font-mono);">
+              <span style="color: var(--text-muted);">${completedCount}/5 Modules Completed</span>
+              <span style="font-weight: 700; color: var(--text-primary);">${percent}%</span>
+            </div>
+            <div class="progress-bar-bg" style="height: 8px;">
+              <div class="progress-bar-fill" style="width: ${percent}%; background-color: ${subj.accentColor || 'var(--accent-primary)'};"></div>
             </div>
           </div>
           
-          <div class="flex justify-between align-center" style="margin-top: var(--space-sm); padding-top: var(--space-md); border-top: 1px solid var(--border-color);">
-            <span style="color: var(--text-muted); font-size: 0.9rem;">${subj.credits} Credits · ${subj.modules.length} Modules</span>
-            <a href="#/subject/${subj.id}" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Open Curriculum</a>
+          <div class="flex justify-between align-center" style="margin-top: var(--space-xs); padding-top: var(--space-md); border-top: 1px solid var(--border-color);">
+            <a href="${resumeHref}" class="resume-link">
+              ${resumeText} &rarr;
+            </a>
+            <a href="#/subject/${subj.id}" class="btn btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Syllabus</a>
           </div>
         </div>
       `;
@@ -471,9 +500,9 @@
     container.innerHTML = `
       <div class="section-header">
         <h2 class="section-title">Subjects Directory</h2>
-        <p class="section-desc">Browse syllabus guidelines and open specific learning modules.</p>
+        <p class="section-desc">Browse syllabus guidelines, track progress, and resume where you left off.</p>
       </div>
-      <div class="flex flex-col m-t-lg">
+      <div class="subjects-grid-page">
         ${listHTML}
       </div>
     `;
@@ -680,11 +709,58 @@
     `;
   }
 
+  // Keyboard Navigation listener
+  document.addEventListener('keydown', (e) => {
+    // Disable shortcuts when focusing inputs/textareas
+    const activeEl = document.activeElement;
+    if (activeEl && (
+      activeEl.tagName === 'INPUT' || 
+      activeEl.tagName === 'TEXTAREA' || 
+      activeEl.isContentEditable
+    )) {
+      return;
+    }
+
+    const hash = window.location.hash || '#/';
+    
+    if (hash.startsWith('#/subject/')) {
+      const parts = hash.split('/');
+      const subjectId = parts[2];
+      
+      if (parts[3] === 'module' && parts[4]) {
+        const moduleId = parseInt(parts[4], 10);
+        
+        if (e.key === 'ArrowLeft') {
+          if (moduleId > 1) {
+            window.location.hash = `#/subject/${subjectId}/module/${moduleId - 1}`;
+          }
+        } else if (e.key === 'ArrowRight') {
+          if (moduleId < 5) {
+            window.location.hash = `#/subject/${subjectId}/module/${moduleId + 1}`;
+          }
+        } else if (e.key === 'Escape') {
+          window.location.hash = `#/subject/${subjectId}`;
+        }
+      } else {
+        // Subject Landing
+        if (e.key >= '1' && e.key <= '5') {
+          const modId = parseInt(e.key, 10);
+          window.location.hash = `#/subject/${subjectId}/module/${modId}`;
+        } else if (e.key === 'Escape') {
+          window.location.hash = '#/';
+        }
+      }
+    }
+  });
+
   // Bind DOM Event Listeners & Initialize
   document.addEventListener('DOMContentLoaded', () => {
     // 1. Initial Theme Setup
     initTheme();
-    document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+    const sidebarToggle = document.getElementById('sidebarThemeToggle');
+    if (sidebarToggle) {
+      sidebarToggle.addEventListener('click', toggleTheme);
+    }
 
     // 1b. Initial Reader Settings Setup
     initReaderPreferences();

@@ -112,47 +112,47 @@ Structured checklist organized by implementation phase. Each phase builds on the
 ## Phase 4 — UX Polish & Expert Recommendations
 
 ### 4A — Remove Floating Theme Toggle
-- [ ] **4A.1** Remove `#themeToggleBtn` element from `index.html`
-- [ ] **4A.2** Remove `.theme-toggle-btn` CSS rules
-- [ ] **4A.3** Add theme toggle switch to the reader preferences sidebar section
-- [ ] **4A.4** Remove related JS event listener, keep `setTheme()` and `toggleTheme()` functions
+- [x] **4A.1** Remove `#themeToggleBtn` element from `index.html`
+- [x] **4A.2** Remove `.theme-toggle-btn` CSS rules
+- [x] **4A.3** Add theme toggle switch to the reader preferences sidebar section
+- [x] **4A.4** Remove related JS event listener, keep `setTheme()` and `toggleTheme()` functions
 
 ### 4B — Typography Improvements
-- [ ] **4B.1** Increase body `line-height` from `1.6` to `1.75`
-- [ ] **4B.2** Set `.module-content p` line-height to `1.8`
-- [ ] **4B.3** Set `.reading-column` max-width to `720px`
-- [ ] **4B.4** Increase paragraph bottom margin to `1.25em`
-- [ ] **4B.5** Add `font-feature-settings` and `text-rendering: optimizeLegibility`
-- [ ] **4B.6** Style inline `<code>` elements (not inside `<pre>`)
+- [x] **4B.1** Increase body `line-height` from `1.6` to `1.75`
+- [x] **4B.2** Set `.module-content p` line-height to `1.8`
+- [x] **4B.3** Set `.reading-column` max-width to `720px`
+- [x] **4B.4** Increase paragraph bottom margin to `1.25em`
+- [x] **4B.5** Add `font-feature-settings` and `text-rendering: optimizeLegibility`
+- [x] **4B.6** Style inline `<code>` elements (not inside `<pre>`)
 
 ### 4C — Smooth Page Transitions
-- [ ] **4C.1** Implement fade-out → render → fade-in transition in `router()`
-- [ ] **4C.2** Add CSS transition on `#app` for `opacity` and `transform`
-- [ ] **4C.3** Test transition doesn't cause flash-of-unstyled-content
+- [x] **4C.1** Implement fade-out → render → fade-in transition in `router()`
+- [x] **4C.2** Add CSS transition on `#app` for `opacity` and `transform`
+- [x] **4C.3** Test transition doesn't cause flash-of-unstyled-content
 
 ### 4D — Keyboard Navigation
-- [ ] **4D.1** Add `keydown` event listener in `app.js`
-- [ ] **4D.2** Implement `←`/`→` for module navigation
-- [ ] **4D.3** Implement `Esc` for back navigation
-- [ ] **4D.4** Implement `1-5` for module quick-jump from subject page
-- [ ] **4D.5** Only activate shortcuts when not in an input/textarea
+- [x] **4D.1** Add `keydown` event listener in `app.js`
+- [x] **4D.2** Implement `←`/`→` for module navigation
+- [x] **4D.3** Implement `Esc` for back navigation
+- [x] **4D.4** Implement `1-5` for module quick-jump from subject page
+- [x] **4D.5** Only activate shortcuts when not in an input/textarea
 
 ### 4E — Code Block Styling
-- [ ] **4E.1** Update `.code-block` background to `#111111`
-- [ ] **4E.2** Set `border-radius: 0` on code blocks
-- [ ] **4E.3** Add inline `<code>` styling with border and background
-- [ ] **4E.4** Update code text color to match monochromatic theme
+- [x] **4E.1** Update `.code-block` background to `#111111`
+- [x] **4E.2** Set `border-radius: 0` on code blocks
+- [x] **4E.3** Add inline `<code>` styling with border and background
+- [x] **4E.4** Update code text color to match monochromatic theme
 
 ### 4F — Add Footer
-- [ ] **4F.1** Add footer HTML to `index.html`
-- [ ] **4F.2** Style footer in `style.css` with monochromatic design
-- [ ] **4F.3** Ensure footer doesn't overlap bottom nav on mobile
+- [x] **4F.1** Add footer HTML to `index.html`
+- [x] **4F.2** Style footer in `style.css` with monochromatic design
+- [x] **4F.3** Ensure footer doesn't overlap bottom nav on mobile
 
 ### 4G — Subjects List Page Improvement
-- [ ] **4G.1** Redesign `renderSubjectsList()` with grid layout
-- [ ] **4G.2** Add prominent subject numbering (01, 02, 03, 04)
-- [ ] **4G.3** Add "Resume where you left off" link per subject
-- [ ] **4G.4** Improve progress indicator visibility
+- [x] **4G.1** Redesign `renderSubjectsList()` with grid layout
+- [x] **4G.2** Add prominent subject numbering (01, 02, 03, 04)
+- [x] **4G.3** Add "Resume where you left off" link per subject
+- [x] **4G.4** Improve progress indicator visibility
 
 ---
 

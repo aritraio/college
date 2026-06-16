@@ -104,6 +104,16 @@
         <div class="reader-settings-title">Reader Options</div>
         
         <div class="reader-group">
+          <label class="reader-label">Theme Mode</label>
+          <div class="theme-options">
+            <button class="theme-opt" id="sidebarThemeToggle" title="Toggle Theme" aria-label="Toggle Theme Mode">
+              <span id="sidebarThemeIcon" class="theme-opt-icon"></span>
+              <span id="sidebarThemeText">Dark Mode</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="reader-group">
           <label class="reader-label">Background</label>
           <div class="swatches-grid">
             <button class="swatch swatch-default active" data-bg="default" title="Default" aria-label="Default Theme Background"></button>
@@ -143,6 +153,17 @@
       <div id="app" class="fade-in-view">
         <!-- Dynamic view injection -->
       </div>
+      
+      <footer class="app-footer">
+        <div class="footer-content">
+          <span>&copy; 2026 Study Hub. All rights reserved.</span>
+          <div class="footer-links">
+            <a href="#/">Dashboard</a>
+            <a href="#/subjects">Subjects</a>
+            <a href="#/progress">Progress</a>
+          </div>
+        </div>
+      </footer>
     </main>
     
   </div>
@@ -185,12 +206,7 @@
     </a>
   </nav>
 
-  <!-- Theme Toggle Floating Button -->
-  <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme">
-    <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <!-- Moon icon path will be set dynamically in app.js -->
-    </svg>
-  </button>
+
 
   <!-- JavaScript Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>

@@ -113,7 +113,10 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100%;
-  line-height: 1.6;
+  line-height: 1.75;
+  font-feature-settings: "kern" 1, "liga" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -378,39 +381,26 @@ button {
 }
 
 /* ==========================================
-   FLOATING THEME TOGGLER
+   APP LEVEL TRANSITIONS & INLINE CODE
    ========================================== */
-.theme-toggle-btn {
-  position: fixed;
-  bottom: var(--space-xl);
-  right: var(--space-xl);
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-card);
+#app {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+#app.fade-out {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
   border: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99;
-  transition: all var(--transition-fast);
-}
-
-.theme-toggle-btn:hover {
-  border-color: var(--accent-primary);
-}
-
-.theme-toggle-btn svg {
-  width: 20px;
-  height: 20px;
-  stroke: var(--text-primary);
-  stroke-width: 2;
-  fill: none;
-  transition: transform 0.5s ease;
-}
-
-.theme-toggle-btn:hover svg {
-  transform: rotate(45deg);
+  padding: 0.15em 0.3em;
+  border-radius: 0;
 }
 
 /* ==========================================
@@ -769,8 +759,9 @@ button {
 }
 
 .module-content p {
-  margin-bottom: var(--space-md);
+  margin-bottom: 1.25em;
   color: var(--text-secondary);
+  line-height: 1.8;
 }
 
 .module-content ul, .module-content ol {
@@ -797,9 +788,9 @@ button {
    CODE BLOCK STYLING
    ========================================== */
 .code-block {
-  background: #05050a;
+  background: #111111;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  border-radius: 0;
   margin: var(--space-md) 0;
   overflow: hidden;
   position: relative;
@@ -826,7 +817,7 @@ button {
 .code-block code {
   font-family: var(--font-mono);
   font-size: 0.9rem;
-  color: #e2e8f0;
+  color: #E0E0E0;
 }
 
 .copy-btn {
@@ -1201,12 +1192,7 @@ button {
     width: 100%;
   }
   
-  .theme-toggle-btn {
-    bottom: calc(80px + env(safe-area-inset-bottom));
-    right: var(--space-md);
-    width: 44px;
-    height: 44px;
-  }
+
 
   /* Mobile summary card */
   .mobile-summary-card {
@@ -1289,7 +1275,7 @@ button {
 .reading-column {
   min-width: 0; /* Prevents flex/grid overflow */
   width: 100%;
-  max-width: 800px;
+  max-width: 720px;
 }
 
 .toc-column {
@@ -1666,4 +1652,117 @@ body.reader-size-lg {
 }
 body.reader-size-xl {
   font-size: 1.3rem !important;
+}
+
+/* Sidebar Theme Swapper Option */
+.theme-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xs);
+}
+
+.theme-opt {
+  height: 28px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.theme-opt:hover {
+  border-color: var(--border-color-hover);
+  color: var(--text-primary);
+}
+
+.theme-opt-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-opt-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+/* ==========================================
+   APP FOOTER
+   ========================================== */
+.app-footer {
+  margin-top: auto;
+  padding: var(--space-xl) 0 var(--space-md) 0;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.footer-links {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+}
+
+.footer-links a:hover {
+  color: var(--text-primary);
+}
+
+/* ==========================================
+   SUBJECTS DIRECTORY REDESIGN
+   ========================================== */
+.subjects-grid-page {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.subject-list-card {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.subject-number {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--text-muted);
+  opacity: 0.15;
+}
+
+.resume-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: transform var(--transition-fast);
+}
+
+.resume-link:hover {
+  text-decoration: underline;
+  transform: translateX(2px);
 }

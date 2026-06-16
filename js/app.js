@@ -320,8 +320,9 @@
         if (parts[2] === 'subject' && parts[3] && parts[4] === 'module' && parts[5]) {
           const subjectId = parts[3];
           const moduleId = parseInt(parts[5], 10);
+          const subRoute = parts[6] || '';
           if (window.ExamPrep && typeof window.ExamPrep.renderModule === 'function') {
-            window.ExamPrep.renderModule(appContainer, subjectId, moduleId);
+            window.ExamPrep.renderModule(appContainer, subjectId, moduleId, subRoute);
           } else {
             appContainer.innerHTML = `<div class="card text-center"><p>Error: Exam Prep module engine not loaded.</p></div>`;
           }

@@ -522,10 +522,12 @@
     const resetBtn = document.getElementById('resetProgressBtn');
     resetBtn.addEventListener('click', () => {
       if (confirm('Are you sure you want to delete all completion records? This cannot be undone.')) {
-        state.subjects.forEach(subj => {
-          localStorage.removeItem(`progress_${subj.id}`);
-          localStorage.removeItem(`quiz_${subj.id}_*`); // delete theoretical scores
-        });
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+          const key = localStorage.key(i);
+          if (key && (key.startsWith('progress_') || key.startsWith('quiz_'))) {
+            localStorage.removeItem(key);
+          }
+        }
         loadProgress();
         alert('All study progress has been reset successfully.');
         window.location.hash = '#/'; // Go back home

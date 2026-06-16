@@ -548,7 +548,7 @@
               <span class="module-num" style="color: ${subj.accentColor};">Module ${mod.id} (${mod.hours})</span>
               <h4 class="module-title">${mod.title}</h4>
             </div>
-            <div style="display: flex; align-items: center; gap: var(--space-sm);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: var(--space-sm); border-top: 1px solid var(--border-color);">
               ${statusIcon}
               <span class="module-arrow">&rarr;</span>
             </div>

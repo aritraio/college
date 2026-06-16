@@ -84,61 +84,61 @@
 
 ## Day 3 — Content: Software Engineering + DAA
 
-- [ ] `data/se/module1.json` — Introduction to Software Engineering
-  - [ ] Topics: definition of software, types, characteristics, attributes of good software, SE definition, costs, key challenges, systems engineering concept
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/se/module2.json` — Software Development Process Models
-  - [ ] Topics: waterfall, evolutionary, CBSE, process iteration, incremental, spiral, agile, XP, RAD, prototyping, CASE tools classification
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/se/module3.json` — Requirement Analysis & Specifications
-  - [ ] Topics: functional/non-functional/domain requirements, user requirements, elicitation, use-cases, DFDs (physical & logical), ERD, data dictionary, requirement validation, SRS format, feasibility
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/se/module4.json` — Software Design & Development Tools
-  - [ ] Topics: abstraction, architecture, patterns, modularity, cohesion, coupling, information hiding, functional independence, refinement, UI design elements (menus, scroll bars, windows, buttons, icons, panels, error messages), coding standards
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/se/module5.json` — Software Testing & Project Management
-  - [ ] Topics: V&V, testing types, test case design, ISO 9000, CMM, project planning, FPA, LOC estimation, COCOMO II, project scheduling, earned value analysis, risk management (RMMM)
-  - [ ] Math formulas for FPA and COCOMO II using MathJax
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/daa/module1.json` — Algorithm Development & Complexity Analysis
-  - [ ] Topics: Big-O, Big-Ω, Big-Θ notation with MathJax formulas, time-space trade-off, relationships among notations, substitution method, recurrence tree, Master's theorem (all 3 cases with formulas)
-  - [ ] All formulas formatted with MathJax
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/daa/module2.json` — Searching & Sorting Algorithms
-  - [ ] Topics: linear search, binary search, interpolation search, merge sort, quick sort, heap sort — best/worst/average case complexity with formulas
-  - [ ] Complexity comparison table
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/daa/module3.json` — Algorithm Design Techniques
-  - [ ] Topics: brute force, divide & conquer (max-min, Strassen's matrix multiplication), greedy (fractional knapsack, job sequencing), dynamic programming (0/1 knapsack, matrix chain multiplication), backtracking (N-Queens), string matching (Naïve, KMP)
-  - [ ] Step-by-step worked examples
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/daa/module4.json` — Graph & Tree Algorithms
-  - [ ] Topics: DFS, BFS, Dijkstra's algorithm, Bellman-Ford, Floyd-Warshall, disjoint set, Prim's, Kruskal's
-  - [ ] Complexity table for all algorithms
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/daa/module5.json` — Complexity Classes
-  - [ ] Topics: P class, NP class, SAT, Hamiltonian path, NP-complete, Hamiltonian cycle, vertex cover, Cook's theorem, approximation algorithms
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
+- [x] `data/se/module1.json` — Introduction to Software Engineering
+  - [x] Topics: definition of software, types, characteristics, attributes of good software, SE definition, costs, key challenges, systems engineering concept
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/se/module2.json` — Software Development Process Models
+  - [x] Topics: waterfall, evolutionary, CBSE, process iteration, incremental, spiral, agile, XP, RAD, prototyping, CASE tools classification
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/se/module3.json` — Requirement Analysis & Specifications
+  - [x] Topics: functional/non-functional/domain requirements, user requirements, elicitation, use-cases, DFDs (physical & logical), ERD, data dictionary, requirement validation, SRS format, feasibility
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/se/module4.json` — Software Design & Development Tools
+  - [x] Topics: abstraction, architecture, patterns, modularity, cohesion, coupling, information hiding, functional independence, refinement, UI design elements (menus, scroll bars, windows, buttons, icons, panels, error messages), coding standards
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/se/module5.json` — Software Testing & Project Management
+  - [x] Topics: V&V, testing types, test case design, ISO 9000, CMM, project planning, FPA, LOC estimation, COCOMO II, project scheduling, earned value analysis, risk management (RMMM)
+  - [x] Math formulas for FPA and COCOMO II using MathJax
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/daa/module1.json` — Algorithm Development & Complexity Analysis
+  - [x] Topics: Big-O, Big-Ω, Big-Θ notation with MathJax formulas, time-space trade-off, relationships among notations, substitution method, recurrence tree, Master's theorem (all 3 cases with formulas)
+  - [x] All formulas formatted with MathJax
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/daa/module2.json` — Searching & Sorting Algorithms
+  - [x] Topics: linear search, binary search, interpolation search, merge sort, quick sort, heap sort — best/worst/average case complexity with formulas
+  - [x] Complexity comparison table
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/daa/module3.json` — Algorithm Design Techniques
+  - [x] Topics: brute force, divide & conquer (max-min, Strassen's matrix multiplication), greedy (fractional knapsack, job sequencing), dynamic programming (0/1 knapsack, matrix chain multiplication), backtracking (N-Queens), string matching (Naïve, KMP)
+  - [x] Step-by-step worked examples
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/daa/module4.json` — Graph & Tree Algorithms
+  - [x] Topics: DFS, BFS, Dijkstra's algorithm, Bellman-Ford, Floyd-Warshall, disjoint set, Prim's, Kruskal's
+  - [x] Complexity table for all algorithms
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/daa/module5.json` — Complexity Classes
+  - [x] Topics: P class, NP class, SAT, Hamiltonian path, NP-complete, Hamiltonian cycle, vertex cover, Cook's theorem, approximation algorithms
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
 
 ---
 

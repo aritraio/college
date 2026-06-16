@@ -42,6 +42,7 @@
     if (!hash || hash === '#/' || hash === '#') return 'dashboard';
     if (hash.startsWith('#/subjects')) return 'subjects';
     if (hash.startsWith('#/subject/')) return 'subjects'; // group subjects/subject detail
+    if (hash.startsWith('#/examprep')) return 'examprep'; // exam prep
     if (hash.startsWith('#/progress')) return 'progress';
     if (hash.startsWith('#/settings')) return 'settings';
     return '';
@@ -312,6 +313,24 @@
           renderModuleView(appContainer, subjectId, moduleId);
         } else {
           renderSubjectLanding(appContainer, subjectId);
+        }
+      } else if (hash.startsWith('#/examprep')) {
+        const parts = hash.split('/');
+        // Format: #/examprep/subject/:subjectId/module/:moduleId
+        if (parts[2] === 'subject' && parts[3] && parts[4] === 'module' && parts[5]) {
+          const subjectId = parts[3];
+          const moduleId = parseInt(parts[5], 10);
+          if (window.ExamPrep && typeof window.ExamPrep.renderModule === 'function') {
+            window.ExamPrep.renderModule(appContainer, subjectId, moduleId);
+          } else {
+            appContainer.innerHTML = `<div class="card text-center"><p>Error: Exam Prep module engine not loaded.</p></div>`;
+          }
+        } else {
+          if (window.ExamPrep && typeof window.ExamPrep.renderDashboard === 'function') {
+            window.ExamPrep.renderDashboard(appContainer);
+          } else {
+            appContainer.innerHTML = `<div class="card text-center"><p>Error: Exam Prep dashboard engine not loaded.</p></div>`;
+          }
         }
       } else if (hash === '#/progress') {
         renderProgressStats(appContainer);

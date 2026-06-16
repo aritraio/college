@@ -3031,3 +3031,141 @@ kbd {
 .hidden-input {
   display: none;
 }
+
+/* ==========================================
+   DAY 3 - EXAM PREP AND REVISION HUB STYLES
+   ========================================== */
+.quick-rev-toggle-container {
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  padding: 4px var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+
+.switch-control {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+}
+
+.switch-control input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-control .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-fast);
+  border-radius: 22px;
+}
+
+.switch-control .slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--text-muted);
+  transition: var(--transition-fast);
+  border-radius: 50%;
+}
+
+.switch-control input:checked + .slider {
+  background-color: var(--text-primary);
+  border-color: var(--text-primary);
+}
+
+.switch-control input:checked + .slider:before {
+  transform: translateX(22px);
+  background-color: var(--bg-primary);
+}
+
+.one-liner-card {
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), opacity var(--transition-normal);
+}
+
+.one-liner-card:hover {
+  border-color: var(--border-color-hover) !important;
+  background-color: var(--bg-card-hover);
+}
+
+.one-liner-card.read {
+  opacity: 0.65;
+  background-color: var(--bg-surface);
+  border-left-color: var(--text-muted) !important;
+}
+
+.one-liner-card.read .one-liner-text {
+  text-decoration: line-through;
+  color: var(--text-muted) !important;
+}
+
+.one-liner-check-btn {
+  transition: all var(--transition-fast);
+}
+
+/* 3D Flashcard styles */
+.flashcard-viewport {
+  perspective: 1000px;
+  position: relative;
+  width: 100%;
+  height: 220px;
+  cursor: pointer;
+  margin-bottom: var(--space-md);
+}
+
+.flashcard-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+}
+
+.flashcard-front {
+  background-color: var(--bg-card);
+}
+
+.flashcard-back {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-color-hover);
+  transform: rotateY(180deg);
+}
+
+/* Responsive grid for Exam Prep dashboard search row */
+@media (max-width: 768px) {
+  .search-filter-row {
+    flex-direction: column;
+    align-items: stretch !important;
+  }
+  
+  .search-filter-row .top-nav-search {
+    max-width: 100% !important;
+  }
+}
+

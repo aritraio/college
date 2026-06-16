@@ -1,0 +1,158 @@
+{
+  "module": 5,
+  "title": "Ensemble Learning",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Ensemble Concepts & Voting",
+      "content": "<p>Ensemble Learning is a machine learning paradigm where multiple models (often called 'weak learners') are trained to solve the same problem and combined to yield a 'strong learner' that makes better predictions than any individual model.</p><p><strong>Combination Schemes:</strong> <ul><li><strong>Majority (Hard) Voting:</strong> The ensemble predicts the class that receives the most votes from individual classifiers. \\[ y = \\text{mode}\\{ C_1(x), C_2(x), \\dots, C_T(x) \\} \\]</li><li><strong>Weighted Voting:</strong> Gives more influence to models with higher validation accuracy. \\[ \\hat{y} = \\arg\\max_j \\sum_{t=1}^T w_t \\cdot d_{t,j}(x) \\] where \\( w_t \\) is the weight of classifier \\( t \\) and \\( d_{t,j} \\) is the binary decision of classifier \\( t \\) for class \\( j \\).</li><li><strong>Soft Voting:</strong> Predicts the class with the highest average probability across all classifiers.</li></ul>",
+      "interviewTip": "Ensemble learning is a standard technique for winning Kaggle competitions and improving industry model robustness. If asked why ensembles perform better, explain that they reduce either **bias** (e.g., boosting) or **variance** (e.g., bagging/random forests)."
+    },
+    {
+      "title": "Bagging & Random Forest",
+      "content": "<p><strong>Bagging (Bootstrap Aggregating):</strong> A parallel ensemble method designed to reduce variance. It creates multiple datasets of size \\( N \\) by sampling the original training dataset randomly <em>with replacement</em> (bootstrap sampling). An algorithm (typically a Decision Tree) is trained on each bootstrap sample, and results are averaged (regression) or voted (classification).</p><p><strong>Random Forest:</strong> An extension of Bagging using Decision Trees. In addition to bootstrap sampling the data, Random Forest also selects a random subset of <em>features</em> at each split of the tree. This further decorrelates the trees, reducing variance significantly.</p>"
+    },
+    {
+      "title": "Boosting (AdaBoost)",
+      "content": "<p><strong>Boosting:</strong> A sequential ensemble method designed to reduce bias. It trains models sequentially, where each model attempts to correct the errors of its predecessor. </p><p><strong>AdaBoost (Adaptive Boosting):</strong> Adapts by increasing the weights of misclassified training samples. For iteration \\( t \\):</p><ol><li>Calculate weighted error rate: \\[ \\epsilon_t = \\frac{\\sum_{i: y_i \\neq h_t(x_i)} D_t(i)}{\\sum_{i=1}^N D_t(i)} \\] where \\( D_t(i) \\) is the weight of sample \\( i \\) at step \\( t \\), and \\( h_t \\) is the weak learner.</li><li>Compute weak learner weight: \\[ \\alpha_t = \\frac{1}{2} \\ln\\left( \\frac{1 - \\epsilon_t}{\\epsilon_t} \\right) \\]</li><li>Update sample weights for step \\( t+1 \\): \\[ D_{t+1}(i) = \\frac{D_t(i) \\cdot e^{-\\alpha_t y_i h_t(x_i)}}{Z_t} \\] where \\( y_i \\in \\{-1, +1\\} \\) and \\( Z_t \\) is a normalization factor.</li></ol>"
+    },
+    {
+      "title": "Stacking & Error-Correcting Output Codes (ECOC)",
+      "content": "<p><strong>Stacking (Stacked Generalization):</strong> Unlike bagging/boosting which typically use the same algorithm, stacking combines heterogeneous models (e.g. SVM, KNN, Random Forest). Their predictions are fed as inputs into a meta-model (often a simple Logistic Regression) which makes the final prediction.</p><p><strong>Error-Correcting Output Codes (ECOC):</strong> A technique that decomposes a multi-class classification problem into multiple binary classification problems using binary matrix codes, correcting errors if individual binary classifiers fail.</p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is Ensemble Learning? Name three common ensemble methods.",
+      "answer": "Ensemble Learning is a technique that combines predictions from multiple individual models (weak learners) to make a final prediction (strong learner) with higher accuracy and robustness. Common methods include: (1) Bagging (e.g., Random Forest), (2) Boosting (e.g., AdaBoost, XGBoost), and (3) Stacking."
+    },
+    {
+      "question": "Explain the difference between Bagging and Boosting.",
+      "answer": "Bagging is a parallel method that trains models independently on bootstrap samples of the training data; its primary goal is to reduce variance (prevent overfitting). Boosting is a sequential method where each new model is trained to correct the errors of the previous models; its primary goal is to reduce bias (improve accuracy)."
+    },
+    {
+      "question": "How does Random Forest improve upon standard Bagging of Decision Trees?",
+      "answer": "Standard bagging of decision trees can lead to highly correlated trees if a few features are very dominant predictors. Random Forest solves this by selecting a random subset of *features* at each node split during tree construction. This decorrelates the trees, creating a more diverse forest that reduces variance further when averaged."
+    },
+    {
+      "question": "Write the formulas used by AdaBoost to update classifier weight (alpha) and data weights.",
+      "answer": "The classifier weight is: \\[ \\alpha_t = \\frac{1}{2} \\ln\\left( \\frac{1 - \\epsilon_t}{\\epsilon_t} \\right) \\] where \\(\\epsilon_t\\) is the weighted error. The data weight update formula is: \\[ D_{t+1}(i) = \\frac{D_t(i) \\cdot e^{-\\alpha_t y_i h_t(x_i)}}{Z_t} \\] where \\(y_i\\) is the correct label (-1 or +1), \\(h_t(x_i)\\) is the predicted label, and \\(Z_t\\) is a normalization constant."
+    },
+    {
+      "question": "What is Stacking in machine learning?",
+      "answer": "Stacking is an ensemble method that trains multiple heterogeneous base classifiers (e.g., Support Vector Machines, KNN, and Random Forests) on the training data. Their predictions are collected and used as features to train a higher-level model called a Meta-Classifier (typically a Logistic Regression or Linear model) which outputs the final prediction."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which ensemble technique focuses on training models in parallel to reduce variance?",
+      "options": [
+        "Bagging",
+        "Boosting",
+        "Stacking",
+        "ECOC"
+      ],
+      "correct": 0,
+      "explanation": "Bagging (Bootstrap Aggregating) trains independent learners in parallel, utilizing averaging to reduce variance."
+    },
+    {
+      "question": "What does a bootstrap sample in Bagging refer to?",
+      "options": [
+        "Sampling only the first 10 rows",
+        "Randomly sampling rows from the dataset with replacement",
+        "Sampling without replacement",
+        "Deleting 50% of the features randomly"
+      ],
+      "correct": 1,
+      "explanation": "Bootstrap sampling means creating a training subset of size N by drawing samples randomly, allowing duplicates (with replacement)."
+    },
+    {
+      "question": "Random Forest introduces random feature selection at each split to achieve which of the following?",
+      "options": [
+        "To make trees more dependent on each other",
+        "To decorrelate the decision trees, further reducing variance",
+        "To make the model run slower",
+        "To avoid using validation files"
+      ],
+      "correct": 1,
+      "explanation": "Selecting features randomly ensures trees split on diverse variables, reducing tree correlation and increasing ensemble robustness."
+    },
+    {
+      "question": "Which ensemble method trains learners sequentially, where each learner focuses on misclassifications of the previous one?",
+      "options": [
+        "Bagging",
+        "Boosting",
+        "Stacking",
+        "Hard Voting"
+      ],
+      "correct": 1,
+      "explanation": "Boosting is a sequential strategy that aims to iteratively reduce model bias by correcting prior learner errors."
+    },
+    {
+      "question": "In AdaBoost, if a training sample is correctly classified by the current weak learner, what happens to its weight for the next iteration?",
+      "options": [
+        "Its weight is increased",
+        "Its weight is decreased",
+        "Its weight remains exactly the same",
+        "Its weight is set to infinity"
+      ],
+      "correct": 1,
+      "explanation": "AdaBoost decreases the weights of correctly classified samples so subsequent learners focus more on hard, misclassified samples."
+    },
+    {
+      "question": "Which technique trains a meta-model on the predictions of heterogeneous base models?",
+      "options": [
+        "Bagging",
+        "Hard Voting",
+        "Stacking",
+        "Random Forest"
+      ],
+      "correct": 2,
+      "explanation": "Stacking uses predictions of various base models as input features to train a meta-classifier."
+    },
+    {
+      "question": "What formula calculates the final output label in a hard voting classifier?",
+      "options": [
+        "Weighted average of probabilities",
+        "The mode (most frequent label) of predictions: mode(C1, C2, ...)",
+        "Minimum value of variables",
+        "Standard deviation of coefficients"
+      ],
+      "correct": 1,
+      "explanation": "Hard voting takes a majority vote, which corresponds to the mathematical mode of the individual predictions."
+    },
+    {
+      "question": "What does ECOC stand for in multi-class classification?",
+      "options": [
+        "Estimation Costs and Optimization Controls",
+        "Error-Correcting Output Codes",
+        "Ensemble Coefficients of Optimization",
+        "Elementary Class Object Coding"
+      ],
+      "correct": 1,
+      "explanation": "ECOC stands for Error-Correcting Output Codes, mapping multi-class targets to binary matrices for code recovery."
+    },
+    {
+      "question": "In AdaBoost, what is the weight (alpha) of a weak learner that has an error rate of 0.5 (random guess)?",
+      "options": [
+        "Infinity",
+        "0.5",
+        "0",
+        "-1"
+      ],
+      "correct": 2,
+      "explanation": "If error rate is 0.5, then (1-err)/err = 1. The natural logarithm of 1 is 0. Thus, alpha = 0.5 * ln(1) = 0."
+    },
+    {
+      "question": "Ensemble boosting models like AdaBoost primarily aim to reduce which type of modeling error?",
+      "options": [
+        "Variance",
+        "Bias",
+        "Data leakage",
+        "System latency"
+      ],
+      "correct": 1,
+      "explanation": "Sequential boosting algorithms combine weak learners to form a strong learner, reducing model bias."
+    }
+  ]
+}

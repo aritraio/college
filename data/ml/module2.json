@@ -1,0 +1,158 @@
+{
+  "module": 2,
+  "title": "Types of Learning & Applications",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Roles of Statistics & Data Mining",
+      "content": "<p>Machine learning draws heavily on other fields:</p><ul><li><strong>Statistics:</strong> Provides mathematical frameworks for modeling data distributions, hypotheses testing, and drawing inferences. ML focuses on predictive accuracy, while statistics focuses on model interpretability.</li><li><strong>Data Mining:</strong> Focused on discovering previously unknown patterns and relationships in large databases (knowledge discovery in databases or KDD). It uses ML algorithms as tools to extract patterns.</li></ul>",
+      "interviewTip": "When asked: 'How is ML different from Statistics?', tell them that statistics is concerned with **inferring** relationships and testing hypotheses on small samples (p-values, confidence intervals), while ML is concerned with **generalizing** predictions to new data at scale."
+    },
+    {
+      "title": "Supervised, Unsupervised & Reinforcement Learning",
+      "content": "<p>ML algorithms are categorized into three main learning styles:</p><ul><li><strong>Supervised Learning:</strong> The algorithm is trained on labeled data. Each training sample includes input features and a corresponding target output label. Examples: Classification (discrete outputs, like spam detection) and Regression (continuous outputs, like housing price estimation).</li><li><strong>Unsupervised Learning:</strong> The algorithm is trained on unlabeled data. It must discover hidden structures and groupings on its own. Examples: Clustering (e.g., K-Means customer segmentation) and Association Rules.</li><li><strong>Reinforcement Learning:</strong> An agent learns to behave in an environment by performing actions and receiving rewards or penalties. It maximizes cumulative rewards (e.g., game playing like AlphaGo, self-driving cars).</li></ul>"
+    },
+    {
+      "title": "Artificial Neural Networks (ANN)",
+      "content": "<p>ANNs are computing systems inspired by the biological neural networks that constitute animal brains. An ANN is composed of interconnected nodes called artificial neurons (perceptrons) organized in layers:</p><ol><li><strong>Input Layer:</strong> Receives raw input features.</li><li><strong>Hidden Layer(s):</strong> Performs mathematical transformations (weights, biases, and activation functions) to extract features.</li><li><strong>Output Layer:</strong> Renders final predictions.</li></ol>"
+    },
+    {
+      "title": "Comparison of Learning Styles",
+      "content": "<p>Summary comparison of the three primary machine learning types:</p><div class=\"table-container\"><table class=\"credit-table\"><thead><tr><th>Learning Type</th><th>Training Data</th><th>Core Goal</th><th>Common Algorithms</th><th>Business Use Case</th></tr></thead><tbody><tr><td>Supervised</td><td>Labeled (features + target)</td><td>Map inputs to outputs, predict labels</td><td>Linear Regression, SVM, Random Forest</td><td>Credit scoring, fraud detection</td></tr><tr><td>Unsupervised</td><td>Unlabeled (features only)</td><td>Find hidden patterns or groupings</td><td>K-Means, PCA, Apriori</td><td>Customer segmentation, anomaly detection</td></tr><tr><td>Reinforcement</td><td>None (interactive environment)</td><td>Maximize cumulative reward over time</td><td>Q-Learning, Deep Q-Networks (DQN)</td><td>Robotic automation, autonomous navigation</td></tr></tbody></table></div>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is Supervised Learning? Distinguish between Classification and Regression.",
+      "answer": "Supervised Learning is a learning style where the model is trained on labeled data containing inputs and correct target outputs. Classification predicts a discrete category or class label (e.g., 'Spam' or 'Not Spam'). Regression predicts a continuous numerical value (e.g., predicting stock prices or temperature)."
+    },
+    {
+      "question": "What is Unsupervised Learning? Give two common applications.",
+      "answer": "Unsupervised Learning is a learning style where the algorithm is fed unlabeled data and must find structures or patterns on its own. Common applications: (1) Clustering (grouping similar customers for targeted marketing) and (2) Dimensionality Reduction (compressing data features using PCA)."
+    },
+    {
+      "question": "Explain how Reinforcement Learning works using its key components.",
+      "answer": "Reinforcement Learning operates as a feedback loop containing: (1) an **Agent** that makes decisions, (2) an **Environment** the agent interacts with, (3) **Actions** the agent takes, and (4) **Rewards/Penalties** the environment returns based on actions. The agent adjusts its strategy (policy) to maximize cumulative rewards over time."
+    },
+    {
+      "question": "How do Statistics, Data Mining, and Machine Learning relate to one another?",
+      "answer": "Statistics provides the mathematical and probabilistic foundations. Machine Learning uses statistical foundations to build predictive algorithms that learn from data. Data Mining uses Machine Learning algorithms as tools to extract hidden, actionable patterns from massive historical databases."
+    },
+    {
+      "question": "Describe the basic structural layers of an Artificial Neural Network (ANN).",
+      "answer": "An ANN contains: (1) the Input Layer (receives features), (2) Hidden Layers (neurons that apply weights, biases, and non-linear activation functions to extract representations), and (3) the Output Layer (produces the final classification or regression value)."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which type of learning trains a model on input features along with correct target output labels?",
+      "options": [
+        "Unsupervised Learning",
+        "Supervised Learning",
+        "Reinforcement Learning",
+        "Hebbian Learning"
+      ],
+      "correct": 1,
+      "explanation": "Supervised learning relies on labeled training pairs (x, y) where the correct answer is known beforehand."
+    },
+    {
+      "question": "Predicting a continuous house price based on square footage is an example of what type of task?",
+      "options": [
+        "Classification",
+        "Regression",
+        "Clustering",
+        "Dimensionality Reduction"
+      ],
+      "correct": 1,
+      "explanation": "Regression tasks predict continuous real-numbered outputs, whereas classification tasks predict discrete category labels."
+    },
+    {
+      "question": "K-Means algorithm is commonly used for which machine learning task?",
+      "options": [
+        "Regression",
+        "Clustering (Unsupervised)",
+        "Reinforcement learning",
+        "Gradient Descent"
+      ],
+      "correct": 1,
+      "explanation": "K-Means is a classic unsupervised learning algorithm that partitions unlabeled data points into K clusters based on feature similarity."
+    },
+    {
+      "question": "Which learning style uses an agent that interacts with an environment, learning via rewards and penalties?",
+      "options": [
+        "Supervised Learning",
+        "Unsupervised Learning",
+        "Reinforcement Learning",
+        "Static Learning"
+      ],
+      "correct": 2,
+      "explanation": "Reinforcement learning optimizes an agent's policy based on trial-and-error feedback from an environment."
+    },
+    {
+      "question": "Which of the following is a classic classification task?",
+      "options": [
+        "Predicting tomorrow's temperature in Celsius",
+        "Identifying if an email is Spam or Ham",
+        "Grouping customers by purchasing habits",
+        "Compressing high-resolution images"
+      ],
+      "correct": 1,
+      "explanation": "Spam vs. Ham is a binary classification problem since it predicts a discrete boolean label."
+    },
+    {
+      "question": "The process of extracting hidden, previously unknown, and actionable patterns from large databases is called:",
+      "options": [
+        "Statistics",
+        "Data Mining",
+        "Web Scraping",
+        "System Compiling"
+      ],
+      "correct": 1,
+      "explanation": "Data mining (Knowledge Discovery in Databases) focuses on finding patterns and extracting business insights from large-scale databases."
+    },
+    {
+      "question": "What are the three core layers in an Artificial Neural Network (ANN)?",
+      "options": [
+        "Source, Transform, Load",
+        "Input Layer, Hidden Layer, Output Layer",
+        "Compilation Layer, Execution Layer, Output Layer",
+        "Data Layer, Code Layer, View Layer"
+      ],
+      "correct": 1,
+      "explanation": "ANN architectures consist of input nodes, intermediate hidden nodes (for feature extraction), and output nodes."
+    },
+    {
+      "question": "Which of the following is an unsupervised learning task?",
+      "options": [
+        "Predicting if a patient has diabetes based on blood tests",
+        "Segmenting online shoppers into distinct behavioral clusters without predefined labels",
+        "Forecasting the price of gold next week",
+        "Training a robot to run in a simulation"
+      ],
+      "correct": 1,
+      "explanation": "Segmenting users without pre-existing labels is a clustering task, which falls under unsupervised learning."
+    },
+    {
+      "question": "Which mathematical function is applied to neurons in hidden layers to introduce non-linearity?",
+      "options": [
+        "Cost Function",
+        "Activation Function (e.g. ReLU, Sigmoid)",
+        "Loss Function",
+        "Linear Regression"
+      ],
+      "correct": 1,
+      "explanation": "Activation functions introduce non-linear properties, allowing neural networks to learn complex boundary relationships rather than simple linear splits."
+    },
+    {
+      "question": "What is the primary objective of a Reinforcement Learning agent?",
+      "options": [
+        "To predict continuous targets",
+        "To maximize its cumulative reward over time",
+        "To group unlabeled vectors",
+        "To reduce feature count"
+      ],
+      "correct": 1,
+      "explanation": "The agent makes decisions to maximize the sum of rewards (return) received from its actions in the environment."
+    }
+  ]
+}

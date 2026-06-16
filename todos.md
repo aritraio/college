@@ -144,65 +144,65 @@
 
 ## Day 4 — Content: Full-stack Development II + Machine Learning
 
-- [ ] `data/fsd/module1.json` — React JS & JSX with Components
-  - [ ] Topics: React intro, prerequisites, installation, creating app, JSX, file/directory structure, code snippets, JS variables in JSX, comments, class component, function component
-  - [ ] Code examples for each concept
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/fsd/module2.json` — React CSS, Bootstrap & Router
-  - [ ] Topics: inline styling, CSS stylesheet, CSS modules, styled-components, Bootstrap for React, React table, React Router, props (passing, reusable components, validation), state (concept, rules, usage)
-  - [ ] Code examples for each concept
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/fsd/module3.json` — User Input Forms, Events & Deployment
-  - [ ] Topics: arrow functions, form handling, event handlers, React DevTools, deploying React app
-  - [ ] Code examples for each concept
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/fsd/module4.json` — API Requests & Data Binding
-  - [ ] Topics: fetching data, sending data, API with PHP+MySQL, AngularJS intro, MVC architecture, setting up environment, first app, number/string expressions, object binding, arrays, data binding
-  - [ ] Code examples for each concept
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/fsd/module5.json` — Directives, Controllers, Filters & Services
-  - [ ] Topics: conditional directives, $scope object, controllers, nested controllers, scope inheritance, built-in filters, custom filters, form events, custom validations, services, dependency injection
-  - [ ] Code examples for each concept
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/ml/module1.json` — Introduction to Machine Learning
-  - [ ] Topics: ML principles, ML vs AI comparison, big data definition, big data in ML context, leveraging ML power, descriptive vs predictive analytics
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/ml/module2.json` — Types of Learning & Applications
-  - [ ] Topics: statistics & data mining roles, supervised learning, unsupervised learning, reinforcement learning, neural networks, ML techniques, tying methods to outcomes, business applications
-  - [ ] Comparison table of learning types
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/ml/module3.json` — Training Models in ML
-  - [ ] Topics: role of algorithms, types of ML algorithms, training systems, data preparation, identifying relevant data, the ML cycle
-  - [ ] ML cycle diagram description
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/ml/module4.json` — AI & ML with Business Problems
-  - [ ] Topics: how ML helps business, focusing on business problems, pilot projects, choosing best model, ML skills needed, healthcare applications, IT issue response, fraud protection
-  - [ ] Real-world case study examples
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
-- [ ] `data/ml/module5.json` — Ensemble Learning
-  - [ ] Topics: model combination schemes, voting, error-correcting output codes, bagging, Random Forest, boosting (AdaBoost), stacking
-  - [ ] Formulas with MathJax where applicable
-  - [ ] Interview tips for key concepts
-  - [ ] 10 MCQs with explanations
-  - [ ] 5 practice questions with model answers
+- [x] `data/fsd/module1.json` — React JS & JSX with Components
+  - [x] Topics: React intro, prerequisites, installation, creating app, JSX, file/directory structure, code snippets, JS variables in JSX, comments, class component, function component
+  - [x] Code examples for each concept
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/fsd/module2.json` — React CSS, Bootstrap & Router
+  - [x] Topics: inline styling, CSS stylesheet, CSS modules, styled-components, Bootstrap for React, React table, React Router, props (passing, reusable components, validation), state (concept, rules, usage)
+  - [x] Code examples for each concept
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/fsd/module3.json` — User Input Forms, Events & Deployment
+  - [x] Topics: arrow functions, form handling, event handlers, React DevTools, deploying React app
+  - [x] Code examples for each concept
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/fsd/module4.json` — API Requests & Data Binding
+  - [x] Topics: fetching data, sending data, API with PHP+MySQL, AngularJS intro, MVC architecture, setting up environment, first app, number/string expressions, object binding, arrays, data binding
+  - [x] Code examples for each concept
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/fsd/module5.json` — Directives, Controllers, Filters & Services
+  - [x] Topics: conditional directives, $scope object, controllers, nested controllers, scope inheritance, built-in filters, custom filters, form events, custom validations, services, dependency injection
+  - [x] Code examples for each concept
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/ml/module1.json` — Introduction to Machine Learning
+  - [x] Topics: ML principles, ML vs AI comparison, big data definition, big data in ML context, leveraging ML power, descriptive vs predictive analytics
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/ml/module2.json` — Types of Learning & Applications
+  - [x] Topics: statistics & data mining roles, supervised learning, unsupervised learning, reinforcement learning, neural networks, ML techniques, tying methods to outcomes, business applications
+  - [x] Comparison table of learning types
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/ml/module3.json` — Training Models in ML
+  - [x] Topics: role of algorithms, types of ML algorithms, training systems, data preparation, identifying relevant data, the ML cycle
+  - [x] ML cycle diagram description
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/ml/module4.json` — AI & ML with Business Problems
+  - [x] Topics: how ML helps business, focusing on business problems, pilot projects, choosing best model, ML skills needed, healthcare applications, IT issue response, fraud protection
+  - [x] Real-world case study examples
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
+- [x] `data/ml/module5.json` — Ensemble Learning
+  - [x] Topics: model combination schemes, voting, error-correcting output codes, bagging, Random Forest, boosting (AdaBoost), stacking
+  - [x] Formulas with MathJax where applicable
+  - [x] Interview tips for key concepts
+  - [x] 10 MCQs with explanations
+  - [x] 5 practice questions with model answers
 
 ---
 

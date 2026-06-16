@@ -1,0 +1,158 @@
+{
+  "module": 1,
+  "title": "Introduction to Machine Learning",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Machine Learning Principles",
+      "content": "<p>Machine Learning (ML) is a subset of Artificial Intelligence (AI) that provides systems the capability to automatically learn and improve from experience without being explicitly programmed. Arthur Samuel defined it in 1959 as: 'the field of study that gives computers the ability to learn without being explicitly programmed.'</p><p>The core principle is to build mathematical models from input data (called training data) to make predictions or decisions without being programmed step-by-step.</p>",
+      "interviewTip": "When asked: 'What is Machine Learning?', distinguish it from traditional programming. Traditional programming takes **Data + Code** to produce **Output**. Machine Learning takes **Data + Output** to produce the **Code (Model)**."
+    },
+    {
+      "title": "ML vs AI Comparison",
+      "content": "<p>Though used interchangeably, they differ significantly:</p><ul><li><strong>Artificial Intelligence (AI):</strong> The broader concept of machines being able to carry out tasks in a way that we would consider 'smart'. It includes rule-based systems, search algorithms, natural language processing, and robotics.</li><li><strong>Machine Learning (ML):</strong> A specific application of AI that focuses on feeding machines data and letting them learn for themselves. It is data-driven.</li></ul>"
+    },
+    {
+      "title": "Big Data & ML Context",
+      "content": "<p><strong>Big Data:</strong> Characterized by the 5 Vs: Volume (scale of data), Velocity (speed of generation), Variety (formats), Veracity (trustworthiness), and Value. </p><p><strong>ML Context:</strong> Big Data acts as the fuel for Machine Learning. Machine learning algorithms require large amounts of diverse training data to find statistically valid patterns and improve prediction accuracy. Without Big Data, complex models (like Deep Learning) suffer from overfitting.</p>"
+    },
+    {
+      "title": "Descriptive vs Predictive Analytics",
+      "content": "<p>Data analytics is classified into distinct categories:</p><ul><li><strong>Descriptive Analytics:</strong> Examines historical data to answer: <em>'What happened?'</em> (e.g., reports, dashboards, sales summaries).</li><li><strong>Predictive Analytics:</strong> Uses statistical and ML models to analyze historical patterns to answer: <em>'What is likely to happen next?'</em> (e.g., forecasting churn, predicting housing prices).</li><li><strong>Prescriptive Analytics:</strong> Suggests actions to answer: <em>'What should we do?'</em> (e.g., auto-routing deliveries).</li></ul>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "Define Machine Learning and state Tom Mitchell's formal definition.",
+      "answer": "Machine Learning is a field of AI focused on building systems that learn from data to make decisions. Tom Mitchell formally defined it as: 'A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.'"
+    },
+    {
+      "question": "How does Machine Learning differ from Artificial Intelligence? Explain their relationship.",
+      "answer": "Artificial Intelligence is the broad umbrella of engineering systems to behave intelligently, which includes rule-based systems, logic, and heuristics. Machine Learning is a specific subfield of AI that focuses on data-driven learning where the system learns patterns directly from data, rather than following hand-coded rules."
+    },
+    {
+      "question": "Define Big Data and explain its 5 Vs. Why is Big Data important for ML?",
+      "answer": "Big Data refers to massive, complex datasets characterized by the 5 Vs: Volume (large size), Velocity (high speed of generation), Variety (diverse formats), Veracity (data quality/trust), and Value (usefulness). It is important for ML because complex algorithms (like deep neural networks) require large volumes of data to discover robust statistical patterns and prevent overfitting."
+    },
+    {
+      "question": "Differentiate between Descriptive Analytics and Predictive Analytics with real-world examples.",
+      "answer": "Descriptive Analytics looks at historical data to summarize what happened in the past (e.g., 'Last month's sales report showing a 10% dip'). Predictive Analytics uses historical data and ML models to forecast future events (e.g., 'Predicting that a specific customer has an 80% chance of churning next month based on their inactivity')."
+    },
+    {
+      "question": "What does 'training a model' mean in the context of Machine Learning?",
+      "answer": "Training a model means feeding an ML algorithm historical data (features and target outcomes). The algorithm adjusts its internal mathematical parameters (such as weights and biases) iteratively to minimize prediction errors, establishing a model that can make accurate predictions on new, unseen data."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Who coined the term 'Machine Learning' in 1959?",
+      "options": [
+        "Alan Turing",
+        "Arthur Samuel",
+        "Tom Mitchell",
+        "John McCarthy"
+      ],
+      "correct": 1,
+      "explanation": "Arthur Samuel, a pioneer in computer gaming and artificial intelligence, coined the term in 1959 while developing checkers-playing programs."
+    },
+    {
+      "question": "What is the relationship between Artificial Intelligence (AI) and Machine Learning (ML)?",
+      "options": [
+        "ML is a subfield of AI",
+        "AI is a subfield of ML",
+        "They are completely separate and unrelated fields",
+        "AI is purely hardware, ML is purely software"
+      ],
+      "correct": 0,
+      "explanation": "Machine Learning is a subset of Artificial Intelligence that focuses specifically on data-driven learning algorithms."
+    },
+    {
+      "question": "Which of the following is NOT one of the '5 Vs' of Big Data?",
+      "options": [
+        "Volume",
+        "Velocity",
+        "Validation",
+        "Variety"
+      ],
+      "correct": 2,
+      "explanation": "The 5 Vs are Volume, Velocity, Variety, Veracity, and Value. Validation is not part of the standard 5 Vs."
+    },
+    {
+      "question": "Which analytics type answers the question: 'What is likely to happen in the future?'",
+      "options": [
+        "Descriptive Analytics",
+        "Predictive Analytics",
+        "Prescriptive Analytics",
+        "Diagnostic Analytics"
+      ],
+      "correct": 1,
+      "explanation": "Predictive analytics utilizes statistical models and forecasting techniques to predict future trends and outcomes."
+    },
+    {
+      "question": "In traditional programming, what are the inputs and outputs?",
+      "options": [
+        "Data + Rules -> Answers",
+        "Data + Answers -> Rules",
+        "Rules + Predictions -> Data",
+        "Answers + Code -> Rules"
+      ],
+      "correct": 0,
+      "explanation": "Traditional programming takes raw data and developer-written rules to output answers. ML takes data and answers to output the rules (models)."
+    },
+    {
+      "question": "Tom Mitchell's definition of ML uses which three main components?",
+      "options": [
+        "Input, Output, Process",
+        "Task (T), Performance (P), Experience (E)",
+        "Volume, Variety, Velocity",
+        "Features, Targets, Predictions"
+      ],
+      "correct": 1,
+      "explanation": "Mitchell's definition states a program learns if its performance (P) at task (T) improves with experience (E)."
+    },
+    {
+      "question": "Veracity in Big Data refers to which of the following?",
+      "options": [
+        "The speed of data flow",
+        "The size of the dataset",
+        "The reliability and trustworthiness of the data",
+        "The financial value of the data"
+      ],
+      "correct": 2,
+      "explanation": "Veracity indicates data quality, accuracy, noise level, and whether the data can be trusted for decision-making."
+    },
+    {
+      "question": "Which analytics type focuses on historical sales reports and dashboard summaries?",
+      "options": [
+        "Descriptive Analytics",
+        "Predictive Analytics",
+        "Prescriptive Analytics",
+        "Nondeterministic Analytics"
+      ],
+      "correct": 0,
+      "explanation": "Descriptive analytics summarizes past occurrences to provide clear, human-readable insights into historical actions."
+    },
+    {
+      "question": "Why is Big Data critical for modern Deep Learning models?",
+      "options": [
+        "Deep learning requires less CPU cycles",
+        "Deep learning models have millions of parameters and require massive datasets to learn generalized features and prevent overfitting",
+        "Big data replaces algorithms entirely",
+        "Big data is always sorted and clean"
+      ],
+      "correct": 1,
+      "explanation": "High-parameter deep neural networks easily overfit on small datasets. Large volumes of training data force models to learn generalized features."
+    },
+    {
+      "question": "What is the primary role of the 'experience' (E) variable in an image classifier?",
+      "options": [
+        "The target code compiling time",
+        "The historical image dataset used during training",
+        "The accuracy rate score of the classifier",
+        "The label classes (e.g. Cat vs Dog)"
+      ],
+      "correct": 1,
+      "explanation": "Experience (E) represents the training inputs, which in this case corresponds to the historical images fed to the algorithm."
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "module": 4,
+  "title": "API Requests & Data Binding",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "API Integration (Fetch, POST & PHP/MySQL)",
+      "content": "<p>React applications communicate with backend servers using standard HTTP requests. We fetch data using the native browser <code>fetch()</code> API inside a <code>useEffect</code> hook:</p><pre><code>// Fetching data (GET)\nuseEffect(() =&gt; {\n  fetch('https://api.example.com/data')\n    .then(res =&gt; res.json())\n    .then(data =&gt; setData(data));\n}, []);</code></pre><p><strong>Sending Data (POST):</strong> We specify the method, headers, and body:</p><pre><code>fetch('https://api.example.com/submit', {\n  method: 'POST',\n  headers: { 'Content-Type': 'application/json' },\n  body: JSON.stringify(payload)\n});</code></pre><p><strong>PHP/MySQL Integration:</strong> In typical academic stacks, a PHP script queries MySQL and outputs JSON using <code>echo json_encode($result);</code> after configuring CORS headers: <code>header(\"Access-Control-Allow-Origin: *\");</code>.</p>",
+      "interviewTip": "When asked how a frontend SPA communicates with a server, emphasize that SPAs run entirely in the browser and use **Asynchronous HTTP Requests (AJAX)** via Fetch API or Axios. Explain that the backend is a separate API that handles database interactions and returns JSON data."
+    },
+    {
+      "title": "AngularJS Introduction & Architecture",
+      "content": "<p><strong>AngularJS:</strong> A legacy JavaScript framework developed by Google (v1.x) that extends HTML with custom attributes (directives) and binds data to HTML expressions. </p><p><strong>MVC Architecture in AngularJS:</strong> <ul><li><strong>Model:</strong> The data in the application (stored as properties on the <code>$scope</code> object).</li><li><strong>View:</strong> The HTML template that displays the data.</li><li><strong>Controller:</strong> JavaScript functions that contain the business logic, modifying model data.</li></ul></p>"
+    },
+    {
+      "title": "Setting Up AngularJS & Your First App",
+      "content": "<p>AngularJS is loaded via a script tag. To initialize an AngularJS application, we use the <code>ng-app</code> directive. The <code>ng-controller</code> directive attaches a controller to the view:</p><pre><code>&lt;script src=\"https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js\"&gt;&lt;/script&gt;\n\n&lt;div ng-app=\"myApp\" ng-controller=\"myCtrl\"&gt;\n  &lt;p&gt;Hello {{name}}&lt;/p&gt;\n&lt;/div&gt;</code></pre><p>In JavaScript, the module and controller are declared as:</p><pre><code>const app = angular.module('myApp', []);\napp.controller('myCtrl', function($scope) {\n  $scope.name = 'Aritra';\n});</code></pre>"
+    },
+    {
+      "title": "AngularJS Expressions & Object Binding",
+      "content": "<p><strong>Expressions:</strong> Written inside double braces <code>{{ expression }}</code>. They act like placeholders that print variable values or evaluate basic equations. AngularJS supports: <ul><li>Number expressions: <code>{{ 5 + 5 }}</code></li><li>String expressions: <code>{{ firstName + ' ' + lastName }}</code></li><li>Object expressions: <code>{{ user.age }}</code></li><li>Array expressions: <code>{{ items[2] }}</code></li></ul></p>"
+    },
+    {
+      "title": "Two-Way Data Binding",
+      "content": "<p>Unlike React (which uses one-way data binding), AngularJS features automatic **Two-Way Data Binding**. It synchronizes model and view: when model data changes, the view is updated, and when user inputs change in the view, the model data is updated automatically.</p><p>This is achieved using the <code>ng-model</code> directive on form elements: <pre><code>&lt;input ng-model=\"name\" /&gt;\n&lt;h1&gt;Hello {{name}}&lt;/h1&gt;</code></pre></p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "Write a React code snippet that fetches data from an API when the component mounts.",
+      "answer": "```javascript\nimport React, { useState, useEffect } from 'react';\nfunction DataFetcher() {\n  const [data, setData] = useState([]);\n  useEffect(() => {\n    fetch('https://api.example.com/items')\n      .then(res => res.json())\n      .then(data => setData(data));\n  }, []); // Empty dependency array ensures it runs once on mount\n  return <ul>{data.map(item => <li key={item.id}>{item.name}</li>)}</ul>;\n}\n```"
+    },
+    {
+      "question": "What is AngularJS and what architecture does it follow?",
+      "answer": "AngularJS is a structural JavaScript framework for dynamic web apps. It extends HTML using attributes called directives. It follows the Model-View-Controller (MVC) architecture, where `$scope` holds the model data, HTML templates represent the view, and JavaScript functions manage the controllers."
+    },
+    {
+      "question": "Explain the difference between Data Binding in React and AngularJS.",
+      "answer": "React features one-way data binding, where data flows in a single direction (state updates trigger re-renders, and updates from inputs must be handled manually via events). AngularJS features automatic two-way data binding using the `ng-model` directive, meaning changes in the input automatically update the model, and changes in the model automatically update the UI."
+    },
+    {
+      "question": "Provide a simple code example showing two-way data binding in AngularJS.",
+      "answer": "```html\n<div ng-app=\"\">\n  <input type=\"text\" ng-model=\"userInput\" placeholder=\"Type here\">\n  <p>You typed: {{ userInput }}</p>\n</div>\n```"
+    },
+    {
+      "question": "What are AngularJS expressions? List four types of expressions with examples.",
+      "answer": "AngularJS expressions are code blocks placed inside double braces `{{ }}` that display model data. Types:\n(1) Number: `{{ quantity * cost }}`\n(2) String: `{{ name }}`\n(3) Object: `{{ student.roll }}`\n(4) Array: `{{ scores[0] }}`"
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Where should you place API data-fetching operations in a React functional component?",
+      "options": [
+        "In the render method directly",
+        "Inside a useEffect hook with an empty dependency array",
+        "In the component's constructor function",
+        "In the CSS stylesheet files"
+      ],
+      "correct": 1,
+      "explanation": "useEffect with a dependency array of `[]` runs exactly once after the component mounts, making it the correct location to fetch external data."
+    },
+    {
+      "question": "Which HTTP method should be configured in the Fetch API options to submit data to a database?",
+      "options": [
+        "GET",
+        "POST",
+        "FETCH",
+        "RECEIVE"
+      ],
+      "correct": 1,
+      "explanation": "POST is the standard HTTP method used to send user payload data to backends to create or write resource records."
+    },
+    {
+      "question": "To connect a frontend app to a PHP script on a different domain, which header must be set in the PHP script?",
+      "options": [
+        "Access-Control-Allow-Origin: *",
+        "Content-Type: application/json",
+        "HTTP/1.1 200 OK",
+        "Allow-Frontend-Connection: yes"
+      ],
+      "correct": 0,
+      "explanation": "Cross-Origin Resource Sharing (CORS) security rules require that the server declare allowed origins via the `Access-Control-Allow-Origin` header."
+    },
+    {
+      "question": "What architectural pattern is followed by AngularJS?",
+      "options": [
+        "Model-View-Presenter (MVP)",
+        "Model-View-Controller (MVC)",
+        "Pipe and Filter",
+        "Microservices"
+      ],
+      "correct": 1,
+      "explanation": "AngularJS organizes applications using the MVC pattern (or Model-View-Whatever MVW)."
+    },
+    {
+      "question": "Which directive is mandatory to bootstrap and initialize an AngularJS application?",
+      "options": [
+        "ng-controller",
+        "ng-model",
+        "ng-app",
+        "ng-init"
+      ],
+      "correct": 2,
+      "explanation": "The `ng-app` directive designates the root element of an AngularJS application and triggers the bootstrap process."
+    },
+    {
+      "question": "How are AngularJS expressions written in HTML templates?",
+      "options": [
+        "${ expression }",
+        "{{ expression }}",
+        "[ expression ]",
+        "<% expression %>"
+      ],
+      "correct": 1,
+      "explanation": "AngularJS parses double curly braces `{{ }}` to evaluate expressions and bind dynamic output."
+    },
+    {
+      "question": "Which AngularJS directive establishes automatic two-way data binding on form inputs?",
+      "options": [
+        "ng-bind",
+        "ng-model",
+        "ng-app",
+        "ng-value"
+      ],
+      "correct": 1,
+      "explanation": "The `ng-model` directive binds the value of HTML controls (input, select, textarea) to application data in the scope."
+    },
+    {
+      "question": "What is the role of the $scope object in AngularJS?",
+      "options": [
+        "It styles the HTML page",
+        "It acts as the glue (context) between the controller and the view, holding the model data",
+        "It compiles the JavaScript files",
+        "It manages URL routing rules"
+      ],
+      "correct": 1,
+      "explanation": "The `$scope` object holds properties and functions that are accessible in both the controller and the view template."
+    },
+    {
+      "question": "How does data binding in React differ from AngularJS?",
+      "options": [
+        "React has two-way binding, AngularJS has one-way binding",
+        "React has one-way binding, AngularJS has two-way binding",
+        "Neither has any data binding",
+        "Both have automatic two-way binding by default"
+      ],
+      "correct": 1,
+      "explanation": "React enforces unidirectional (one-way) data flow. AngularJS features automatic bidirectional (two-way) data binding."
+    },
+    {
+      "question": "In AngularJS, how do you define an application module in a JavaScript file?",
+      "options": [
+        "angular.createModule('app')",
+        "angular.module('app', [])",
+        "new AngularModule('app')",
+        "app.initialize()"
+      ],
+      "correct": 1,
+      "explanation": "The syntax `angular.module('moduleName', [dependencies])` is the correct API to create a new module."
+    }
+  ]
+}

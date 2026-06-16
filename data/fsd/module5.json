@@ -1,0 +1,162 @@
+{
+  "module": 5,
+  "title": "Directives, Controllers, Filters & Services",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "AngularJS Core Directives",
+      "content": "<p>Directives are markers on DOM elements that tell AngularJS to attach behavior to that element. Key directives include:</p><ul><li><code>ng-repeat:</code> Iterates over collections (similar to a foreach loop) to generate elements: <pre><code>&lt;li ng-repeat=\"item in items\"&gt;{{item}}&lt;/li&gt;</code></pre></li><li><code>ng-if:</code> Conditionally includes or excludes DOM elements based on boolean values. If false, the element is deleted from the DOM.</li><li><code>ng-show & ng-hide:</code> Conditionally toggle CSS display styles (<code>display: none</code>) without removing elements from the DOM.</li></ul>",
+      "interviewTip": "A common interview question is: `ng-if` vs `ng-show`. Explain that `ng-if` physically removes/creates elements in the DOM (higher performance cost for toggling, but lower memory overhead), while `ng-show` simply toggles the element's CSS visibility (faster toggling, but element remains in DOM)."
+    },
+    {
+      "title": "Controllers & Scope Inheritance",
+      "content": "<p><strong>Controllers:</strong> JavaScript constructor functions that control the flow of data. They are defined using the <code>controller()</code> method on module objects.</p><p><strong>Nested Controllers & Scope Inheritance:</strong> AngularJS controllers can be nested in HTML. The scopes of nested controllers inherit prototypally from their parent controllers' scopes: if a property is not found in the child scope, the engine climbs up the parent chain to find it, reaching the <code>$rootScope</code> at the top.</p>"
+    },
+    {
+      "title": "Built-in & Custom Filters",
+      "content": "<p>Filters format data for display in views. They are attached in expressions using the pipe symbol <code>|</code>:</p><ul><li><code>currency:</code> Formats numbers into currency format (e.g., <code>{{ price | currency }}</code>).</li><li><code>uppercase / lowercase:</code> Changes string case.</li><li><code>orderBy:</code> Sorts arrays by expressions.</li><li><code>filter:</code> Selects a subset of items from an array based on criteria.</li></ul><p><strong>Custom Filters:</strong> Defined using the <code>filter()</code> module API: <pre><code>app.filter('reverse', function() {\n  return function(input) {\n    return input.split('').reverse().join('');\n  };\n});</code></pre></p>"
+    },
+    {
+      "title": "Form Events & Custom Validations",
+      "content": "<p>AngularJS supports event directives like <code>ng-click</code>, <code>ng-change</code>, <code>ng-submit</code>, and <code>ng-blur</code>. </p><p><strong>Custom Validations:</strong> We can create custom validation rules by writing custom directives that parse values using the <code>$validators</code> pipeline of the <code>ngModelController</code>.</p>"
+    },
+    {
+      "title": "Services & Dependency Injection",
+      "content": "<p><strong>Services:</strong> Singletons that contain reusable business logic. AngularJS provides built-in services prefixed with <code>$</code>: <ul><li><code>$http:</code> Performs AJAX requests (replaces XMLHttpRequests).</li><li><code>$timeout & $interval:</code> Wrappers for window timer functions.</li></ul></p><p><strong>Dependency Injection (DI):</strong> AngularJS passes dependencies (like services or scopes) to controllers as function arguments. The DI engine automatically instantiates and passes the requested services: <pre><code>app.controller('myCtrl', function($scope, $http, $timeout) { ... });</code></pre></p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "Explain the difference between the ng-if and ng-show directives in AngularJS.",
+      "answer": "`ng-if` conditionally adds or removes elements from the DOM entirely based on a boolean value. `ng-show` (and `ng-hide`) does not modify the DOM structure; it toggles the CSS `display` property (`display: block` or `display: none`) to show or hide the element."
+    },
+    {
+      "question": "How does scope inheritance work with nested controllers in AngularJS?",
+      "answer": "AngularJS scopes inherit prototypally. If you nest HTML elements containing different controllers, the inner (child) controller's scope will inherit all properties and methods defined on the outer (parent) controller's scope. If the child controller modifies a primitive variable, it shadow-copies it locally, unless objects are utilized."
+    },
+    {
+      "question": "What are AngularJS filters? Give examples of three built-in filters.",
+      "answer": "Filters are formatting utilities used in views to modify data before rendering. Examples:\n(1) `uppercase`: `{{ 'test' | uppercase }}` output: TEST\n(2) `currency`: `{{ 50 | currency }}` output: $50.00\n(3) `orderBy`: `ng-repeat=\"user in users | orderBy:'age'\"` sorts users by age."
+    },
+    {
+      "question": "What is Dependency Injection (DI) and how is it used in AngularJS controllers?",
+      "answer": "Dependency Injection is a design pattern where an object receives its dependencies from an external system rather than creating them itself. In AngularJS, controllers declare their dependencies (such as `$scope` or `$http`) as function parameters, and the AngularJS framework automatically resolves and injects them at runtime."
+    },
+    {
+      "question": "What is the purpose of the built-in $http service in AngularJS? Provide a usage example.",
+      "answer": "The `$http` service is a core service that communicates with remote HTTP servers via the browser's XMLHttpRequest. Example:\n```javascript\n$http.get('https://api.example.com/items')\n  .then(function(response) {\n    $scope.items = response.data;\n  }, function(error) {\n    console.error(error);\n  });\n```"
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which AngularJS directive acts like a loop to iterate over an array of items?",
+      "options": [
+        "ng-loop",
+        "ng-repeat",
+        "ng-for",
+        "ng-iterate"
+      ],
+      "correct": 1,
+      "explanation": "The `ng-repeat` directive instantiates a template block for each item in an array."
+    },
+    {
+      "question": "What is the difference between ng-if and ng-show?",
+      "options": [
+        "ng-if hides via CSS, ng-show removes from DOM",
+        "ng-if removes the element from the DOM, while ng-show toggles its CSS display property",
+        "They do the exact same thing",
+        "ng-if only works on text, ng-show works on divs"
+      ],
+      "correct": 1,
+      "explanation": "ng-if completely adds/deletes nodes from the DOM tree, whereas ng-show modifies the CSS display property."
+    },
+    {
+      "question": "Which filter is used in an expression to format a number as cash?",
+      "options": [
+        "money",
+        "currency",
+        "cash",
+        "number"
+      ],
+      "correct": 1,
+      "explanation": "The `currency` filter formats a numeric value into currency format (defaults to dollars, but customizable)."
+    },
+    {
+      "question": "How are filters applied inside AngularJS expressions?",
+      "options": [
+        "Using a dot: {{ value.filter }}",
+        "Using a pipe: {{ value | filterName }}",
+        "Inside brackets: {{ filterName(value) }}",
+        "Using an arrow: {{ value -> filterName }}"
+      ],
+      "correct": 1,
+      "explanation": "AngularJS uses the pipe symbol `|` to chain filters inside expressions."
+    },
+    {
+      "question": "Which built-in AngularJS service is used to make AJAX requests to a server?",
+      "options": [
+        "$ajax",
+        "$request",
+        "$http",
+        "$fetch"
+      ],
+      "correct": 2,
+      "explanation": "The `$http` service is the core AngularJS service for communicating with remote HTTP endpoints."
+    },
+    {
+      "question": "What is the mechanism by which AngularJS controllers receive dependent services at runtime?",
+      "options": [
+        "Global inheritance",
+        "Dependency Injection",
+        "Manual instantiation with new keyword",
+        "File compilation importing"
+      ],
+      "correct": 1,
+      "explanation": "AngularJS uses Dependency Injection (DI) to pass requested services as parameters to controllers during startup."
+    },
+    {
+      "question": "The topmost scope in an AngularJS application is called what?",
+      "options": [
+        "$parentScope",
+        "$rootScope",
+        "$globalScope",
+        "$baseScope"
+      ],
+      "correct": 1,
+      "explanation": "The `$rootScope` is the parent of all other scopes created in the application, associated with the element containing `ng-app`."
+    },
+    {
+      "question": "Built-in AngularJS services are prefixed with which character?",
+      "options": [
+        "_",
+        "$",
+        "@",
+        "#"
+      ],
+      "correct": 1,
+      "explanation": "AngularJS prefixes all built-in services (e.g. `$http`, `$timeout`, `$route`) with a dollar sign `$` to avoid naming collisions with custom variables."
+    },
+    {
+      "question": "Which directive can bind a click handler function to a button in AngularJS?",
+      "options": [
+        "ng-click",
+        "ng-submit",
+        "ng-on-click",
+        "ng-action"
+      ],
+      "correct": 0,
+      "explanation": "The `ng-click` directive tells AngularJS to execute a custom scope function when that element is clicked."
+    },
+    {
+      "question": "If a nested child controller scope modifies a variable, which mechanism is used to resolve properties?",
+      "options": [
+        "Array indexing",
+        "JavaScript Prototypal Inheritance",
+        "C++ pointer referencing",
+        "DOM attribute queries"
+      ],
+      "correct": 1,
+      "explanation": "Scope inheritance is built on top of prototypal inheritance, checking properties up the parent scope chain."
+    }
+  ]
+}

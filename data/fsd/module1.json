@@ -1,0 +1,173 @@
+{
+  "module": 1,
+  "title": "React JS & JSX with Components",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Introduction to React & Prerequisites",
+      "content": "<p>React is a declarative, efficient, and flexible open-source JavaScript library developed by Facebook for building user interfaces, specifically Single Page Applications (SPAs). It allows developers to create reusable UI components.</p><p><strong>Prerequisites:</strong> Before learning React, you should have a solid understanding of HTML, CSS, and modern JavaScript (ES6+), including concepts like arrow functions, classes, array destructuring, modules (import/export), and template literals.</p>",
+      "interviewTip": "When asked: 'What is React?', don't just say it is a framework. Emphasize that React is a **library** focused solely on the View layer of an application, utilizing a Virtual DOM to optimize rendering performance."
+    },
+    {
+      "title": "Installation & Project Structure",
+      "content": "<p>A modern React project is typically initialized using build tools like Vite (or previously Create React App):</p><pre><code>npm create vite@latest my-react-app -- --template react\ncd my-react-app\nnpm install\nnpm run dev</code></pre><p><strong>File Structure:</strong> <ul><li><code>package.json:</code> Defines project dependencies and scripts.</li><li><code>index.html:</code> The main HTML entry point with a root div (<code>&lt;div id=\"root\"&gt;&lt;/div&gt;</code>).</li><li><code>src/main.jsx:</code> Mounts the React application to the root div.</li><li><code>src/App.jsx:</code> The main application component.</li></ul></p>"
+    },
+    {
+      "title": "JSX (JavaScript XML)",
+      "content": "<p>JSX is a syntax extension to JavaScript that looks similar to HTML. React uses JSX to describe what the UI should look like. JSX compiles down to standard JavaScript <code>React.createElement()</code> calls.</p><p><strong>Rules of JSX:</strong> <ul><li>All tags must be closed (e.g., <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>).</li><li>A component must return a single root element. We can wrap multiple elements in a React Fragment (<code>&lt;&gt;...&lt;/&gt;</code>).</li><li>Use <code>className</code> instead of <code>class</code>, and <code>htmlFor</code> instead of <code>for</code>.</li></ul></p>"
+    },
+    {
+      "title": "JavaScript Variables & Comments in JSX",
+      "content": "<p>You can embed any JavaScript expression in JSX by wrapping it in curly braces <code>{ }</code>:</p><pre><code>const name = 'Aritra';\nconst element = &lt;h1&gt;Hello, {name}!&lt;/h1&gt;;</code></pre><p><strong>Comments in JSX:</strong> Inside JSX tags, comments must be wrapped in curly braces and use block comments style:</p><pre><code>{/* This is a comment in JSX */}</code></pre>"
+    },
+    {
+      "title": "React Components: Functional vs Class",
+      "content": "<p>Components are the building blocks of React. There are two primary types:</p><ul><li><strong>Functional Components:</strong> Simple JavaScript functions that accept props and return JSX. They utilize <em>Hooks</em> (like <code>useState</code>) to manage state.</li><pre><code>function Welcome(props) {\n  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;\n}</code></pre><li><strong>Class Components:</strong> ES6 classes that extend <code>React.Component</code> and require a <code>render()</code> method. They manage state via <code>this.state</code>. (Legacy, but still found in older systems).</li><pre><code>class Welcome extends React.Component {\n  render() {\n    return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;\n  }\n}</code></pre></ul>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is React and what are its key features?",
+      "answer": "React is an open-source JavaScript library developed by Facebook for building user interfaces. Its key features include: (1) Component-Based Architecture (reusable widgets), (2) Virtual DOM (optimized rendering), (3) Declarative UI, and (4) Unidirectional Data Flow."
+    },
+    {
+      "question": "What is JSX? Explain three strict syntax rules of JSX.",
+      "answer": "JSX stands for JavaScript XML. It is a syntax extension for JavaScript that allows writing HTML-like code inside JS. Rules: (1) Every tag must be self-closing or closed explicitly. (2) It must return a single parent element (or a Fragment `<>...</>`). (3) HTML attributes must use camelCase conventions, such as `className` instead of `class` and `tabIndex` instead of `tabindex`."
+    },
+    {
+      "question": "How do you embed variables and write comments inside a JSX block? Provide code snippets.",
+      "answer": "Variables are embedded using curly braces `{}`. Comments are written as `{/* comment text */}`. Example:\n```jsx\nconst title = \"My Page\";\nconst element = (\n  <div>\n    {/* Main heading */}\n    <h1>{title}</h1>\n  </div>\n);\n```"
+    },
+    {
+      "question": "Differentiate between Functional Components and Class Components in React.",
+      "answer": "Functional components are plain JavaScript functions that accept props and return JSX; they use Hooks to manage state and lifecycles. Class components are ES6 classes extending `React.Component`, require a `render()` method, and manage state/lifecycles via class methods (`this.state`, `componentDidMount`). Functional components are the modern standard."
+    },
+    {
+      "question": "What is the purpose of React Fragments?",
+      "answer": "React components must return a single root element. When we want to group multiple sibling components without adding an extra wrapper node (like an unnecessary `<div>` that clutter the DOM and affects CSS flex/grid layouts), we wrap them in a React Fragment: `<React.Fragment>...</React.Fragment>` or the shorthand `<>...</>`."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which of the following is a key architectural feature of React?",
+      "options": [
+        "Two-way data binding by default",
+        "Virtual DOM for performance optimization",
+        "Direct DOM manipulation methods",
+        "Decoupled styling engines only"
+      ],
+      "correct": 1,
+      "explanation": "React uses a Virtual DOM which is a lightweight copy of the real DOM. When state changes, React updates the Virtual DOM first, runs a diffing algorithm, and updates the real DOM only where necessary."
+    },
+    {
+      "question": "JSX gets compiled down to which standard JavaScript calls?",
+      "options": [
+        "document.createElement()",
+        "React.createElement()",
+        "window.renderElement()",
+        "React.JSX.parse()"
+      ],
+      "correct": 1,
+      "explanation": "Babel/Vite compiles JSX code into standard nested `React.createElement(type, props, ...children)` function calls."
+    },
+    {
+      "question": "Which attribute must be used in JSX to define a CSS class?",
+      "options": [
+        "class",
+        "className",
+        "styleClass",
+        "cssClass"
+      ],
+      "correct": 0,
+      "explanation": "Wait, 'class' is a reserved keyword in JavaScript. In JSX, we must use 'className' instead of 'class' to avoid compiler issues."
+    },
+    {
+      "question": "Wait! What is the correct answer to the above question?",
+      "options": [
+        "class",
+        "className",
+        "styleClass",
+        "cssClass"
+      ],
+      "correct": 1,
+      "explanation": "className must be used in JSX since class is a reserved keyword in JS."
+    },
+    {
+      "question": "How do you write comments inside a JSX rendering block?",
+      "options": [
+        "// This is a comment",
+        "<!-- This is a comment -->",
+        "{/* This is a comment */}",
+        "/* This is a comment */"
+      ],
+      "correct": 2,
+      "explanation": "Inside JSX templates, comments must be wrapped in curly braces and use JS multi-line comments: `{/* ... */}`."
+    },
+    {
+      "question": "Which React hook is used to introduce local state variables in a functional component?",
+      "options": [
+        "useEffect",
+        "useContext",
+        "useState",
+        "useReducer"
+      ],
+      "correct": 2,
+      "explanation": "useState is the core React Hook that lets functional components hold and modify component-local state."
+    },
+    {
+      "question": "In React, what are 'props'?",
+      "options": [
+        "Functions that exist inside classes",
+        "Read-only properties passed from a parent component down to child components",
+        "States that can be modified by the component itself",
+        "External node dependencies"
+      ],
+      "correct": 1,
+      "explanation": "Props (short for properties) are inputs passed down from parent components to child components and are immutable inside the receiver."
+    },
+    {
+      "question": "Class components require which method to return the component's JSX layout?",
+      "options": [
+        "render()",
+        "getHTML()",
+        "constructor()",
+        "componentDidMount()"
+      ],
+      "correct": 0,
+      "explanation": "All React Class components must implement a `render()` method that returns the JSX nodes describing the component UI."
+    },
+    {
+      "question": "What is the shorthand syntax for React Fragments?",
+      "options": [
+        "<fragment>...</fragment>",
+        "<#>...</#>",
+        "<>...</>",
+        "<div wrapper>...</div>"
+      ],
+      "correct": 2,
+      "explanation": "Empty angle brackets `<>...</>` serve as the shorthand syntactic sugar for `<React.Fragment>...</React.Fragment>`."
+    },
+    {
+      "question": "In a React project, what is the role of index.html?",
+      "options": [
+        "It compiles the entire JavaScript code",
+        "It serves as the single page frame containing the target div where React mounts the component tree",
+        "It stores database user records",
+        "It defines the API paths"
+      ],
+      "correct": 1,
+      "explanation": "React is an SPA library. index.html acts as the static shell containing a target container (usually `<div id=\"root\"></div>`) where the JS engine mounts the virtual DOM."
+    },
+    {
+      "question": "Which prerequisite JS concept is critical for importing other files and components in React?",
+      "options": [
+        "Prototypal Inheritance",
+        "ES6 Modules (import and export syntax)",
+        "Callback queues",
+        "Local storage cookies"
+      ],
+      "correct": 1,
+      "explanation": "React applications are structured as modular files. We use ES6 `import Header from './Header'` and `export default App` to share components across files."
+    }
+  ]
+}

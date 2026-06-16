@@ -1,0 +1,162 @@
+{
+  "module": 2,
+  "title": "React CSS, Bootstrap & Router",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Styling in React: Four Methods",
+      "content": "<p>React supports multiple styling strategies:</p><ul><li><strong>Inline Styling:</strong> Written as JavaScript objects. Attributes are camelCased (e.g., <code>backgroundColor</code> instead of <code>background-color</code>): <pre><code>const styleObj = { color: 'red', fontSize: '20px' };\nconst el = &lt;div style={styleObj}&gt;Text&lt;/div&gt;;</code></pre></li><li><strong>Standard CSS Stylesheets:</strong> Importing a standard CSS file: <code>import './App.css';</code>. Uses standard CSS classes.</li><li><strong>CSS Modules:</strong> Localizes CSS scope to prevent naming conflicts. Created as <code>[name].module.css</code> and imported as an object: <pre><code>import styles from './Button.module.css';\nconst el = &lt;button className={styles.btnPrimary}&gt;Click&lt;/button&gt;;</code></pre></li><li><strong>Styled-Components:</strong> A CSS-in-JS library allowing CSS to be written directly in components using tagged template literals: <pre><code>const StyledButton = styled.button` background: blue; color: white; `;</code></pre></li></ul>",
+      "interviewTip": "Expect questions on CSS Modules vs. Styled-Components. Emphasize that CSS Modules are scoped statically at build time, while styled-components are dynamic (they can read component props to alter styles dynamically at runtime)."
+    },
+    {
+      "title": "Bootstrap & React Table",
+      "content": "<p><strong>Bootstrap in React:</strong> We can include standard Bootstrap via CDN, or install the <code>react-bootstrap</code> library to use Bootstrap components natively (e.g., <code>&lt;Button variant=\"primary\"&gt;</code>).</p><p><strong>React Table:</strong> Creating dynamic tables in React involves iterating over arrays of data using <code>.map()</code> inside JSX: <pre><code>&lt;tbody&gt;\n  {users.map(user =&gt; (\n    &lt;tr key={user.id}&gt;\n      &lt;td&gt;{user.name}&lt;/td&gt;\n    &lt;/tr&gt;\n  ))}\n&lt;/tbody&gt;</code></pre></p>"
+    },
+    {
+      "title": "React Router (Client-side Routing)",
+      "content": "<p>React Router is the standard library for routing in React. It enables client-side routing, permitting switching views without refreshing the webpage. Key components: <ul><li><code>BrowserRouter:</code> Wraps the app to enable routing history.</li><li><code>Routes:</code> Container for route definitions.</li><li><code>Route:</code> Defines a path and its mapped element (e.g., <code>&lt;Route path=\"/about\" element={&lt;About /&gt;} /&gt;</code>).</li><li><code>Link:</code> Replaces standard anchor tags <code>&lt;a&gt;</code> to prevent page reloads (e.g., <code>&lt;Link to=\"/about\"&gt;About&lt;/Link&gt;</code>).</li></ul></p>"
+    },
+    {
+      "title": "Props: Passing & Validation",
+      "content": "<p>Props are read-only values passed down a component chain. We can validate props using the <code>prop-types</code> library to ensure correct data types are received, catching runtime errors early:</p><pre><code>import PropTypes from 'prop-types';\n\nfunction User(props) {\n  return &lt;h1&gt;{props.name} ({props.age})&lt;/h1&gt;;\n}\n\nUser.propTypes = {\n  name: PropTypes.string.isRequired,\n  age: PropTypes.number\n};</code></pre>"
+    },
+    {
+      "title": "React State (Concept & Rules)",
+      "content": "<p>State is an object representing data local to the component that can change over time. When state updates, React re-renders the component. </p><p><strong>Rules of State:</strong> <ul><li>Never modify state directly (e.g., do not do <code>this.state.count = 5</code> or <code>state = 5</code>). Always use the state setter function (e.g., <code>setCount(5)</code>).</li><li>State updates may be asynchronous.</li><li>State updates are merged in class components, but replaced in functional components.</li></ul></p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "How do inline styles differ in React compared to standard HTML?",
+      "answer": "In standard HTML, styles are written as semi-colon separated strings. In React, inline styles are written as JavaScript objects where property names are camelCased (e.g., `fontSize` instead of `font-size`) and values are strings (e.g., `color: 'blue'`)."
+    },
+    {
+      "question": "What are CSS Modules and what problem do they solve in React?",
+      "answer": "CSS Modules are CSS files where all class names are scoped locally by default. They solve the problem of global namespace pollution and naming conflicts in large React projects, ensuring that styling in one component does not leak and affect other components."
+    },
+    {
+      "question": "Describe the main routing components in React Router and their purposes.",
+      "answer": "(1) `BrowserRouter`: Connects the app to the browser URL. (2) `Routes`: Matches the current URL path against route definitions. (3) `Route`: Maps a specific path to a React component. (4) `Link`: Creates client-side navigation links that prevent browser page reloads."
+    },
+    {
+      "question": "How do you perform props validation in React? Provide a code snippet.",
+      "answer": "Props validation is done using the `prop-types` library. Example:\n```javascript\nimport PropTypes from 'prop-types';\nfunction Profile({ name, score }) {\n  return <h2>{name}: {score}</h2>;\n}\nProfile.propTypes = {\n  name: PropTypes.string.isRequired,\n  score: PropTypes.number\n};\n```"
+    },
+    {
+      "question": "Explain the key rules regarding updating state in React.",
+      "answer": "(1) Do not mutate state directly; always use the state setter function (`setState` or the hook returned setter). (2) State updates are scheduled and may be asynchronous. (3) Always treat state as immutable when updating complex objects (use spreading: `setObj({...obj, key: val})`)."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which of the following is the correct syntax for writing inline styles in React?",
+      "options": [
+        "style=\"color: red; font-size: 12px;\"",
+        "style={{color: 'red', fontSize: '12px'}}",
+        "style={color: 'red', font-size: '12px'}",
+        "style={['color: red', 'font-size: 12px']}"
+      ],
+      "correct": 1,
+      "explanation": "React inline styles are passed as JS objects within JSX brackets, requiring camelCased styling attributes."
+    },
+    {
+      "question": "What is the benefit of using CSS Modules in React?",
+      "options": [
+        "They make styling run faster on servers",
+        "They scope class names locally by default, avoiding global styling clashes",
+        "They translate CSS code to Python",
+        "They require no stylesheet files"
+      ],
+      "correct": 1,
+      "explanation": "CSS Modules compile class names into unique hashes, ensuring styles remain scoped only to their specific importing component."
+    },
+    {
+      "question": "In React Router, which component is used to define navigation paths instead of standard <a> tags?",
+      "options": [
+        "Href",
+        "Link",
+        "Navigate",
+        "Anchor"
+      ],
+      "correct": 1,
+      "explanation": "The Link component intercepts browser clicks and updates history locally without causing page refreshes."
+    },
+    {
+      "question": "How do you specify that a component prop is mandatory using PropTypes?",
+      "options": [
+        "PropTypes.string.required",
+        "PropTypes.string.isRequired",
+        "PropTypes.string.mustExist",
+        "PropTypes.string.force"
+      ],
+      "correct": 1,
+      "explanation": "Appending `.isRequired` to any PropTypes type check raises warnings in the browser console if that prop is omitted."
+    },
+    {
+      "question": "Why should you never modify component state directly (e.g. state.count = 5)?",
+      "options": [
+        "It triggers database syntax errors",
+        "It bypasses React's virtual DOM trigger, failing to re-render the UI",
+        "It deletes other component properties",
+        "It causes compilation to freeze"
+      ],
+      "correct": 1,
+      "explanation": "React detects state changes by intercepting setter calls. Modifying state properties directly does not schedule re-renders."
+    },
+    {
+      "question": "In React Router, which component acts as a container for all Route declarations?",
+      "options": [
+        "BrowserRouter",
+        "Routes",
+        "RouteGroup",
+        "Switch"
+      ],
+      "correct": 1,
+      "explanation": "In React Router v6, the `<Routes>` component wraps individual `<Route>` components to select the best match."
+    },
+    {
+      "question": "Which CSS-in-JS library allows writing actual CSS within your component code?",
+      "options": [
+        "CSS modules",
+        "styled-components",
+        "Bootstrap CSS",
+        "Tailwind CSS"
+      ],
+      "correct": 1,
+      "explanation": "styled-components uses tagged template literals to build React components with attached styling rules."
+    },
+    {
+      "question": "How do we render list rows dynamically in a table component?",
+      "options": [
+        "Using a for loop in JSX",
+        "Using the array .map() method to return row elements",
+        "Using document.write()",
+        "Using a while loop inside brackets"
+      ],
+      "correct": 1,
+      "explanation": "The standard React approach is iterating arrays using `.map()` and returning the JSX structure for each row element."
+    },
+    {
+      "question": "When updating state based on the previous state, which method is safest?",
+      "options": [
+        "Directly adding values: state.count = state.count + 1",
+        "Passing a callback function to the state setter: (prev) => prev + 1",
+        "Reading the global window variable",
+        "Using a setTimeout schedule"
+      ],
+      "correct": 1,
+      "explanation": "Since state updates are batched, passing a callback ensures you receive the most current, up-to-date state values."
+    },
+    {
+      "question": "Which prop-types category is used to check for an array of a specific type?",
+      "options": [
+        "PropTypes.array",
+        "PropTypes.arrayOf()",
+        "PropTypes.typeList",
+        "PropTypes.object"
+      ],
+      "correct": 1,
+      "explanation": "Use `PropTypes.arrayOf(PropTypes.type)` to enforce that an array only contains elements of a matching target type."
+    }
+  ]
+}

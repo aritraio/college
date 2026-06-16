@@ -1,0 +1,162 @@
+{
+  "module": 3,
+  "title": "User Input Forms, Events & Deployment",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Arrow Functions in React",
+      "content": "<p>Arrow functions, introduced in ES6, are heavily used in React. They offer a shorter syntax and, crucially, do not bind their own <code>this</code> context. Instead, they inherit <code>this</code> lexically from their parent scope.</p><p>This is extremely useful in React class components, as it removes the need to explicitly bind event handlers in the constructor:</p><pre><code>// Class method with auto-binding via arrow function\nhandleClick = () =&gt; {\n  console.log(this.state.message);\n}</code></pre>",
+      "interviewTip": "If asked about arrow functions in React, mention that they are useful for event handling because they preserve the lexical scope of `this`. Thus, `this.setState` works without requiring `.bind(this)` in the constructor."
+    },
+    {
+      "title": "Form Handling: Controlled vs Uncontrolled",
+      "content": "<p>React handles user input in forms using two primary techniques:</p><ul><li><strong>Controlled Components:</strong> The form data is handled by a React component state. The input value is bound to the state, and updates are processed via an <code>onChange</code> event handler. This is the recommended approach: <pre><code>const [val, setVal] = useState('');\n&lt;input value={val} onChange={e =&gt; setVal(e.target.value)} /&gt;</code></pre></li><li><strong>Uncontrolled Components:</strong> The form data is handled by the DOM itself. We use React <em>Refs</em> (via the <code>useRef</code> hook) to pull the input values directly from the DOM when needed.</li></ul>"
+    },
+    {
+      "title": "React Event Handling",
+      "content": "<p>React events are named using camelCase rather than lowercase (e.g., <code>onClick</code> instead of <code>onclick</code>, <code>onSubmit</code> instead of <code>onsubmit</code>). </p><p>With JSX, you pass a function as the event handler rather than a string. You must also call <code>event.preventDefault()</code> explicitly to prevent default form submission actions:</p><pre><code>function Form() {\n  function handleSubmit(e) {\n    e.preventDefault();\n    console.log('Submitted.');\n  }\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;button type=\"submit\"&gt;Submit&lt;/button&gt;\n    &lt;/form&gt;\n  );\n}</code></pre>"
+    },
+    {
+      "title": "React DevTools",
+      "content": "<p>React DevTools is a browser extension available for Chrome and Firefox. It allows developers to inspect the React component tree, check component properties (props), state variables, context values, hooks status, and analyze rendering performance using the Profiler tab.</p>"
+    },
+    {
+      "title": "Deploying React Applications",
+      "content": "<p>To deploy a React application, you first generate a static production build. In a Vite project, this is done using:</p><pre><code>npm run build</code></pre><p>This outputs optimized, minified HTML, CSS, and JS assets into a <code>dist/</code> folder. These static files can then be hosted on static file hosting services like Netlify, Vercel, GitHub Pages, or Amazon S3.</p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "Why are arrow functions preferred for event handlers in React class components?",
+      "answer": "Arrow functions are preferred because they do not define their own `this` binding. They inherit `this` lexically from the surrounding scope. This means class components can access `this.setState` within event handlers without needing to bind them in the constructor."
+    },
+    {
+      "question": "Explain the difference between Controlled and Uncontrolled components in React forms.",
+      "answer": "In a Controlled component, the form input value is driven by React state and updated via state setters during `onChange` events. In an Uncontrolled component, input values are handled directly by the DOM, and React accesses them when needed using a reference (`useRef`)."
+    },
+    {
+      "question": "How do you prevent the default browser submission behavior in a React form? Provide a snippet.",
+      "answer": "You prevent default behavior by calling `event.preventDefault()` inside the submit handler. Example:\n```jsx\nconst handleSubmit = (e) => {\n  e.preventDefault();\n  console.log(\"Form submission halted\");\n};\n```"
+    },
+    {
+      "question": "What is React DevTools and how does it assist in debugging?",
+      "answer": "React DevTools is a browser extension that adds inspection panels. It helps by: (1) displaying the virtual component hierarchy, (2) showing current state/props of selected components, and (3) profiling component re-renders to identify performance bottlenecks."
+    },
+    {
+      "question": "What are the steps to build and deploy a React application for production?",
+      "answer": "(1) Run `npm run build` to generate compiled, minified static assets in the output directory (usually `dist` or `build`). (2) Upload this directory to static web hosts such as Netlify, Vercel, or AWS S3."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Why do arrow functions remove the need to bind methods in class constructors?",
+      "options": [
+        "They execute faster than regular functions",
+        "They bind 'this' lexically from their surrounding class scope",
+        "They do not accept arguments",
+        "They compile to HTML tags"
+      ],
+      "correct": 1,
+      "explanation": "Arrow functions capture the 'this' value of the enclosing context, resolving the issue where regular functions have a dynamic 'this' binding."
+    },
+    {
+      "question": "In a controlled component, how is the input element's value synchronized with React?",
+      "options": [
+        "Through direct DOM edits",
+        "Through state binding combined with an onChange handler",
+        "Using document.getElementById",
+        "Using double-bracket binding {{ }}"
+      ],
+      "correct": 1,
+      "explanation": "Controlled inputs have their value attribute set to state, and update that state via the onChange handler."
+    },
+    {
+      "question": "Which method must be called to prevent a page refresh when submitting a form in React?",
+      "options": [
+        "event.stopPropagation()",
+        "event.preventDefault()",
+        "event.halt()",
+        "event.stopRefresh()"
+      ],
+      "correct": 1,
+      "explanation": "Calling `event.preventDefault()` stops the default browser actions associated with the event (like submitting a form to the server and refreshing the page)."
+    },
+    {
+      "question": "Which browser extension lets you inspect React component trees, state, and props?",
+      "options": [
+        "React Inspector",
+        "React DevTools",
+        "Babel Runner",
+        "Webpack Logger"
+      ],
+      "correct": 1,
+      "explanation": "React DevTools is the official extension for Chrome/Firefox to debug React states and structures."
+    },
+    {
+      "question": "What command generates a production-ready, minified build in a Vite-based React project?",
+      "options": [
+        "npm run dev",
+        "npm run build",
+        "npm run start",
+        "npm run compile"
+      ],
+      "correct": 1,
+      "explanation": "`npm run build` runs the production compiler, generating optimized, minified static files in the dist/ folder."
+    },
+    {
+      "question": "What hook is commonly used to manage references in uncontrolled components?",
+      "options": [
+        "useState",
+        "useRef",
+        "useEffect",
+        "useContext"
+      ],
+      "correct": 1,
+      "explanation": "The `useRef` hook returns a mutable ref object whose `.current` property references the actual DOM node."
+    },
+    {
+      "question": "Event handlers in React are named using which convention?",
+      "options": [
+        "lowercase (onclick)",
+        "camelCase (onClick)",
+        "snake_case (on_click)",
+        "PascalCase (OnClick)"
+      ],
+      "correct": 1,
+      "explanation": "React uses camelCase naming for event attributes (e.g., `onClick`, `onChange`, `onSubmit`)."
+    },
+    {
+      "question": "React DevTools includes a 'Profiler' tab. What is its main purpose?",
+      "options": [
+        "To monitor SQL database queries",
+        "To record and analyze component rendering performance and identify bottleneck re-renders",
+        "To write and compile styling files",
+        "To deploy the site to Vercel"
+      ],
+      "correct": 1,
+      "explanation": "The Profiler measures how often components render and the duration of those renders, facilitating performance checks."
+    },
+    {
+      "question": "Where are production-ready files stored after building a Vite React project?",
+      "options": [
+        "src/",
+        "public/",
+        "dist/",
+        "node_modules/"
+      ],
+      "correct": 2,
+      "explanation": "Vite outputs the compiled, optimized static HTML, CSS, and JS files into the `dist/` directory."
+    },
+    {
+      "question": "In controlled components, how do we access the typed character in the onChange event?",
+      "options": [
+        "event.target.value",
+        "event.value",
+        "this.inputValue",
+        "document.getInput()"
+      ],
+      "correct": 0,
+      "explanation": "`event.target` refers to the input DOM element, and `.value` retrieves its current text content."
+    }
+  ]
+}

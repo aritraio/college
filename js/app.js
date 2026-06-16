@@ -469,7 +469,7 @@
         <div class="card flex flex-col align-center justify-between" style="text-align: center; padding: var(--space-xl);">
           <div>
             <h3 style="font-weight: 600; color: var(--text-muted); margin-bottom: var(--space-sm);">Overall Semester Completion</h3>
-            <div style="font-size: 4.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent-primary), var(--accent-se)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            <div style="font-size: 4.5rem; font-weight: 800; color: var(--text-primary);">
               ${overall}%
             </div>
           </div>
@@ -613,7 +613,7 @@
             hours: { L: 3, T: 1, P: 0 },
             evaluation: { CIA: 40, ESE: 60, total: 100 },
             type: 'Major',
-            accentColor: '#00cec9',
+            accentColor: '#E0E0E0',
             modules: [
               { id: 1, title: 'Introduction to Software Engineering', hours: '3H' },
               { id: 2, title: 'Software Development Process Models', hours: '3H' },
@@ -634,7 +634,7 @@
             hours: { L: 3, T: 1, P: 0 },
             evaluation: { CIA: 40, ESE: 60, total: 100 },
             type: 'Major',
-            accentColor: '#fd79a8',
+            accentColor: '#B0B0B0',
             modules: [
               { id: 1, title: 'Algorithm Development & Complexity Analysis', hours: '3H' },
               { id: 2, title: 'Searching & Sorting Algorithms', hours: '3H' },
@@ -655,7 +655,7 @@
             hours: { L: 3, T: 0, P: 2 },
             evaluation: { CIA: 40, ESE: 60, total: 100 },
             type: 'Major / Practical',
-            accentColor: '#fdcb6e',
+            accentColor: '#D0D0D0',
             modules: [
               { id: 1, title: 'React JS & JSX with Components', hours: '3H' },
               { id: 2, title: 'React CSS, Bootstrap & Router', hours: '3H' },
@@ -676,7 +676,7 @@
             hours: { L: 3, T: 1, P: 0 },
             evaluation: { CIA: 40, ESE: 60, total: 100 },
             type: 'Minor Elective',
-            accentColor: '#55efc4',
+            accentColor: '#C0C0C0',
             modules: [
               { id: 1, title: 'Introduction to Machine Learning', hours: '3H' },
               { id: 2, title: 'Types of Learning & Applications', hours: '3H' },

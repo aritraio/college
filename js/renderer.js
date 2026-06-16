@@ -31,8 +31,8 @@
           : subjectId.toUpperCase();
         
         const accentColor = window.appState && window.appState.subjects
-          ? window.appState.subjects.find(s => s.id === subjectId)?.accentColor || '#6c5ce7'
-          : '#6c5ce7';
+          ? window.appState.subjects.find(s => s.id === subjectId)?.accentColor || '#888888'
+          : '#888888';
 
         // 4. Retrieve completion status
         const storedProgress = localStorage.getItem(`progress_${subjectId}`);
@@ -51,7 +51,7 @@
                   Back to Curriculum
                 </a>
                 
-                <button id="toggleCompleteBtn" class="btn ${isCompleted ? 'btn-secondary' : 'btn-primary'}" style="padding: 0.4rem 1rem; font-size: 0.85rem; background: ${isCompleted ? '' : accentColor}; border-color: ${isCompleted ? '' : accentColor};">
+                <button id="toggleCompleteBtn" class="btn ${isCompleted ? 'btn-secondary' : 'btn-primary'}" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
                   ${isCompleted ? '✓ Completed' : 'Mark as Completed'}
                 </button>
               </div>
@@ -77,11 +77,11 @@
                   : `<div></div>`
                 }
                 ${moduleId < 5
-                  ? `<a href="#/subject/${subjectId}/module/${moduleId + 1}" class="btn btn-primary" style="padding: 0.5rem 1rem; background: ${accentColor}; border-color: ${accentColor};">
+                  ? `<a href="#/subject/${subjectId}/module/${moduleId + 1}" class="btn btn-primary" style="padding: 0.5rem 1rem;">
                        Next Module
                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                      </a>`
-                  : `<a href="#/subject/${subjectId}" class="btn btn-primary" style="padding: 0.5rem 1rem; background: ${accentColor}; border-color: ${accentColor};">
+                  : `<a href="#/subject/${subjectId}" class="btn btn-primary" style="padding: 0.5rem 1rem;">
                        Subject Curriculum
                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                      </a>`

@@ -8,23 +8,23 @@ Structured checklist organized by implementation phase. Each phase builds on the
 
 > Must be done first. All other changes depend on the new design tokens.
 
-- [ ] **1.1** Update CSS custom properties in `:root` to monochromatic palette (`#0A0A0A`, `#1A1A1A`, `#262626`, white)
-- [ ] **1.2** Update `:root[data-theme="light"]` tokens to monochromatic light palette
-- [ ] **1.3** Remove gradient `background-image` from `body` (both dark and light themes)
-- [ ] **1.4** Remove `backdrop-filter: blur()` from all components (cards, nav, bottom bar)
-- [ ] **1.5** Reduce all `border-radius` values to `0` or `2px` (brutalist aesthetic)
-- [ ] **1.6** Replace gradient text effects (`.hero-title`, `.logo-text`, `.quiz-score-num`) with solid colors
-- [ ] **1.7** Remove `translateY(-4px)` card hover effect — replace with `border-color` change
-- [ ] **1.8** Update subject accent colors (`--accent-se`, `--accent-daa`, etc.) to monochromatic greys
-- [ ] **1.9** Update `.logo-icon` gradient to flat monochromatic style
-- [ ] **1.10** Update `.bottom-nav` background to match new theme
-- [ ] **1.11** Update `.mobile-header` background and styling
-- [ ] **1.12** Update `.sidebar-link.active` from violet glow to monochromatic highlight
-- [ ] **1.13** Update `.btn-primary` from gradient to flat white-on-black style
-- [ ] **1.14** Update all `box-shadow` values — remove colored glows, use subtle dark shadows only
-- [ ] **1.15** Update `::selection` color from violet to white/grey
-- [ ] **1.16** Update `data/subjects.json` — change `accentColor` values to monochromatic greys
-- [ ] **1.17** Verify all pages render correctly with the new theme
+- [x] **1.1** Update CSS custom properties in `:root` to monochromatic palette (`#0A0A0A`, `#1A1A1A`, `#262626`, white)
+- [x] **1.2** Update `:root[data-theme="light"]` tokens to monochromatic light palette
+- [x] **1.3** Remove gradient `background-image` from `body` (both dark and light themes)
+- [x] **1.4** Remove `backdrop-filter: blur()` from all components (cards, nav, bottom bar)
+- [x] **1.5** Reduce all `border-radius` values to `0` or `2px` (brutalist aesthetic)
+- [x] **1.6** Replace gradient text effects (`.hero-title`, `.logo-text`, `.quiz-score-num`) with solid colors
+- [x] **1.7** Remove `translateY(-4px)` card hover effect — replace with `border-color` change
+- [x] **1.8** Update subject accent colors (`--accent-se`, `--accent-daa`, etc.) to monochromatic greys
+- [x] **1.9** Update `.logo-icon` gradient to flat monochromatic style
+- [x] **1.10** Update `.bottom-nav` background to match new theme
+- [x] **1.11** Update `.mobile-header` background and styling
+- [x] **1.12** Update `.sidebar-link.active` from violet glow to monochromatic highlight
+- [x] **1.13** Update `.btn-primary` from gradient to flat white-on-black style
+- [x] **1.14** Update all `box-shadow` values — remove colored glows, use subtle dark shadows only
+- [x] **1.15** Update `::selection` color from violet to white/grey
+- [x] **1.16** Update `data/subjects.json` — change `accentColor` values to monochromatic greys
+- [x] **1.17** Verify all pages render correctly with the new theme
 
 ---
 

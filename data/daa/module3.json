@@ -1,0 +1,162 @@
+{
+  "module": 3,
+  "title": "Algorithm Design Techniques",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Divide & Conquer (Max-Min, Strassen's)",
+      "content": "<p>Divide and Conquer breaks a problem into smaller subproblems, solves them recursively, and combines the results:</p><ul><li><strong>Max-Min Algorithm:</strong> Finds both maximum and minimum of an array. A binary split reduces comparisons from \\( 2n - 2 \\) (linear scan) to \\[ \\frac{3n}{2} - 2 \\]</li><li><strong>Strassen's Matrix Multiplication:</strong> Multiplies two \\( n \\times n \\) matrices. Instead of standard row-column multiplications requiring \\( O(n^3) \\) operations, Strassen's uses recursive partitioning with 7 multiplications instead of 8. This reduces complexity to: \\[ T(n) = 7T(n/2) + O(n^2) \\implies O(n^{\\log_2 7}) \\approx O(n^{2.81}) \\]</li></ul>",
+      "interviewTip": "In system design or algorithms interviews, remember that Strassen's matrix multiplication is theoretically faster than the standard O(n^3) method. However, due to subproblem overhead and recursive call stack costs, it is only faster in practice for very large matrices (typically n > 1000)."
+    },
+    {
+      "title": "Greedy Algorithms (Fractional Knapsack, Job Sequencing)",
+      "content": "<p>Greedy algorithms make the locally optimal choice at each step with the hope of finding a global optimum. They do not backtrack:</p><ul><li><strong>Fractional Knapsack:</strong> Items can be broken into fractions. We calculate the value-to-weight ratio \\( v_i / w_i \\), sort items in descending order, and take as much of the highest ratio item as possible. It guarantees an optimal solution in \\( O(n \\log n) \\) time.</li><li><strong>Job Sequencing with Deadlines:</strong> Given a set of jobs with deadlines and profits, we sort them by profit. We schedule each job in the latest possible free slot before its deadline.</li></ul>"
+    },
+    {
+      "title": "Dynamic Programming (0/1 Knapsack, Matrix Chain)",
+      "content": "<p>Dynamic Programming (DP) solves problems by combining solutions to overlapping subproblems. It stores results of subproblems to avoid recomputation (memoization or tabulation):</p><ul><li><strong>0/1 Knapsack:</strong> Items cannot be split. A greedy approach fails. We construct a 2D table where \\( DP[i][w] \\) represents the max value using a subset of items \\( 1 \\dots i \\) with weight capacity \\( w \\). Formula: \\[ DP[i][w] = \\max(DP[i-1][w], \\, DP[i-1][w - w_i] + v_i) \\] Complexity is \\( O(n \\cdot W) \\) where \\( W \\) is capacity.</li><li><strong>Matrix Chain Multiplication:</strong> Finds the most efficient way to multiply a chain of matrices. It calculates the minimum scalar multiplications by splitting the chain recursively. Time complexity is \\( O(n^3) \\).</li></ul>"
+    },
+    {
+      "title": "Backtracking (N-Queens)",
+      "content": "<p>Backtracking is a systematic method for searching for a solution to a problem by constructing candidate solutions and abandoning a candidate ('backtracking') as soon as it is determined that it cannot lead to a valid solution. For the <strong>N-Queens Problem</strong>, we try to place \\( N \\) queens on an \\( N \\times N \\) chessboard such that no two queens attack each other. It uses a depth-first search on a state-space tree.</p>"
+    },
+    {
+      "title": "String Matching (Naïve & KMP)",
+      "content": "<p>String matching finds occurrences of a pattern \\( P \\) of length \\( m \\) inside a text \\( T \\) of length \\( n \\):</p><ul><li><strong>Naïve Algorithm:</strong> Shifts the pattern one by one. Worst case time: \\( O((n-m+1) \\cdot m) \\).</li><li><strong>Knuth-Morris-Pratt (KMP) Algorithm:</strong> Hitting a mismatch, it uses structural knowledge to avoid scanning old characters. It precomputes a <em>Prefix Function Table</em> (also called \\( \pi \\) table or Failure Function) of size \\( m \\) in \\( O(m) \\) time. Total search time is: \\[ O(n + m) \\]</li></ul>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is the primary difference between Greedy and Dynamic Programming?",
+      "answer": "Greedy algorithms make the best local choice at each step and never change or backtrack. Dynamic Programming makes choices based on solutions to overlapping subproblems, storing results (tabulation/memoization) to determine a globally optimal solution."
+    },
+    {
+      "question": "Show why standard matrix multiplication is \\( O(n^3) \\) and how Strassen's improves this.",
+      "answer": "Standard multiplication requires multiplying each row of matrix A with columns of B, which takes \\( n^3 \\) multiplications. Strassen's uses a divide-and-conquer approach that reduces the number of submatrix multiplications from 8 to 7, resulting in a recurrence \\( T(n) = 7T(n/2) + O(n^2) \\), which solves to \\( O(n^{\\log_2 7}) \\approx O(n^{2.81}) \\)."
+    },
+    {
+      "question": "Why does the Greedy method work for the Fractional Knapsack problem, but fail for the 0/1 Knapsack problem?",
+      "answer": "In the Fractional Knapsack, we can take fractions of items, meaning we can always completely fill the knapsack with the highest value-per-weight items. In the 0/1 Knapsack, items must be taken whole, which can leave empty capacity that could have been better utilized by other combinations, requiring DP to check all capacity states."
+    },
+    {
+      "question": "Write down the state transition formula used in solving the 0/1 Knapsack problem.",
+      "answer": "The transition formula is: \\[ K[i][w] = \\max(K[i-1][w], \\, K[i-1][w - w_i] + v_i) \\] where \\( K[i][w] \\) is the maximum profit using up to item \\( i \\) with capacity \\( w \\), \\( v_i \\) is the value of item \\( i \\), and \\( w_i \\) is the weight of item \\( i \\)."
+    },
+    {
+      "question": "Explain how the KMP algorithm achieves linear-time string searching.",
+      "answer": "KMP achieves \\( O(n + m) \\) time by precomputing a failure function table (LPS - Longest Proper Prefix which is also a Suffix) for the pattern. When a character mismatch occurs, the LPS table tells us the next character in the pattern to match, allowing us to skip reprocessing text characters."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "What is the time complexity of Strassen's matrix multiplication?",
+      "options": [
+        "\\(O(n^3)\\)",
+        "\\(O(n^{2.81})\\)",
+        "\\(O(n^2)\\)",
+        "\\(O(n \\log n)\\)"
+      ],
+      "correct": 1,
+      "explanation": "Strassen's algorithm reduces matrix multiplications using recursive algebra, yielding \\(O(n^{\\log_2 7}) \\approx O(n^{2.81})\\)."
+    },
+    {
+      "question": "Which design technique is used to solve the Fractional Knapsack problem?",
+      "options": [
+        "Dynamic Programming",
+        "Greedy Method",
+        "Backtracking",
+        "Branch and Bound"
+      ],
+      "correct": 1,
+      "explanation": "The Fractional Knapsack problem can be solved optimally using a greedy choice based on value-to-weight ratios."
+    },
+    {
+      "question": "Which design technique is required to find an optimal solution to the 0/1 Knapsack problem?",
+      "options": [
+        "Greedy Method",
+        "Divide and Conquer",
+        "Dynamic Programming",
+        "Naïve search"
+      ],
+      "correct": 2,
+      "explanation": "Because items cannot be split, the greedy choice fails. We must use Dynamic Programming to check all subproblem weight combinations."
+    },
+    {
+      "question": "What is the worst-case time complexity of the Knuth-Morris-Pratt (KMP) string matching algorithm?",
+      "options": [
+        "\\(O(n \\cdot m)\\)",
+        "\\(O(n + m)\\)",
+        "\\(O(n^2)\\)",
+        "\\(O(2^n)\\)"
+      ],
+      "correct": 1,
+      "explanation": "KMP runs in linear time \\(O(n + m)\\) where n is text size and m is pattern size, as it never backtracks the text pointer."
+    },
+    {
+      "question": "How many scalar multiplications are saved at each step in Strassen's algorithm compared to standard divide-and-conquer?",
+      "options": [
+        "1",
+        "2",
+        "4",
+        "8"
+      ],
+      "correct": 0,
+      "explanation": "Standard divide-and-conquer requires 8 multiplications of submatrices, while Strassen's reduces this count to 7, saving 1 multiplication."
+    },
+    {
+      "question": "What is the time complexity of the Matrix Chain Multiplication problem using Dynamic Programming?",
+      "options": [
+        "\\(O(n)\\)",
+        "\\(O(n \\log n)\\)",
+        "\\(O(n^2)\\)",
+        "\\(O(n^3)\\)"
+      ],
+      "correct": 3,
+      "explanation": "Matrix Chain Multiplication using dynamic programming has three nested loops, yielding \\(O(n^3)\\) time complexity."
+    },
+    {
+      "question": "The N-Queens problem is solved using which algorithmic design technique?",
+      "options": [
+        "Greedy Method",
+        "Divide and Conquer",
+        "Backtracking",
+        "Dynamic Programming"
+      ],
+      "correct": 2,
+      "explanation": "N-Queens is solved using Backtracking, building a path of placements and undoing decisions (backtracking) if conflicts arise."
+    },
+    {
+      "question": "What is the number of comparisons required by the divide-and-conquer Max-Min algorithm for an array of size n?",
+      "options": [
+        "\\(2n - 2\\)",
+        "\\(n \\log n\\)",
+        "\\(\\frac{3n}{2} - 2\\)",
+        "\\(n^2\\)"
+      ],
+      "correct": 2,
+      "explanation": "The divide-and-conquer Max-Min split compares adjacent pairs, reducing comparisons to \\(1.5n - 2\\)."
+    },
+    {
+      "question": "Which of the following is a key requirement for using Dynamic Programming?",
+      "options": [
+        "The problem must have independent subproblems",
+        "The problem must exhibit overlapping subproblems and optimal substructure",
+        "The problem must be solvable in linear time O(n)",
+        "The data must be sorted in ascending order"
+      ],
+      "correct": 1,
+      "explanation": "Optimal substructure (optimal solution contains optimal solutions to subproblems) and overlapping subproblems are the two conditions for DP."
+    },
+    {
+      "question": "In the KMP algorithm, what does the LPS (Longest Proper Prefix which is also Suffix) table store?",
+      "options": [
+        "Indexes of the text to skip",
+        "Lengths of the longest proper prefix of the pattern that is also a suffix of the pattern",
+        "Ascii values of characters",
+        "Hashing values of strings"
+      ],
+      "correct": 1,
+      "explanation": "The LPS table stores the length of the longest proper prefix of the pattern that is also a suffix of the pattern, determining pattern shift sizes."
+    }
+  ]
+}

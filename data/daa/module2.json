@@ -1,0 +1,158 @@
+{
+  "module": 2,
+  "title": "Searching & Sorting Algorithms",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Searching Algorithms",
+      "content": "<p>Searching algorithms locate a target key within a collection of records:</p><ul><li><strong>Linear Search:</strong> Scans each element sequentially. Best: \\( O(1) \\), Worst: \\( O(n) \\). No ordering required.</li><li><strong>Binary Search:</strong> Divide-and-conquer on sorted lists. Compares target with middle element. Time: \\( O(\\log n) \\).</li><li><strong>Interpolation Search:</strong> An improved version of binary search for uniformly distributed sorted lists. Parallel to how we look up a name in a phonebook. It estimates position using: \\[ pos = low + \\frac{key - arr[low]}{arr[high] - arr[low]} \\cdot (high - low) \\] Best case: \\( O(1) \\), Average: \\( O(\\log \\log n) \\), Worst: \\( O(n) \\) (when values grow exponentially).</li></ul>",
+      "interviewTip": "In interviews, when asked about searching on sorted arrays, suggest Binary Search first. If the interviewer mentions that the values are uniformly distributed (like census data or sequential IDs), mention **Interpolation Search** and describe its \\( O(\\log \\log n) \\) average complexity to stand out."
+    },
+    {
+      "title": "Sorting Algorithms: Merge & Quick Sort",
+      "content": "<p>Sorting arranges elements in a specified order:</p><ul><li><strong>Merge Sort:</strong> Divide-and-conquer. Splits array in halves, sorts them recursively, and merges them. It is a stable sort. Time complexity is always \\( O(n \\log n) \\) in all cases, but requires \\( O(n) \\) extra space.</li><li><strong>Quick Sort:</strong> Divide-and-conquer. Selects a pivot, partitions the array such that elements left are smaller and right are larger than pivot. It is unstable but in-place. Average time: \\( O(n \\log n) \\), Worst case: \\( O(n^2) \\) (when array is already sorted and pivot is worst).</li></ul>"
+    },
+    {
+      "title": "Heap Sort",
+      "content": "<p><strong>Heap Sort:</strong> In-place, unstable sort based on a Binary Heap data structure. It builds a Max Heap (for ascending order) and repeatedly extracts the maximum element, restoring heap property each time.</p><p>Time complexity is \\( O(n \\log n) \\) in all cases (Best, Worst, Average). Space complexity is \\( O(1) \\) auxiliary, making it highly resource-efficient compared to Merge Sort.</p>"
+    },
+    {
+      "title": "Complexity Comparison Table",
+      "content": "<p>A summary of the efficiency of searching and sorting algorithms:</p><div class=\"table-container\"><table class=\"credit-table\"><thead><tr><th>Algorithm</th><th>Best Case</th><th>Average Case</th><th>Worst Case</th><th>Aux Space</th><th>Stability</th></tr></thead><tbody><tr><td>Linear Search</td><td>\\( O(1) \\)</td><td>\\( O(n) \\)</td><td>\\( O(n) \\)</td><td>\\( O(1) \\)</td><td>Stable</td></tr><tr><td>Binary Search</td><td>\\( O(1) \\)</td><td>\\( O(\\log n) \\)</td><td>\\( O(\\log n) \\)</td><td>\\( O(1) \\)</td><td>N/A</td></tr><tr><td>Interpolation Search</td><td>\\( O(1) \\)</td><td>\\( O(\\log \\log n) \\)</td><td>\\( O(n) \\)</td><td>\\( O(1) \\)</td><td>N/A</td></tr><tr><td>Merge Sort</td><td>\\( O(n \\log n) \\)</td><td>\\( O(n \\log n) \\)</td><td>\\( O(n \\log n) \\)</td><td>\\( O(n) \\)</td><td>Stable</td></tr><tr><td>Quick Sort</td><td>\\( O(n \\log n) \\)</td><td>\\( O(n \\log n) \\)</td><td>\\( O(n^2) \\)</td><td>\\( O(\\log n) \\) recursion stack</td><td>Unstable</td></tr><tr><td>Heap Sort</td><td>\\( O(n \\log n) \\)</td><td>\\( O(n \\log n) \\)</td><td>\\( O(n \\log n) \\)</td><td>\\( O(1) \\)</td><td>Unstable</td></tr></tbody></table></div>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is the formula used by Interpolation Search to calculate the probe position?",
+      "answer": "The formula is: \\[ pos = low + \\frac{key - arr[low]}{arr[high] - arr[low]} \\cdot (high - low) \\] where 'key' is the target search value, and 'low' and 'high' are the boundary indices of the current subarray."
+    },
+    {
+      "question": "Why does Quick Sort have a worst-case time complexity of \\( O(n^2) \\)? How can we prevent it?",
+      "answer": "Quick Sort hits its worst-case \\( O(n^2) \\) complexity when the partition process is highly unbalanced (e.g., when the array is already sorted and we consistently pick the first or last element as the pivot). We can prevent this by using a randomized pivot (Randomized Quick Sort) or picking the median element (Median-of-Three method) to ensure balanced splits."
+    },
+    {
+      "question": "Compare Merge Sort and Heap Sort in terms of Time and Space complexity.",
+      "answer": "Both Merge Sort and Heap Sort have the same time complexity of \\( O(n \\log n) \\) in the best, average, and worst cases. However, they differ in space complexity: Merge Sort requires \\( O(n) \\) auxiliary space for merging arrays, while Heap Sort is an in-place algorithm requiring only \\( O(1) \\) auxiliary space."
+    },
+    {
+      "question": "Explain the concept of sorting algorithm stability with a quick example.",
+      "answer": "A sorting algorithm is stable if it preserves the relative order of records with equal keys. For example, if we sort database entries by first name, and we have two entries 'John Smith' and 'John Adams' where John Smith originally appeared before John Adams, a stable sort guarantees that John Smith will still appear before John Adams in the sorted output."
+    },
+    {
+      "question": "What are the steps involved in Heap Sort?",
+      "answer": "(1) Build a Max Heap from the input data. (2) Swap the root element (maximum value) with the last element of the heap. (3) Decrease the heap size by 1. (4) Run heapify on the root to restore the Max Heap property. (5) Repeat steps 2-4 until the heap size is 1."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "What is the average-case time complexity of Interpolation Search on a uniformly distributed sorted array?",
+      "options": [
+        "\\(O(\\log n)\\)",
+        "\\(O(\\log \\log n)\\)",
+        "\\(O(n)\\)",
+        "\\(O(1)\\)"
+      ],
+      "correct": 1,
+      "explanation": "Interpolation search exhibits an average complexity of \\(O(\\log \\log n)\\) under uniform distribution, which is faster than standard binary search."
+    },
+    {
+      "question": "Which of the following sorting algorithms is stable and has a worst-case time complexity of O(n log n)?",
+      "options": [
+        "Quick Sort",
+        "Merge Sort",
+        "Heap Sort",
+        "Selection Sort"
+      ],
+      "correct": 1,
+      "explanation": "Merge Sort is a stable sorting algorithm that guarantees \\(O(n \\log n)\\) performance in all cases."
+    },
+    {
+      "question": "What is the worst-case time complexity of Quick Sort?",
+      "options": [
+        "\\(O(n \\log n)\\)",
+        "\\(O(n^2)\\)",
+        "\\(O(2^n)\\)",
+        "\\(O(n \\log \\log n)\\)"
+      ],
+      "correct": 1,
+      "explanation": "In the worst case (e.g., sorted input with first element pivot), Quick Sort splits elements into partitions of size 0 and n-1, resulting in \\(O(n^2)\\) performance."
+    },
+    {
+      "question": "Which sorting algorithm is in-place and has a guaranteed worst-case time complexity of O(n log n)?",
+      "options": [
+        "Merge Sort",
+        "Quick Sort",
+        "Heap Sort",
+        "Insertion Sort"
+      ],
+      "correct": 2,
+      "explanation": "Heap Sort sorts elements in-place (requiring \\(O(1)\\) space) and guarantees \\(O(n \\log n)\\) worst-case time complexity."
+    },
+    {
+      "question": "Under what condition does Interpolation Search degrade to its worst-case complexity of O(n)?",
+      "options": [
+        "When elements are uniformly distributed",
+        "When the array is very small",
+        "When elements grow exponentially or contain large clusters",
+        "When the target key is not in the array"
+      ],
+      "correct": 2,
+      "explanation": "If the data does not scale linearly (e.g., exponential distribution like 1, 2, 4, 8, 1024, etc.), the calculated probe positions will be highly skewed, leading to linear scans."
+    },
+    {
+      "question": "Which of the following sorting algorithms is NOT stable?",
+      "options": [
+        "Merge Sort",
+        "Bubble Sort",
+        "Heap Sort",
+        "Insertion Sort"
+      ],
+      "correct": 2,
+      "explanation": "Heap Sort is unstable because the heap's node-swapping operations can change the relative order of duplicate elements."
+    },
+    {
+      "question": "What is the space complexity of Merge Sort?",
+      "options": [
+        "\\(O(1)\\)",
+        "\\(O(n)\\)",
+        "\\(O(\\log n)\\)",
+        "\\(O(n^2)\\)"
+      ],
+      "correct": 1,
+      "explanation": "Merge Sort requires an auxiliary array of size \\(n\\) to merge sorted subarrays together, resulting in \\(O(n)\\) space complexity."
+    },
+    {
+      "question": "In the heapify operation of Heap Sort, what is the height of a node represented in time complexity terms?",
+      "options": [
+        "\\(O(1)\\)",
+        "\\(O(\\log n)\\)",
+        "\\(O(n)\\)",
+        "\\(O(n \\log n)\\)"
+      ],
+      "correct": 1,
+      "explanation": "Moving an element down the heap structure takes time proportional to the height of the heap, which is bounded by \\(O(\\log n)\\)."
+    },
+    {
+      "question": "Randomizing the pivot in Quick Sort is done to:",
+      "options": [
+        "Make it a stable sort",
+        "Reduce the space complexity to O(1)",
+        "Avoid the worst-case O(n^2) time complexity on sorted input",
+        "Make it faster than linear search"
+      ],
+      "correct": 2,
+      "explanation": "Randomizing pivot choices prevents consistent worst-case partitions, keeping the expected time complexity at \\(O(n \\log n)\\)."
+    },
+    {
+      "question": "What is the best-case time complexity of Heap Sort?",
+      "options": [
+        "\\(O(n)\\)",
+        "\\(O(n \\log n)\\)",
+        "\\(O(1)\\)",
+        "\\(O(n^2)\\)"
+      ],
+      "correct": 1,
+      "explanation": "Even if the array is already sorted, Heap Sort must still perform extraction and heapify actions, taking \\(O(n \\log n)\\) time."
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "module": 1,
+  "title": "Algorithm Development & Complexity Analysis",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Asymptotic Notations",
+      "content": "<p>Asymptotic notations are mathematical tools used to describe the running time of an algorithm in terms of the input size \\( n \\) as \\( n \\) grows large. The three major notations are:</p><ul><li><strong>Big-O Notation \\( O(g(n)) \\):</strong> Represents the upper bound. \\( f(n) = O(g(n)) \\) if there exist positive constants \\( c \\) and \\( n_0 \\) such that: \\[ 0 \\le f(n) \\le c \\cdot g(n) \\quad \\text{for all } n \\ge n_0 \\]</li><li><strong>Big-Omega Notation \\( \\Omega(g(n)) \\):</strong> Represents the lower bound. \\( f(n) = \\Omega(g(n)) \\) if there exist positive constants \\( c \\) and \\( n_0 \\) such that: \\[ 0 \\le c \\cdot g(n) \\le f(n) \\quad \\text{for all } n \\ge n_0 \\]</li><li><strong>Big-Theta Notation \\( \\Theta(g(n)) \\):</strong> Represents the tight bound. \\( f(n) = \\Theta(g(n)) \\) if there exist positive constants \\( c_1, c_2 \\) and \\( n_0 \\) such that: \\[ 0 \\le c_1 \\cdot g(n) \\le f(n) \\le c_2 \\cdot g(n) \\quad \\text{for all } n \\ge n_0 \\]</li></ul>",
+      "interviewTip": "In coding interviews, you will always be asked for the Big-O time and space complexity. Remember that Big-O represents worst-case behavior, while Big-Theta represents average or exact tight bounds. Mentioning this difference shows advanced mathematical understanding."
+    },
+    {
+      "title": "Relationships & Time-Space Trade-off",
+      "content": "<p><strong>Relationship:</strong> An algorithm is \\( f(n) = \\Theta(g(n)) \\) if and only if it is both \\( f(n) = O(g(n)) \\) and \\( f(n) = \\Omega(g(n)) \\).</p><p><strong>Time-Space Trade-off:</strong> Refers to a situation where you can solve a problem faster by using more memory, or solve it using less memory but taking longer (e.g., using a hash map to look up items in \\( O(1) \\) time using extra memory, versus scanning an array in \\( O(n) \\) time with \\( O(1) \\) extra space).</p>"
+    },
+    {
+      "title": "Solving Recurrences: Substitution & Tree Methods",
+      "content": "<p>Recurrences describe the complexity of divide-and-conquer algorithms. Techniques to solve them include:</p><ul><li><strong>Substitution Method:</strong> We guess the bound and then use mathematical induction to prove our guess is correct.</li><li><strong>Recurrence Tree Method:</strong> We draw a tree where each node represents the cost of a single subproblem, and sum up the costs of each level of the tree. For example, for \\( T(n) = 2T(n/2) + cn \\), the tree has depth \\( \\log_2 n \\), and each level sums to cost \\( cn \\), yielding a total cost of \\( cn \\log_2 n = O(n \\log n) \\).</li></ul>"
+    },
+    {
+      "title": "Master's Theorem",
+      "content": "<p>The Master's Theorem provides a cookbook recipe for solving recurrences of the form:</p>\\[ T(n) = aT(n/b) + f(n) \\]<p>where \\( a \\ge 1 \\) and \\( b > 1 \\) are constants. We compare \\( f(n) \\) with \\( n^{\\log_b a} \\):</p><ol><li><strong>Case 1:</strong> If \\( f(n) = O(n^{\\log_b a - \\epsilon}) \\) for some constant \\( \\epsilon > 0 \\), then: \\[ T(n) = \\Theta(n^{\\log_b a}) \\]</li><li><strong>Case 2:</strong> If \\( f(n) = \\Theta(n^{\\log_b a}) \\), then: \\[ T(n) = \\Theta(n^{\\log_b a} \\log n) \\]</li><li><strong>Case 3:</strong> If \\( f(n) = \\Omega(n^{\\log_b a + \\epsilon}) \\) for some constant \\( \\epsilon > 0 \\), and if \\( a f(n/b) \\le c f(n) \\) for some constant \\( c < 1 \\) (regularity condition), then: \\[ T(n) = \\Theta(f(n)) \\]</li></ol>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "Define Big-O, Big-Omega, and Big-Theta notations mathematically.",
+      "answer": "(1) \\( f(n) = O(g(n)) \\) if there exist positive constants \\( c, n_0 \\) such that \\( 0 \\le f(n) \\le cg(n) \\) for all \\( n \\ge n_0 \\).\n(2) \\( f(n) = \\Omega(g(n)) \\) if there exist positive constants \\( c, n_0 \\) such that \\( 0 \\le cg(n) \\le f(n) \\) for all \\( n \\ge n_0 \\).\n(3) \\( f(n) = \\Theta(g(n)) \\) if there exist positive constants \\( c_1, c_2, n_0 \\) such that \\( 0 \\le c_1g(n) \\le f(n) \\le c_2g(n) \\) for all \\( n \\ge n_0 \\)."
+    },
+    {
+      "question": "What is the time-space trade-off? Give a concrete example from programming.",
+      "answer": "The time-space trade-off is the choice between minimizing execution time at the cost of consuming more memory, or minimizing memory usage at the cost of taking longer to run. Example: Storing Fibonacci numbers in a lookup table (memoization) calculates results in \\( O(n) \\) time using \\( O(n) \\) space, whereas the recursive formula without memoization takes \\( O(2^n) \\) time but only \\( O(n) \\) call stack space."
+    },
+    {
+      "question": "Use the Master's Theorem to solve the recurrence: \\( T(n) = 4T(n/2) + n \\).",
+      "answer": "Here, \\( a=4 \\), \\( b=2 \\), and \\( f(n)=n \\).\nFirst, calculate \\( n^{\\log_b a} = n^{\\log_2 4} = n^2 \\).\nCompare \\( f(n) = n \\) with \\( n^{\\log_b a} = n^2 \\).\nSince \\( f(n) = O(n^{2 - \\epsilon}) \\) for \\( \\epsilon = 1 \\), Case 1 of the Master's Theorem applies.\nTherefore, \\( T(n) = \\Theta(n^{\\log_b a}) = \\Theta(n^2) \\)."
+    },
+    {
+      "question": "Use the Master's Theorem to solve the recurrence: \\( T(n) = 2T(n/2) + n \\).",
+      "answer": "Here, \\( a=2 \\), \\( b=2 \\), and \\( f(n)=n \\).\nCalculate \\( n^{\\log_b a} = n^{\\log_2 2} = n^1 = n \\).\nCompare \\( f(n) = n \\) with \\( n^{\\log_b a} = n \\).\nSince \\( f(n) = \\Theta(n) \\), Case 2 of the Master's Theorem applies.\nTherefore, \\( T(n) = \\Theta(n^{\\log_b a} \\log n) = \\Theta(n \\log n) \\)."
+    },
+    {
+      "question": "Briefly explain how the Recurrence Tree method is used to solve recurrences.",
+      "answer": "In the Recurrence Tree method, the recursive equation is drawn as a tree where each node represents the cost of executing a subproblem. The total cost of each level is computed by summing the nodes at that level. Finally, the sum of costs across all levels is computed to find the total time complexity."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which asymptotic notation represents a mathematically tight bound?",
+      "options": [
+        "Big-O",
+        "Big-Omega",
+        "Big-Theta",
+        "Little-o"
+      ],
+      "correct": 2,
+      "explanation": "Big-Theta (\\(\\Theta\\)) provides a tight bound, meaning the algorithm's running time lies within constant factors of the bounding function."
+    },
+    {
+      "question": "If an algorithm's complexity is f(n) = O(g(n)), then g(n) represents what kind of bound?",
+      "options": [
+        "Lower bound",
+        "Upper bound",
+        "Average bound",
+        "Exact execution speed in seconds"
+      ],
+      "correct": 1,
+      "explanation": "Big-O notation specifies an asymptotic upper bound on the growth rate of a function."
+    },
+    {
+      "question": "For T(n) = 8T(n/2) + n^2, what are the values of a and b in the Master's Theorem?",
+      "options": [
+        "a = 2, b = 8",
+        "a = 8, b = 2",
+        "a = 8, b = 8",
+        "a = 2, b = 2"
+      ],
+      "correct": 1,
+      "explanation": "In the form T(n) = aT(n/b) + f(n), 'a' represents the number of subproblems (8) and 'b' represents the division factor (2)."
+    },
+    {
+      "question": "Solve T(n) = 3T(n/3) + n using the Master's Theorem.",
+      "options": [
+        "\\(\\Theta(n)\\)",
+        "\\(\\Theta(n^2)\\)",
+        "\\(\\Theta(n \\log n)\\)",
+        "\\(\\Theta(\\log n)\\)"
+      ],
+      "correct": 2,
+      "explanation": "Here a=3, b=3. Calculated value is n^(log_3 3) = n. Since f(n) = n, Case 2 applies, resulting in \\(\\Theta(n \\log n)\\)."
+    },
+    {
+      "question": "What is the worst-case time complexity of an algorithm that has a recurrence of T(n) = T(n-1) + c?",
+      "options": [
+        "\\(O(1)\\)",
+        "\\(O(\\log n)\\)",
+        "\\(O(n)\\)",
+        "\\(O(n \\log n)\\)"
+      ],
+      "correct": 2,
+      "explanation": "Expanding T(n) = T(n-1) + c recursively yields T(n) = T(n-2) + 2c = T(n-k) + kc. Setting k=n gives T(n) = T(0) + nc = O(n)."
+    },
+    {
+      "question": "If f(n) = O(g(n)) and f(n) = Omega(g(n)), then which of the following is true?",
+      "options": [
+        "f(n) = o(g(n))",
+        "f(n) = Theta(g(n))",
+        "f(n) = O(1)",
+        "g(n) = O(log n)"
+      ],
+      "correct": 1,
+      "explanation": "By mathematical theorem, if a function is bounded both above (Big-O) and below (Big-Omega) by the same function, it has a tight bound (Big-Theta)."
+    },
+    {
+      "question": "Under what condition does Case 1 of the Master's Theorem apply to T(n) = aT(n/b) + f(n)?",
+      "options": [
+        "f(n) is asymptotically smaller than \\(n^{\\log_b a}\\)",
+        "f(n) is asymptotically larger than \\(n^{\\log_b a}\\)",
+        "f(n) is equal to \\(n^{\\log_b a}\\)",
+        "f(n) is an exponential function of size \\(2^n\\)"
+      ],
+      "correct": 0,
+      "explanation": "Case 1 applies when f(n) is bounded from above by \\(n^{\\log_b a - \\epsilon}\\) for some \\(\\epsilon > 0\\), meaning it is polynomially smaller."
+    },
+    {
+      "question": "Using memoization to avoid redundant computations in dynamic programming is an example of:",
+      "options": [
+        "Optimizing CPU clock cycles only",
+        "Time-Space Trade-off",
+        "Reducing compiler execution overhead",
+        "Linear memory caching only"
+      ],
+      "correct": 1,
+      "explanation": "Memoization consumes memory space (to store calculated answers) to reduce the algorithm's running time, showcasing a time-space trade-off."
+    },
+    {
+      "question": "What is the worst-case space complexity of recursive algorithms that solve problems using a divide-and-conquer binary split tree of height h?",
+      "options": [
+        "\\(O(1)\\)",
+        "\\(O(h)\\) due to the call stack",
+        "\\(O(2^h)\\)",
+        "\\(O(h^2)\\)"
+      ],
+      "correct": 1,
+      "explanation": "The maximum recursive call stack depth determines the space overhead, which corresponds to the height of the recursion tree, O(h)."
+    },
+    {
+      "question": "The recurrence T(n) = 9T(n/3) + n^3 fits which Case of the Master's Theorem?",
+      "options": [
+        "Case 1",
+        "Case 2",
+        "Case 3",
+        "Does not apply because it has a variable coefficient"
+      ],
+      "correct": 2,
+      "explanation": "Here, a=9, b=3. \\(n^{\\log_3 9} = n^2\\). Since f(n) = n^3 is polynomially larger than n^2 (Case 3), and regularity holds: 9*(n/3)^3 = n^3/3 <= c*n^3 for c=1/3."
+    }
+  ]
+}

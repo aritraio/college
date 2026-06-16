@@ -1,0 +1,162 @@
+{
+  "module": 5,
+  "title": "Software Testing & Project Management",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Verification & Validation (V&V)",
+      "content": "<p>Verification and Validation are processes to ensure software matches requirements:</p><ul><li><strong>Verification ('Are we building the product right?'):</strong> Hitting developer specifications. Involves inspections, reviews, and walkthroughs.</li><li><strong>Validation ('Are we building the right product?'):</strong> Hitting user requirements. Involves active software execution and testing.</li></ul><p><strong>Testing Categories:</strong> <ul><li><em>Unit Testing:</em> Validating individual classes/methods.</li><li><em>Integration Testing:</em> Testing combined modules for interface bugs.</li><li><em>System Testing:</em> Testing the entire system end-to-end.</li><li><em>Regression Testing:</em> Re-running old tests to confirm edits did not break existing features.</li></ul></p>",
+      "interviewTip": "Remember the clean distinction between Verification and Validation. Verification is check-based (static reviews, code checks), while Validation is execution-based (running tests with inputs on runtime code)."
+    },
+    {
+      "title": "White-box & Black-box Testing",
+      "content": "<p><strong>Black-box Testing:</strong> Testing without knowledge of internal structure. Focuses on inputs and outputs based on requirements (e.g., Boundary Value Analysis, Equivalence Partitioning).</p><p><strong>White-box Testing:</strong> Testing with complete knowledge of internal code. Focuses on code execution paths (e.g., basis path testing, branch coverage, statement coverage).</p>"
+    },
+    {
+      "title": "Quality Frameworks (ISO 9000 & CMM)",
+      "content": "<p>Software processes can be certified by quality standards:</p><ul><li><strong>ISO 9000:</strong> International standards defining quality assurance models for design and production.</li><li><strong>CMM (Capability Maturity Model):</strong> Evaluates process maturity in five levels: <ul><li>Level 1: Initial (ad-hoc/chaotic)</li><li>Level 2: Repeatable (basic project management)</li><li>Level 3: Defined (process standardized)</li><li>Level 4: Managed (process monitored quantitatively)</li><li>Level 5: Optimizing (focus on continuous process improvement)</li></ul></li></ul>"
+    },
+    {
+      "title": "Project Estimation Models (FPA & COCOMO II)",
+      "content": "<p><strong>Function Point Analysis (FPA):</strong> Estimates size based on features (inputs, outputs, logical files, queries, interfaces). The formula for final Function Points is:</p>\\[ FP = UFP \\times [0.65 + 0.01 \\times \\sum F_i] \\]<p>where \\( UFP \\) is the Unadjusted Function Point count and \\( F_i \\) represents 14 complexity adjustment factors (rated 0 to 5).</p><p><strong>COCOMO II (Constructive Cost Model):</strong> Estimates effort and schedule. The primary formula is:</p>\\[ Effort = A \\times (Size)^E \\times EAF \\]<p>where \\( Effort \\) is measured in Person-Months, \\( A \\) is a constant, \\( Size \\) is in KLOC (Thousands of Lines of Code), \\( E \\) is an exponent reflecting scale economies, and \\( EAF \\) is the Effort Adjustment Factor.</p>"
+    },
+    {
+      "title": "Scheduling & Risk Management (RMMM)",
+      "content": "<p><strong>Scheduling:</strong> Creating tasks grids and timelines using tools like Gantt Charts, PERT charts, and identifying the Critical Path.</p><p><strong>Risk Management:</strong> Handled using the **RMMM Plan** (Risk Mitigation, Monitoring, and Management): <ul><li><em>Mitigation:</em> Strategies to prevent risks from happening.</li><li><em>Monitoring:</em> Tracking factors that indicate risk likelihood.</li><li><em>Management:</em> Action plan if a risk materializes.</li></ul></p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "Differentiate between Verification and Validation.",
+      "answer": "Verification checks if the software conforms to developer specifications ('Are we building the product right?'). It uses static techniques like walkthroughs and reviews. Validation checks if the software meets customer expectations ('Are we building the right product?'). It uses dynamic testing by running the code."
+    },
+    {
+      "question": "What is the difference between Black-box and White-box testing?",
+      "answer": "Black-box testing focuses on testing functional requirements without knowing the internal code structures (e.g., input validation). White-box testing examines the internal structure, logic paths, branches, and code conditions, requiring access to the source code."
+    },
+    {
+      "question": "Explain the five levels of the Capability Maturity Model (CMM).",
+      "answer": "(1) Initial: Processes are ad-hoc and chaotic. (2) Repeatable: Basic tracking established. (3) Defined: Processes documented and standardized. (4) Managed: Quantitative metrics collected and tracked. (5) Optimizing: Continuous process improvement and feedback loops."
+    },
+    {
+      "question": "Write the Function Point Analysis (FPA) formula and explain its variables.",
+      "answer": "The formula is \\[ FP = UFP \\times [0.65 + 0.01 \\times \\sum F_i] \\] where UFP stands for Unadjusted Function Points (calculated from inputs, outputs, etc.) and \\(\\sum F_i\\) is the sum of 14 value adjustment factors representing system complexity (from 0 to 5)."
+    },
+    {
+      "question": "What does RMMM stand for in project management? Briefly explain each component.",
+      "answer": "RMMM stands for Risk Mitigation, Monitoring, and Management. Mitigation involves steps to avoid risk. Monitoring tracks project indicators to detect risk triggers. Management plans contingency steps to take if the risk actually occurs."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which term answers the question: 'Are we building the right product?'",
+      "options": [
+        "Verification",
+        "Validation",
+        "Refactoring",
+        "Walkthrough"
+      ],
+      "correct": 1,
+      "explanation": "Validation checks if the final software meets user expectations and requirements ('building the right product')."
+    },
+    {
+      "question": "Which testing type is run after changes are made to source code to ensure old features still work?",
+      "options": [
+        "Unit Testing",
+        "Integration Testing",
+        "System Testing",
+        "Regression Testing"
+      ],
+      "correct": 3,
+      "explanation": "Regression testing ensures that modifications or updates to the code do not introduce defects in existing unchanged portions."
+    },
+    {
+      "question": "Boundary Value Analysis is a technique used in which of the following?",
+      "options": [
+        "White-box Testing",
+        "Black-box Testing",
+        "Code Inspections",
+        "Static Walkthroughs"
+      ],
+      "correct": 1,
+      "explanation": "Boundary Value Analysis tests system responses at input boundaries (min, max, etc.) based on specifications, which is a black-box method."
+    },
+    {
+      "question": "Which CMM level is characterized by quantitative process management and quality metrics?",
+      "options": [
+        "Level 2: Repeatable",
+        "Level 3: Defined",
+        "Level 4: Managed",
+        "Level 5: Optimizing"
+      ],
+      "correct": 2,
+      "explanation": "At Level 4 (Managed), processes are monitored, measured, and controlled quantitatively using metrics."
+    },
+    {
+      "question": "In COCOMO II, what does 'EAF' stand for?",
+      "options": [
+        "Effort Adjustment Factor",
+        "Estimation Analysis Framework",
+        "Evaluation Activity Function",
+        "Elementary Application File"
+      ],
+      "correct": 0,
+      "explanation": "EAF stands for Effort Adjustment Factor, representing values derived from cost drivers like product complexity and team experience."
+    },
+    {
+      "question": "Static walkthroughs and peer reviews are examples of which process?",
+      "options": [
+        "Validation",
+        "Verification",
+        "Beta Testing",
+        "Stress Testing"
+      ],
+      "correct": 1,
+      "explanation": "Walkthroughs and reviews check code structure and specifications statically, which is part of Verification."
+    },
+    {
+      "question": "In Function Point Analysis (FPA), how many Value Adjustment Factors (Fi) are used to adjust the UFP?",
+      "options": [
+        "5",
+        "10",
+        "14",
+        "28"
+      ],
+      "correct": 2,
+      "explanation": "FPA utilizes exactly 14 technical complexity factors (e.g., transaction rates, performance requirements) to compute the final adjustment score."
+    },
+    {
+      "question": "Basis Path testing is a testing strategy categorized under:",
+      "options": [
+        "Black-box Testing",
+        "White-box Testing",
+        "Acceptance Testing",
+        "Beta Testing"
+      ],
+      "correct": 1,
+      "explanation": "Basis path testing is a white-box testing technique that uses code control flow graphs to design test cases covering all independent paths."
+    },
+    {
+      "question": "The Critical Path in project scheduling represents:",
+      "options": [
+        "The path of tasks that requires the least effort",
+        "The sequence of dependent tasks that defines the minimum completion time of the project",
+        "The testing path for debugging code",
+        "The risk mitigation list"
+      ],
+      "correct": 1,
+      "explanation": "The Critical Path is the longest path of dependent activities, defining the shortest possible project schedule. Any delay on this path delays the project."
+    },
+    {
+      "question": "RMMM stands for which project risk management strategy?",
+      "options": [
+        "Requirements Modification, Maintenance, and Monitoring",
+        "Risk Mitigation, Monitoring, and Management",
+        "Review Management, Metrics, and Models",
+        "Reliability Metrics, Modeling, and Maintenance"
+      ],
+      "correct": 1,
+      "explanation": "RMMM stands for Risk Mitigation, Monitoring, and Management, representing Boehm's structure for handling risks."
+    }
+  ]
+}

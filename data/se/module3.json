@@ -1,0 +1,162 @@
+{
+  "module": 3,
+  "title": "Requirement Analysis & Specifications",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Types of Requirements",
+      "content": "<p>Requirements specify what the system should do. They are categorized as:</p><ul><li><strong>Functional Requirements:</strong> Statements of services the system should provide, how the system should react to particular inputs, and how the system should behave in particular situations (e.g., 'The system must allow users to search for books by author.').</li><li><strong>Non-functional Requirements:</strong> Constraints on the services or functions offered by the system, such as timing constraints, constraints on the development process, and standards (e.g., speed, reliability, security, response time < 2 seconds).</li><li><strong>Domain Requirements:</strong> Derived from the application domain of the system and reflect characteristics and constraints of that domain (e.g., financial math constraints).</li><li><strong>User Requirements:</strong> Statements in natural language plus diagrams of the services the system provides and its operational constraints. Written for customers.</li></ul>",
+      "interviewTip": "Non-functional requirements (NFRs) are critical. If they are not met, the entire system can be useless, even if all functional requirements are correct. In system design interviews, always ask about scale, latency, availability, and security (NFRs) early."
+    },
+    {
+      "title": "Requirement Elicitation & Analysis",
+      "content": "<p>Requirements elicitation is the process of gathering requirements from stakeholders. Activities include: <ul><li><strong>Interviews:</strong> Structured or unstructured meetings with stakeholders.</li><li><strong>Scenarios & Use Cases:</strong> Descriptions of interactions between actors and the system.</li><li><strong>Prototyping:</strong> Building mockups to clarify needs.</li><li><strong>Observation (Ethnography):</strong> Watching users do their jobs to identify implicit needs.</li></ul></p>"
+    },
+    {
+      "title": "DFD, ERD, & Data Dictionaries",
+      "content": "<p>System modeling helps structure analysis:</p><ul><li><strong>Data Flow Diagrams (DFDs):</strong> Model how data flows through a system. A <em>Logical DFD</em> focuses on business services and data processing without hardware specifics. A <em>Physical DFD</em> models actual database tables, servers, and processes.</li><li><strong>Entity-Relationship Diagrams (ERDs):</strong> Model the database entities, attributes, and relationships.</li><li><strong>Data Dictionary:</strong> A centralized repository that contains metadata about the data elements, data types, formats, ranges, and structures used in the system.</li></ul>"
+    },
+    {
+      "title": "SRS Format & Feasibility Study",
+      "content": "<p>The <strong>Software Requirements Specification (SRS)</strong> is the official document that describes what the developers should build. The standard structure is defined by IEEE 830.</p><p><strong>Feasibility Study:</strong> A short study conducted before requirements engineering to decide if the proposed system is worthwhile. It answers: (1) Does the system contribute to organizational objectives? (2) Can the system be engineered using current technology and budget? (3) Can it be integrated with other systems?</p>"
+    },
+    {
+      "title": "Requirement Validation",
+      "content": "<p>Requirement validation is concerned with showing that the requirements define the system that the customer really wants. Techniques include:</p><ul><li><strong>Requirements Reviews:</strong> Systematic manual analysis by a team.</li><li><strong>Prototyping:</strong> Showing a model to users.</li><li><strong>Test-case Generation:</strong> Developing tests from requirements to check for clarity.</li></ul>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is the difference between Functional and Non-functional requirements? Give examples.",
+      "answer": "Functional requirements define specific behaviors or services the system must perform (e.g., 'The system must send an email notification when a payment is processed'). Non-functional requirements specify quality attributes or constraints (e.g., 'The system database must be encrypted' or 'The page load time must be under 1.5 seconds')."
+    },
+    {
+      "question": "Describe the difference between Logical DFD and Physical DFD.",
+      "answer": "A Logical DFD describes the system's data flows and transformations from a business/conceptual perspective, independent of hardware or software implementation. A Physical DFD shows the actual implementation details, specifying folders, servers, physical databases, and specific programs that execute data transfers."
+    },
+    {
+      "question": "What is a Data Dictionary and why is it important during requirements engineering?",
+      "answer": "A Data Dictionary is a centralized repository of metadata that defines the names, descriptions, structures, types, and validation rules of all data elements in a system. It is important because it prevents naming conflicts, ensures consistency across teams, and serves as a reference for database designers and developers."
+    },
+    {
+      "question": "Explain the purpose of a Feasibility Study in software development.",
+      "answer": "A Feasibility Study evaluates if the project is viable before committing significant budget and resources. It examines technical feasibility (can we build it?), operational feasibility (will it solve the business problem?), and economic feasibility (is the return on investment positive?)."
+    },
+    {
+      "question": "What is an SRS document and which standard defines its structure?",
+      "answer": "A Software Requirements Specification (SRS) is a formal document describing the system's complete functional and non-functional requirements. Its structure is standardized by the IEEE 830 standard, which includes sections for Introduction, General Description, and Specific Requirements."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which of the following is a functional requirement?",
+      "options": [
+        "The system must load pages in under 2 seconds",
+        "The system must allow users to register with a valid email address",
+        "The system database must be hosted on AWS",
+        "The system must comply with GDPR guidelines"
+      ],
+      "correct": 1,
+      "explanation": "Registering an account is a functional capability/service provided by the system to the user. The others are constraints (non-functional requirements)."
+    },
+    {
+      "question": "Constraints on response time, reliability, and security are categorized as what type of requirements?",
+      "options": [
+        "Functional Requirements",
+        "Non-functional Requirements",
+        "Domain Requirements",
+        "User Requirements"
+      ],
+      "correct": 1,
+      "explanation": "Non-functional requirements specify quality constraints, system attributes, and boundaries under which the system must operate."
+    },
+    {
+      "question": "Which system diagram models the processing steps and the movement of data between processes and external entities?",
+      "options": [
+        "Entity-Relationship Diagram (ERD)",
+        "Data Flow Diagram (DFD)",
+        "UML Class Diagram",
+        "Use-Case Diagram"
+      ],
+      "correct": 1,
+      "explanation": "DFDs visualize the flow of data through processes, data stores, and external entities."
+    },
+    {
+      "question": "What is the primary document used to establish a contract between the client and developers regarding system requirements?",
+      "options": [
+        "Software Design Document (SDD)",
+        "Software Requirements Specification (SRS)",
+        "Feasibility Report",
+        "Project Gantt Chart"
+      ],
+      "correct": 1,
+      "explanation": "The SRS serves as the official agreement defining the exact scope of software development and requirements."
+    },
+    {
+      "question": "Which IEEE standard guidelines are commonly used for structuring the SRS?",
+      "options": [
+        "IEEE 830",
+        "IEEE 754",
+        "IEEE 1076",
+        "IEEE 802.11"
+      ],
+      "correct": 0,
+      "explanation": "IEEE 830 is the widely adopted standard for organizing and writing Software Requirements Specifications."
+    },
+    {
+      "question": "A feasibility study is conducted during which phase of software development?",
+      "options": [
+        "After coding, during unit testing",
+        "Before the requirements engineering process",
+        "During system deployment",
+        "Right before writing the user manual"
+      ],
+      "correct": 1,
+      "explanation": "A feasibility study is a preliminary investigation conducted at the very beginning to decide if the project is viable and should proceed."
+    },
+    {
+      "question": "A Logical DFD does which of the following?",
+      "options": [
+        "Shows physical folders and database tables",
+        "Focuses on business functions and flow of data conceptually",
+        "Shows exact server hardware IP addresses",
+        "Specifies programming language compilers"
+      ],
+      "correct": 1,
+      "explanation": "Logical DFDs represent business processes conceptually and ignore technical implementation details."
+    },
+    {
+      "question": "A centralized store containing names, types, constraints, and descriptions of all data structures is called what?",
+      "options": [
+        "Database Index",
+        "Data Dictionary",
+        "Data Store",
+        "Class Registry"
+      ],
+      "correct": 1,
+      "explanation": "A Data Dictionary is a centralized glossary of all data items, their formats, structures, and business definitions."
+    },
+    {
+      "question": "Which requirements engineering activity involves checking if the requirements define the system the customer truly wants?",
+      "options": [
+        "Elicitation",
+        "Specification",
+        "Validation",
+        "Feasibility Study"
+      ],
+      "correct": 2,
+      "explanation": "Validation ensures the requirements actually represent user needs and are free from inconsistencies, ambiguities, and omissions."
+    },
+    {
+      "question": "Domain requirements are unique because they:",
+      "options": [
+        "Only specify AWS server setups",
+        "Are derived from the application domain's physics or regulations rather than specific user requests",
+        "Never affect coding logic",
+        "Are always written in assembly language"
+      ],
+      "correct": 1,
+      "explanation": "Domain requirements reflect constraints of the application domain itself (e.g., standard banking interest rules, aircraft flight physics regulations)."
+    }
+  ]
+}

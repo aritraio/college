@@ -1,0 +1,166 @@
+{
+  "module": 2,
+  "title": "Software Development Process Models",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Waterfall Model",
+      "content": "<p>The Waterfall model is a classic life cycle model. It is linear-sequential. It suggests a systematic, sequential approach to software development that begins at the system level and progresses through analysis, design, coding, testing, and support.</p><p><strong>Pros:</strong> Simple and easy to use. Easy to manage due to the rigidity of the model. <strong>Cons:</strong> High risk and uncertainty. Not a good model for complex and object-oriented projects. Poor model for long and ongoing projects. Real projects rarely follow the sequential flow perfectly.</p>",
+      "interviewTip": "Waterfall is best suited when requirements are well-understood, stable, and unlikely to change during development. Avoid recommending Waterfall for startups or projects with evolving requirements."
+    },
+    {
+      "title": "Incremental & Evolutionary Models",
+      "content": "<p>These models are iterative. They are designed to cope with changing requirements by producing an initial implementation, exposing this to user comment and evolving it through many versions until an adequate system has been developed.</p><ul><li><strong>Incremental Model:</strong> The software is divided into multiple builds, developed and delivered in increments. Each increment represents a complete portion of functionality.</li><li><strong>Evolutionary Prototyping:</strong> A prototype is built to help users define requirements. The prototype is then refined until the final system is completed.</li></ul>"
+    },
+    {
+      "title": "Spiral Model",
+      "content": "<p>Originally proposed by Boehm, the Spiral model is an evolutionary software process model that couples the iterative nature of prototyping with the controlled and systematic aspects of the linear sequential model. It provides the potential for rapid development of incremental versions of the software.</p><p>A key characteristic of the Spiral model is its **Risk-Driven** approach. The lifecycle is divided into four quadrants: (1) Objective setting, (2) Risk assessment and reduction, (3) Development and validation, and (4) Planning the next phase.</p>"
+    },
+    {
+      "title": "Agile & XP (Extreme Programming)",
+      "content": "<p>Agile software development focuses on iterative development, team collaboration, and rapid delivery of high-quality software. It prioritizes customer satisfaction, early and continuous delivery of valuable software, and welcoming changing requirements.</p><p><strong>Extreme Programming (XP):</strong> A well-known agile method. Key practices include: <ul><li>Pair Programming (two developers working at one screen)</li><li>Test-Driven Development (TDD - write tests before writing code)</li><li>Continuous Integration (CI)</li><li>Refactoring (improving code structure without changing behavior)</li></ul></p>"
+    },
+    {
+      "title": "CBSE, RAD & Prototyping",
+      "content": "<p>Other models include:</p><ul><li><strong>Component-Based Software Engineering (CBSE):</strong> Relies on reuse of pre-existing software components. Reduces costs and time-to-market.</li><li><strong>Rapid Application Development (RAD):</strong> An incremental software process model that emphasizes a short development cycle. Uses component-based construction.</li><li><strong>Prototyping Model:</strong> Focuses on building a quick working model to gather requirements and get early feedback.</li></ul>"
+    },
+    {
+      "title": "CASE Tools Classification",
+      "content": "<p>Computer-Aided Software Engineering (CASE) tools support software process activities. They are classified as:</p><ul><li><strong>Upper-CASE Tools:</strong> Support the early activities of software development, including requirements engineering and design (e.g., UML diagram editors).</li><li><strong>Lower-CASE Tools:</strong> Support later activities like coding, compiling, testing, and debugging.</li><li><strong>Integrated CASE (I-CASE):</strong> Supports the entire software lifecycle.</li></ul>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is the key advantage of iterative software process models over the Waterfall model?",
+      "answer": "Iterative models cope much better with changing requirements. They allow for early feedback from customers through prototype releases, reduce the risk of complete project failure, and allow requirements to be clarified incrementally."
+    },
+    {
+      "question": "Explain Boehm's Spiral model and why it is called risk-driven.",
+      "answer": "The Spiral model is an iterative process model organized as a spiral with four quadrants. It is risk-driven because each iteration starts with identifying objectives and alternatives, followed by a detailed risk analysis. Development only proceeds after major risks are identified and mitigated."
+    },
+    {
+      "question": "Describe three key practices of Extreme Programming (XP).",
+      "answer": "(1) Pair Programming: Two programmers work together at one workstation. (2) Test-Driven Development (TDD): Tests are written before the actual production code. (3) Continuous Integration: Code changes are merged back into the main branch multiple times a day and tested automatically."
+    },
+    {
+      "question": "What is Rapid Application Development (RAD) and when is it appropriate?",
+      "answer": "RAD is an incremental development model that focuses on rapid prototyping and quick delivery. It is appropriate for projects with well-understood requirements, short timelines (typically 60-90 days), and where the system can be modularized and built using component-based tools."
+    },
+    {
+      "question": "Explain the difference between Upper-CASE and Lower-CASE tools.",
+      "answer": "Upper-CASE tools support the initial phases of development, such as requirement analysis, system modeling, and design. Lower-CASE tools support the later phases, including source code generation, compilation, automated testing, and configuration management."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which software process model is characterized by a linear-sequential flow?",
+      "options": [
+        "Spiral Model",
+        "Waterfall Model",
+        "Incremental Model",
+        "Agile Model"
+      ],
+      "correct": 1,
+      "explanation": "The Waterfall model is the classic linear-sequential model where development progress flows systematically downwards through distinct phases."
+    },
+    {
+      "question": "What is the primary distinguishing feature of the Spiral model?",
+      "options": [
+        "It is linear and sequential",
+        "It is purely focused on database design",
+        "It is explicitly risk-driven",
+        "It is only used for small programs"
+      ],
+      "correct": 2,
+      "explanation": "The Spiral model's distinguishing feature is that it is risk-driven, meaning it uses risk analysis at each cycle of the spiral to determine project direction."
+    },
+    {
+      "question": "In Extreme Programming (XP), what does 'Pair Programming' involve?",
+      "options": [
+        "Two developers writing code on different computers in separate rooms",
+        "Two developers working on the same screen, one typing (driver) and one reviewing (navigator)",
+        "One developer coding and one tester testing concurrently",
+        "A manager and a client working together on project planning"
+      ],
+      "correct": 1,
+      "explanation": "Pair programming involves two programmers working at a single workstation. One acts as the driver (types code) and the other as the navigator (reviews code and guides strategy)."
+    },
+    {
+      "question": "Which model relies heavily on reusing pre-existing software components?",
+      "options": [
+        "Waterfall Model",
+        "Component-Based Software Engineering (CBSE)",
+        "Prototyping Model",
+        "RAD Model"
+      ],
+      "correct": 1,
+      "explanation": "CBSE focuses on building systems by selecting, integrating, and assembling reusable software components."
+    },
+    {
+      "question": "Upper-CASE tools are used during which software lifecycle phases?",
+      "options": [
+        "Coding and Testing",
+        "Requirements Elicitation and Design Modeling",
+        "Deployment and Release",
+        "Database Compilation and Server Hosting"
+      ],
+      "correct": 1,
+      "explanation": "Upper-CASE tools support the early lifecycle phases, such as analyzing requirements and generating design diagrams."
+    },
+    {
+      "question": "Which of the following is a core principle of the Agile Manifesto?",
+      "options": [
+        "Following a strict plan over responding to change",
+        "Processes and tools over individuals and interactions",
+        "Working software over comprehensive documentation",
+        "Contract negotiation over customer collaboration"
+      ],
+      "correct": 2,
+      "explanation": "The Agile Manifesto values 'Working software over comprehensive documentation', prioritizing working prototypes over massive design reports."
+    },
+    {
+      "question": "Which process model is best suited when a customer wants to see a working model early in the development cycle?",
+      "options": [
+        "Waterfall Model",
+        "Prototyping Model",
+        "Cleanroom Software Engineering",
+        "V-Model"
+      ],
+      "correct": 1,
+      "explanation": "The Prototyping model creates a quick-and-dirty working model of the system to gather early user feedback and refine requirements."
+    },
+    {
+      "question": "What is the typical development duration for a Rapid Application Development (RAD) project?",
+      "options": [
+        "1 to 2 years",
+        "60 to 90 days",
+        "1 to 2 weeks",
+        "Over 3 years"
+      ],
+      "correct": 1,
+      "explanation": "RAD projects typically operate on tight schedules, with development time boxed to 60-90 days."
+    },
+    {
+      "question": "Which practice in XP requires writing tests before writing the actual source code?",
+      "options": [
+        "Continuous Integration",
+        "Refactoring",
+        "Test-Driven Development (TDD)",
+        "Pair Programming"
+      ],
+      "correct": 2,
+      "explanation": "TDD is a software development process where developers write automated test cases first, and then write the minimum code necessary to pass those tests."
+    },
+    {
+      "question": "Lower-CASE tools are designed to support which of the following activities?",
+      "options": [
+        "Customer interviews and brainstorming",
+        "Project scheduling and cost estimation",
+        "Code generation, testing, and debugging",
+        "Writing the Software Requirements Specification (SRS)"
+      ],
+      "correct": 2,
+      "explanation": "Lower-CASE tools support the later lifecycle phases, such as compiler tasks, automated testing, and debugging."
+    }
+  ]
+}

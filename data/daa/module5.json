@@ -1,0 +1,158 @@
+{
+  "module": 5,
+  "title": "Complexity Classes",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "P & NP Classes",
+      "content": "<p>Complexity theory classifies computational problems based on the resources (time and space) required to solve them:</p><ul><li><strong>Class P (Polynomial Time):</strong> The class of decision problems that can be solved by a deterministic Turing machine in polynomial time \\( O(n^k) \\) for some constant \\( k \\) (e.g., searching, sorting, shortest paths).</li><li><strong>Class NP (Nondeterministic Polynomial Time):</strong> The class of decision problems where a candidate solution can be verified by a deterministic Turing machine in polynomial time. If a problem is in P, it is also in NP (meaning \\( P \\subseteq NP \\)).</li></ul>",
+      "interviewTip": "The P vs. NP question is one of the most famous unsolved problems in computer science. If asked, explain that 'P' represents problems that are easy to *solve*, while 'NP' represents problems that are easy to *verify* (once you are given a candidate solution)."
+    },
+    {
+      "title": "NP-Hard & NP-Complete Classes",
+      "content": "<p>To classify the hardest problems in NP, we use polynomial-time reductions:</p><ul><li><strong>NP-Hard:</strong> A problem \\( X \\) is NP-hard if any problem \\( Y \\in NP \\) can be reduced to \\( X \\) in polynomial time. NP-hard problems do not have to be in NP themselves.</li><li><strong>NP-Complete:</strong> A problem \\( X \\) is NP-complete if: (1) \\( X \\in NP \\), and (2) \\( X \\) is NP-hard. They represent the hardest problems in NP. If any single NP-complete problem can be solved in polynomial time, then \\( P = NP \\).</li></ul>"
+    },
+    {
+      "title": "Cook's Theorem & Classic NPC Problems",
+      "content": "<p><strong>Cook's Theorem (Cook-Levin Theorem):</strong> Proved that the Boolean Satisfiability Problem (SAT) is NP-complete. This was the first problem shown to be NP-complete, establishing the foundation of complexity theory. It proved that any NP problem can be represented as a SAT boolean formula.</p><p><strong>Classic NP-Complete Problems:</strong> <ul><li><em>3-SAT:</em> SAT restricted to 3 literals per clause.</li><li><em>Hamiltonian Path/Cycle:</em> Finding a path/cycle in a graph that visits every vertex exactly once.</li><li><em>Vertex Cover:</em> Finding a subset of vertices of size \\( k \\) that touches every edge in the graph.</li></ul></p>"
+    },
+    {
+      "title": "Approximation Algorithms",
+      "content": "<p>Since we cannot solve NP-complete problems optimally in polynomial time (unless \\( P = NP \\)), we use **Approximation Algorithms**. These are polynomial-time algorithms that find a solution that is close to the optimal solution.</p><p>An approximation algorithm has an **approximation ratio \\( \rho(n) \\)** if for any input of size \\( n \\), the cost \\( C \\) of the solution satisfies: \\[ \\frac{1}{\\rho(n)} \\le \\frac{C}{C^*} \\le \\rho(n) \\] where \\( C^* \\) is the optimal cost. For example, there is a simple 2-approximation algorithm for the Vertex Cover problem based on matching edges.</p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is the difference between Class P and Class NP?",
+      "answer": "Class P consists of decision problems that can be solved in polynomial time by a deterministic Turing machine (e.g., finding a shortest path). Class NP consists of decision problems where a proposed solution can be verified in polynomial time by a deterministic Turing machine, even though finding the solution might take exponential time (e.g., Sudoku or Subset Sum)."
+    },
+    {
+      "question": "Define NP-Complete and NP-Hard. How do they relate to each other?",
+      "answer": "A problem is NP-Hard if every problem in NP can be reduced to it in polynomial time. A problem is NP-Complete if it is both in NP and is NP-Hard. Therefore, NP-Complete is the intersection of Class NP and NP-Hard. NP-Complete represents the hardest decision problems in NP."
+    },
+    {
+      "question": "State the significance of Cook's Theorem.",
+      "answer": "Cook's Theorem proved that the Boolean Satisfiability Problem (SAT) is NP-complete. It was the first problem proven to be NP-complete. Its significance lies in the fact that it allows researchers to prove other problems are NP-complete simply by reducing SAT to them in polynomial time, rather than proving it from first principles."
+    },
+    {
+      "question": "What is a polynomial-time reduction? How is it used to prove NP-completeness?",
+      "answer": "A polynomial-time reduction is a method of transforming problem A into problem B in polynomial time. To prove problem B is NP-complete: (1) we prove B is in NP, and (2) we select a known NP-complete problem A (like SAT or Vertex Cover) and show that A can be reduced to B in polynomial time. This implies that if we could solve B easily, we could also solve A easily."
+    },
+    {
+      "question": "What is an approximation algorithm? Define its approximation ratio.",
+      "answer": "An approximation algorithm is a polynomial-time algorithm used to find near-optimal solutions to NP-hard optimization problems. Its performance is measured by its approximation ratio \\( \\rho(n) \\), which bounds the ratio of the algorithm's solution cost to the absolute optimal solution cost."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "What does 'NP' stand for in complexity theory?",
+      "options": [
+        "Non-Polynomial time",
+        "Nondeterministic Polynomial time",
+        "Network Protocol",
+        "Node Partitioning"
+      ],
+      "correct": 1,
+      "explanation": "NP stands for Nondeterministic Polynomial time, representing problems solvable in polynomial time by a nondeterministic Turing machine."
+    },
+    {
+      "question": "If a problem is in Class P, then which of the following is also true?",
+      "options": [
+        "It cannot be in NP",
+        "It must be NP-complete",
+        "It is also in NP",
+        "It is NP-hard but not in NP"
+      ],
+      "correct": 2,
+      "explanation": "Because any problem solvable in deterministic polynomial time is also verifiable in polynomial time, Class P is a subset of Class NP (\\(P \\subseteq NP\\))."
+    },
+    {
+      "question": "Which theorem proved that the Boolean Satisfiability Problem (SAT) is NP-complete?",
+      "options": [
+        "Dijkstra's Theorem",
+        "Cook's Theorem",
+        "Euler's Theorem",
+        "Boehm's Theorem"
+      ],
+      "correct": 1,
+      "explanation": "Cook's Theorem (or the Cook-Levin Theorem) established that SAT is NP-complete, marking the birth of NP-completeness theory."
+    },
+    {
+      "question": "A problem X is NP-complete if:",
+      "options": [
+        "X is in P and NP-hard",
+        "X is in NP and is NP-hard",
+        "X is NP-hard and cannot be verified",
+        "X can be solved in linear time"
+      ],
+      "correct": 1,
+      "explanation": "By definition, a problem is NP-complete if it is in NP (verifiable in polynomial time) and is NP-hard (all NP problems reduce to it)."
+    },
+    {
+      "question": "Which of the following problems is NOT NP-complete?",
+      "options": [
+        "Hamiltonian Cycle",
+        "Vertex Cover",
+        "Single-source Shortest Path (Dijkstra)",
+        "3-SAT"
+      ],
+      "correct": 2,
+      "explanation": "Dijkstra's single-source shortest path is in P because it can be solved in polynomial time \\(O(E \\log V)\\)."
+    },
+    {
+      "question": "If an approximation algorithm for a minimization problem has an approximation ratio of 2, what does this mean?",
+      "options": [
+        "The solution cost will be at most half of the optimal cost",
+        "The solution cost will be at most double the optimal cost",
+        "The algorithm takes twice as long to run",
+        "The algorithm uses twice as much memory"
+      ],
+      "correct": 1,
+      "explanation": "For minimization, an approximation ratio of 2 (or a 2-approximation) guarantees the returned solution cost is at most 2 times the absolute minimum cost."
+    },
+    {
+      "question": "A deterministic Turing machine is equivalent to which of the following?",
+      "options": [
+        "A standard physical computer executing sequential instructions",
+        "A quantum computer executing infinite states",
+        "A parallel network of databases",
+        "A system that runs without power"
+      ],
+      "correct": 0,
+      "explanation": "A deterministic Turing machine models standard sequential computation where each state transition is uniquely determined."
+    },
+    {
+      "question": "What is the relationship between NP-hard and NP-complete problems?",
+      "options": [
+        "All NP-hard problems are NP-complete",
+        "All NP-complete problems are NP-hard",
+        "They are completely disjoint classes",
+        "NP-hard is a subset of P"
+      ],
+      "correct": 1,
+      "explanation": "NP-complete is a subset of NP-hard. A problem is NP-complete if it is NP-hard AND also belongs to Class NP."
+    },
+    {
+      "question": "Reducing problem A to problem B in polynomial time implies:",
+      "options": [
+        "A is harder than or equal to B",
+        "B is harder than or equal to A",
+        "They are both solvable in O(1) time",
+        "B is in Class P"
+      ],
+      "correct": 1,
+      "explanation": "Reducing A to B means we can use B's solver to solve A. Thus, B is at least as hard as A."
+    },
+    {
+      "question": "The Hamiltonian Path problem asks if a graph contains a path that:",
+      "options": [
+        "Touches every edge exactly once",
+        "Visits every vertex exactly once",
+        "Has negative weight cycles",
+        "Connects all vertices with minimum edge weights"
+      ],
+      "correct": 1,
+      "explanation": "A Hamiltonian Path visits every vertex in the graph exactly once. (Visiting every edge exactly once is an Eulerian Path)."
+    }
+  ]
+}

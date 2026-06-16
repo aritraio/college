@@ -1,0 +1,158 @@
+{
+  "module": 4,
+  "title": "Graph & Tree Algorithms",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Graph Traversal (BFS & DFS)",
+      "content": "<p>Graph traversal algorithms visit all vertices in a graph \\( G = (V, E) \\):</p><ul><li><strong>Breadth-First Search (BFS):</strong> Uses a Queue (FIFO) to explore neighbors level-by-level. Computes shortest path on unweighted graphs. Time: \\( O(V + E) \\), Space: \\( O(V) \\).</li><li><strong>Depth-First Search (DFS):</strong> Uses a Stack (LIFO, recursion) to go as deep as possible. Used for topological sorting, finding cycles, and strongly connected components. Time: \\( O(V + E) \\), Space: \\( O(V) \\).</li></ul>",
+      "interviewTip": "In coding interviews, use BFS if you need to find the shortest path on an unweighted graph (e.g., shortest path in a maze). Use DFS if you need to detect cycles or require complete path traces."
+    },
+    {
+      "title": "Shortest Path Algorithms (Dijkstra, Bellman-Ford, Floyd-Warshall)",
+      "content": "<p>Shortest path algorithms find the path with minimum total edge weight:</p><ul><li><strong>Dijkstra's Algorithm:</strong> Single-source shortest path for graphs with non-negative edge weights. Greedy choice. Time: \\( O((V + E) \\log V) \\) using a binary heap priority queue.</li><li><strong>Bellman-Ford Algorithm:</strong> Single-source shortest path. Works with negative edge weights and detects negative weight cycles. Time: \\( O(V \\cdot E) \\).</li><li><strong>Floyd-Warshall Algorithm:</strong> All-pairs shortest path. Dynamic programming approach. Time: \\( O(V^3) \\), Space: \\( O(V^2) \\).</li></ul>"
+    },
+    {
+      "title": "Minimum Spanning Trees (Prim's & Kruskal's)",
+      "content": "<p>A Minimum Spanning Tree (MST) is a subset of edges that connects all vertices without cycles and with minimum total weight. Both use greedy approaches:</p><ul><li><strong>Kruskal's Algorithm:</strong> Sorts all edges by weight, and repeatedly adds the smallest edge that does not form a cycle. Uses a **Disjoint Set (Union-Find)** data structure with path compression and rank heuristics. Time complexity is: \\[ O(E \\log E) \\quad \\text{or} \\quad O(E \\log V) \\]</li><li><strong>Prim's Algorithm:</strong> Starts from a root vertex and grows the MST outward by adding the minimum weight edge from the tree to an unvisited vertex. Uses a Priority Queue. Time complexity is: \\[ O(E \\log V) \\]</li></ul>"
+    },
+    {
+      "title": "Graph Algorithm Complexity Summary",
+      "content": "<p>Efficiency metrics for core graph algorithms:</p><div class=\"table-container\"><table class=\"credit-table\"><thead><tr><th>Algorithm</th><th>Type</th><th>Complexity</th><th>Data Structure</th><th>Negative Weights?</th></tr></thead><tbody><tr><td>BFS</td><td>Traversal</td><td>\\( O(V + E) \\)</td><td>Queue</td><td>Yes (unweighted)</td></tr><tr><td>DFS</td><td>Traversal</td><td>\\( O(V + E) \\)</td><td>Stack (Recursion)</td><td>Yes (unweighted)</td></tr><tr><td>Dijkstra</td><td>Single-Source Shortest Path</td><td>\\( O(E \\log V) \\)</td><td>Min-Heap</td><td>No</td></tr><tr><td>Bellman-Ford</td><td>Single-Source Shortest Path</td><td>\\( O(V \\cdot E) \\)</td><td>Array</td><td>Yes</td></tr><tr><td>Floyd-Warshall</td><td>All-Pairs Shortest Path</td><td>\\( O(V^3) \\)</td><td>2D Matrix (DP)</td><td>Yes</td></tr><tr><td>Kruskal's</td><td>Minimum Spanning Tree (MST)</td><td>\\( O(E \\log V) \\)</td><td>Disjoint Set / Heap</td><td>N/A</td></tr><tr><td>Prim's</td><td>Minimum Spanning Tree (MST)</td><td>\\( O(E \\log V) \\)</td><td>Min-Priority Queue</td><td>N/A</td></tr></tbody></table></div>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is the difference between BFS and DFS? Mention their underlying data structures.",
+      "answer": "BFS explores the graph level-by-level, finding the shortest path on unweighted graphs using a Queue (FIFO). DFS explores the graph by going as deep as possible before backtracking, using a Stack (LIFO, usually via recursion). Both have a time complexity of \\( O(V + E) \\)."
+    },
+    {
+      "question": "Why does Dijkstra's algorithm fail on graphs with negative edge weights? What algorithm should be used instead?",
+      "answer": "Dijkstra's algorithm is greedy and assumes once a vertex is visited, its shortest path is finalized. Negative weights can create shorter paths later, rendering the greedy choice incorrect. We should use the Bellman-Ford algorithm instead, which runs in \\( O(V \\cdot E) \\) time and relaxes all edges \\( V-1 \\) times."
+    },
+    {
+      "question": "Explain how Kruskal's algorithm utilizes the Disjoint Set (Union-Find) structure.",
+      "answer": "Kruskal's algorithm processes edges in sorted order of weight. It uses a Disjoint Set to track which vertices belong to which connected components. For each edge, it calls `find()` on both endpoints. If they belong to different sets, adding the edge will not form a cycle, so it merges the sets using `union()`. If they belong to the same set, it discards the edge to avoid a cycle."
+    },
+    {
+      "question": "Detail the recurrence used by the Floyd-Warshall algorithm.",
+      "answer": "The dynamic programming recurrence is: \\[ D^{(k)}[i][j] = \\min\\left( D^{(k-1)}[i][j], \\, D^{(k-1)}[i][k] + D^{(k-1)}[k][j] \\right) \\] where \\( D^{(k)}[i][j] \\) represents the shortest path weight from vertex \\( i \\) to \\( j \\) using only intermediate vertices from the set \\( \\{1, 2, \\dots, k\\} \\)."
+    },
+    {
+      "question": "How does Prim's algorithm build a Minimum Spanning Tree?",
+      "answer": "Prim's algorithm starts with a single vertex and grows the tree one vertex at a time. It maintains a priority queue of vertices not yet in the MST. At each step, it extracts the vertex with the minimum cut-edge weight, adds it to the MST, and updates the keys of its neighbors in the queue."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which data structure is utilized in Breadth-First Search (BFS)?",
+      "options": [
+        "Stack",
+        "Queue",
+        "Binary Heap",
+        "Disjoint Set"
+      ],
+      "correct": 1,
+      "explanation": "BFS uses a Queue (FIFO) to manage the discovery of vertices and explore level-by-level."
+    },
+    {
+      "question": "What is the worst-case time complexity of Dijkstra's algorithm using a binary min-heap?",
+      "options": [
+        "\\(O(V^2)\\)",
+        "\\(O(E \\log V)\\)",
+        "\\(O(V \\cdot E)\\)",
+        "\\(O(V^3)\\)"
+      ],
+      "correct": 1,
+      "explanation": "With a binary heap, extracting min takes O(log V) and relaxing edges takes O(log V), yielding \\(O((V+E) \\log V)\\) or \\(O(E \\log V)\\) for connected graphs."
+    },
+    {
+      "question": "Which shortest path algorithm can detect negative weight cycles in a graph?",
+      "options": [
+        "Dijkstra's Algorithm",
+        "Bellman-Ford Algorithm",
+        "Prim's Algorithm",
+        "Kruskal's Algorithm"
+      ],
+      "correct": 1,
+      "explanation": "The Bellman-Ford algorithm can identify negative weight cycles by checking if edges can be relaxed a \\(V\\)-th time."
+    },
+    {
+      "question": "What is the time complexity of the Floyd-Warshall all-pairs shortest path algorithm?",
+      "options": [
+        "\\(O(V \\log V)\\)",
+        "\\(O(V^2)\\)",
+        "\\(O(V^3)\\)",
+        "\\(O(V \\cdot E)\\)"
+      ],
+      "correct": 2,
+      "explanation": "Floyd-Warshall uses three nested loops over all vertices, resulting in a time complexity of \\(O(V^3)\\)."
+    },
+    {
+      "question": "Which algorithm sorts all edges of a graph first before building the Minimum Spanning Tree?",
+      "options": [
+        "Prim's Algorithm",
+        "Dijkstra's Algorithm",
+        "Kruskal's Algorithm",
+        "Bellman-Ford Algorithm"
+      ],
+      "correct": 2,
+      "explanation": "Kruskal's algorithm sorts all edges in non-decreasing order of weight as its first step."
+    },
+    {
+      "question": "What is the primary purpose of the 'path compression' technique in Disjoint Sets?",
+      "options": [
+        "To reduce graph vertices count",
+        "To make tree structures flatter during find operations, speeding up subsequent queries to near O(1)",
+        "To delete cycles in graphs",
+        "To compress files on disk"
+      ],
+      "correct": 1,
+      "explanation": "Path compression makes nodes on the search path point directly to the root, optimizing future `find` queries to nearly constant time."
+    },
+    {
+      "question": "What is the worst-case time complexity of DFS?",
+      "options": [
+        "\\(O(V)\\)",
+        "\\(O(E)\\)",
+        "\\(O(V + E)\\)",
+        "\\(O(V \\log V)\\)"
+      ],
+      "correct": 2,
+      "explanation": "DFS visits every vertex once and checks all its outgoing edges once, taking \\(O(V + E)\\) time."
+    },
+    {
+      "question": "Prim's algorithm is based on which design strategy?",
+      "options": [
+        "Divide and Conquer",
+        "Dynamic Programming",
+        "Greedy Method",
+        "Backtracking"
+      ],
+      "correct": 2,
+      "explanation": "Prim's algorithm is greedy because it selects the minimum weight cut-edge at each step to grow the MST."
+    },
+    {
+      "question": "Why does Floyd-Warshall use a dynamic programming approach?",
+      "options": [
+        "It uses a queue to traverse the graph",
+        "It builds shortest paths incrementally using solutions to intermediate subproblems",
+        "It makes a series of greedy choices",
+        "It is non-recursive and uses random pivots"
+      ],
+      "correct": 1,
+      "explanation": "Floyd-Warshall computes shortest paths by systematically checking intermediate vertices, utilizing overlapping subproblem results."
+    },
+    {
+      "question": "If a graph is dense, meaning E is close to V^2, which MST algorithm is generally preferred?",
+      "options": [
+        "Kruskal's Algorithm",
+        "Prim's Algorithm using a Fibonacci Heap",
+        "Dijkstra's Algorithm",
+        "Bellman-Ford"
+      ],
+      "correct": 1,
+      "explanation": "Prim's algorithm with a Fibonacci heap runs in \\(O(E + V \\log V)\\) time, making it faster than Kruskal's \\(O(E \\log V)\\) on dense graphs."
+    }
+  ]
+}

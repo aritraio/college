@@ -1,0 +1,162 @@
+{
+  "module": 4,
+  "title": "Software Design & Development Tools",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Core Design Concepts",
+      "content": "<p>Software design is an iterative process through which requirements are translated into a blueprint for constructing the software. Key concepts include:</p><ul><li><strong>Abstraction:</strong> Generalizing characteristics to focus on core details. <em>Data abstraction</em> hides data representation, while <em>procedural abstraction</em> hides execution sequences.</li><li><strong>Modularity:</strong> Dividing a system into smaller, manageable, and independent components (modules) that can be developed and tested separately.</li><li><strong>Information Hiding:</strong> Hiding internal module details to prevent external tampering and simplify interfaces (promoted by encapsulation).</li><li><strong>Functional Independence:</strong> Achieved by developing modules with single-minded function and low interaction with other modules. Measured by Cohesion and Coupling.</li></ul>",
+      "interviewTip": "Cohesion and Coupling are classic interview favorites. Remember: the gold standard of design is **High Cohesion** and **Low Coupling**. You want highly focused modules that don't depend heavily on other modules."
+    },
+    {
+      "title": "Cohesion & Coupling",
+      "content": "<p><strong>Cohesion:</strong> An internal measure of how closely related the functions within a single module are. Higher is better. Types of cohesion (highest to lowest): Coincidental (worst), Logical, Temporal, Procedural, Communication, Sequential, Functional (best).</p><p><strong>Coupling:</strong> An external measure of how dependent modules are on one another. Lower is better. Types of coupling (lowest to highest): No coupling (best), Data coupling, Stamp coupling, Control coupling, Common coupling, Content coupling (worst).</p>"
+    },
+    {
+      "title": "Software Architecture & Design Patterns",
+      "content": "<p><strong>Software Architecture:</strong> The structure of system components, their relationships, and principles guiding their design and evolution. Examples include Client-Server, Layered (N-tier), Microservices, and Model-View-Controller (MVC).</p><p><strong>Design Patterns:</strong> Reusable solutions to commonly occurring design problems (e.g., Singleton, Observer, Factory, Strategy patterns).</p>"
+    },
+    {
+      "title": "User Interface (UI) Design Elements",
+      "content": "<p>UI design is critical for acceptability. Core UI layout components include:</p><ul><li><strong>Windows:</strong> Containers for views and applications.</li><li><strong>Menus & Panels:</strong> Organize options and screen partitions.</li><li><strong>Controls:</strong> Buttons, scroll bars, checkboxes, and text inputs.</li><li><strong>Icons:</strong> Visual representations of functions.</li><li><strong>Error Messages:</strong> Must be constructive, clear, and help the user resolve the issue, rather than displaying raw code tracebacks.</li></ul>"
+    },
+    {
+      "title": "Coding Standards",
+      "content": "<p>Coding standards ensure that code written by different programmers is consistent, readable, and maintainable. Standards include: <ul><li>Consistent naming conventions (CamelCase, snake_case).</li><li>Required comment formats and header block templates.</li><li>Code styling guidelines (tabs vs. spaces, line breaks).</li><li>Restricting complex constructs (like nested loops or unsafe memory allocation).</li></ul></p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "Explain the concept of functional independence and the two metrics used to assess it.",
+      "answer": "Functional independence is a design concept where modules perform a single, focused task with minimal interaction with other modules. It is assessed using two metrics: (1) Cohesion (how focused a module's internal contents are) and (2) Coupling (how dependent a module is on external modules)."
+    },
+    {
+      "question": "What is the difference between high cohesion and low coupling? Why are they desirable?",
+      "answer": "High cohesion means all code within a module belongs together and serves one clear purpose. Low coupling means modules are independent and share minimal connections. They are desirable because they make code easier to read, test, maintain, and modify without causing side-effects in other parts of the system."
+    },
+    {
+      "question": "Describe the difference between Data Coupling and Content Coupling.",
+      "answer": "Data Coupling is the healthiest form of coupling where modules only communicate by passing simple arguments of raw data. Content Coupling is the worst form of coupling where one module directly accesses or modifies the internal code or state of another module, breaking functional independence."
+    },
+    {
+      "question": "List four common architectural styles used in software design.",
+      "answer": "(1) Layered (N-tier) Architecture, (2) Client-Server Architecture, (3) Microservices Architecture, and (4) Model-View-Controller (MVC) Architecture."
+    },
+    {
+      "question": "What makes an error message 'good' from a UI design perspective?",
+      "answer": "A good error message should: (1) be written in plain, non-technical language; (2) explain exactly what went wrong; (3) provide constructive instructions on how the user can fix the issue; and (4) avoid blame or displaying raw system/database tracebacks."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "What is the optimal relationship of cohesion and coupling in software design?",
+      "options": [
+        "High Cohesion and High Coupling",
+        "Low Cohesion and Low Coupling",
+        "High Cohesion and Low Coupling",
+        "Low Cohesion and High Coupling"
+      ],
+      "correct": 2,
+      "explanation": "High cohesion (highly focused modules) and low coupling (minimal interdependencies) are the core criteria for functional independence and maintainability."
+    },
+    {
+      "question": "Which type of coupling is considered the worst because one module directly modifies the data or code of another?",
+      "options": [
+        "Data Coupling",
+        "Common Coupling",
+        "Control Coupling",
+        "Content Coupling"
+      ],
+      "correct": 3,
+      "explanation": "Content coupling occurs when one module directly accesses or modifies the internals of another module, creating high dependency."
+    },
+    {
+      "question": "Which of the following is the best (highest) form of cohesion?",
+      "options": [
+        "Coincidental Cohesion",
+        "Functional Cohesion",
+        "Temporal Cohesion",
+        "Logical Cohesion"
+      ],
+      "correct": 1,
+      "explanation": "Functional cohesion represents the highest quality because all elements of the module are focused on executing a single function."
+    },
+    {
+      "question": "What concept refers to hiding a module's internal implementation details behind a clean public interface?",
+      "options": [
+        "Modularity",
+        "Information Hiding",
+        "Refactoring",
+        "Dynamic Binding"
+      ],
+      "correct": 1,
+      "explanation": "Information hiding isolates internal code mechanics from external modules, preventing unintended dependencies."
+    },
+    {
+      "question": "Which architectural pattern divides an application into three interconnected parts to separate representation from user actions?",
+      "options": [
+        "Microservices",
+        "Client-Server",
+        "Model-View-Controller (MVC)",
+        "Layered Architecture"
+      ],
+      "correct": 2,
+      "explanation": "MVC separates the data layer (Model), the user interface (View), and the interaction logic (Controller)."
+    },
+    {
+      "question": "What type of coupling occurs when multiple modules share access to global data structures?",
+      "options": [
+        "Data Coupling",
+        "Common Coupling",
+        "Stamp Coupling",
+        "Control Coupling"
+      ],
+      "correct": 1,
+      "explanation": "Common coupling occurs when modules depend on global variables, making changes in one module affect all others."
+    },
+    {
+      "question": "Which of the following describes 'Logical Cohesion'?",
+      "options": [
+        "Tasks in the module are put together purely by chance",
+        "Tasks are executed during the same phase of program startup",
+        "The module performs a set of related operations that are selected by a control code passed from the caller",
+        "Elements are linked sequentially to form a data pipeline"
+      ],
+      "correct": 2,
+      "explanation": "Logical cohesion occurs when a module performs tasks that are logically similar (e.g., putting all input validations in one module, called with a selector flag)."
+    },
+    {
+      "question": "What UI element is designed to display constructive feedback when a system operation fails?",
+      "options": [
+        "Scroll Bar",
+        "Status Panel",
+        "Error Message",
+        "Active Window"
+      ],
+      "correct": 2,
+      "explanation": "Error messages inform users about problems and provide guide-rails to resolve them."
+    },
+    {
+      "question": "The design pattern that ensures a class has only one instance and provides a global point of access to it is:",
+      "options": [
+        "Factory Pattern",
+        "Observer Pattern",
+        "Singleton Pattern",
+        "Strategy Pattern"
+      ],
+      "correct": 2,
+      "explanation": "The Singleton pattern restricts the instantiation of a class to a single active object."
+    },
+    {
+      "question": "Why are coding standards important for development teams?",
+      "options": [
+        "They make compilation faster",
+        "They ensure all code written across developers is readable, consistent, and maintainable",
+        "They replace software testing",
+        "They restrict the project's features"
+      ],
+      "correct": 1,
+      "explanation": "Coding standards enforce uniform styling, naming conventions, and layout rules, facilitating long-term code maintenance."
+    }
+  ]
+}

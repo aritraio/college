@@ -25,6 +25,11 @@
         const data = await response.json();
         this.currentData = data;
 
+        // Record recently opened module in history tracking
+        if (window.appState && typeof window.appState.recordRecentlyOpened === 'function') {
+          window.appState.recordRecentlyOpened(subjectId, moduleId);
+        }
+
         // 3. Get Subject Information for accenting
         const subjectCode = window.appState && window.appState.subjects 
           ? window.appState.subjects.find(s => s.id === subjectId)?.code || ''

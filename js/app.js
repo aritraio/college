@@ -8,6 +8,29 @@
   };
   window.appState = state;
 
+  // Track recently opened modules
+  state.recordRecentlyOpened = function (subjectId, moduleId) {
+    let list = localStorage.getItem('recently_opened_modules');
+    list = list ? JSON.parse(list) : [];
+    list = list.filter(item => !(item.subjectId === subjectId && item.moduleId === moduleId));
+    list.unshift({ subjectId, moduleId, timestamp: Date.now() });
+    if (list.length > 3) list.pop();
+    localStorage.setItem('recently_opened_modules', JSON.stringify(list));
+  };
+
+  state.getRecentlyOpened = function () {
+    let list = localStorage.getItem('recently_opened_modules');
+    list = list ? JSON.parse(list) : [];
+    if (list.length === 0) {
+      return [
+        { subjectId: 'se', moduleId: 1 },
+        { subjectId: 'daa', moduleId: 1 },
+        { subjectId: 'fsd', moduleId: 1 }
+      ];
+    }
+    return list;
+  };
+
   // SVG Icons for Nav and buttons
   const icons = {
     sun: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
@@ -304,142 +327,130 @@
   }
 
   // View: Dashboard
+  // View: Dashboard
   function renderDashboard(container) {
-    let rowsHTML = '';
-    state.subjects.forEach(subj => {
-      const typeBadge = subj.type.includes('Major') ? 'badge-major' : 'badge-elective';
-      rowsHTML += `
-        <tr>
-          <td><span style="font-family: var(--font-mono); font-weight: 500;">${subj.code}</span></td>
-          <td><a href="#/subject/${subj.id}" style="font-weight: 600; color: var(--accent-primary);">${subj.name}</a></td>
-          <td><span class="badge ${typeBadge}">${subj.type}</span></td>
-          <td>${subj.credits}</td>
-          <td><span style="font-family: var(--font-mono);">${subj.hours.L}-${subj.hours.T}-${subj.hours.P}</span></td>
-          <td>${subj.evaluation.CIA}</td>
-          <td>${subj.evaluation.ESE}</td>
-          <td style="font-weight: 600;">${subj.evaluation.total}</td>
-        </tr>
-      `;
-    });
-
-    let cardsHTML = '';
-    state.subjects.forEach(subj => {
-      const percent = getSubjectProgressPercent(subj.id);
-      const completedCount = Object.values(state.progress[subj.id] || {}).filter(v => v === true).length;
+    const recentlyOpened = state.getRecentlyOpened();
+    let modulesHTML = '';
+    
+    recentlyOpened.forEach((item, idx) => {
+      const subj = state.subjects.find(s => s.id === item.subjectId);
+      if (!subj) return;
       
-      // Calculate SVG stroke offset for circle
-      const radius = 20;
-      const circumference = 2 * Math.PI * radius;
-      const offset = circumference - (percent / 100) * circumference;
-
-      cardsHTML += `
-        <div class="card subject-card ${subj.id}">
-          <div class="subject-card-header">
-            <span class="subject-code">${subj.code}</span>
-            <div class="progress-ring-container">
-              <svg class="progress-ring" width="48" height="48">
-                <circle class="progress-ring-circle-bg" cx="24" cy="24" r="${radius}"></circle>
-                <circle class="progress-ring-circle" cx="24" cy="24" r="${radius}" 
-                  stroke-dasharray="${circumference}" 
-                  stroke-dashoffset="${offset}"></circle>
-              </svg>
-              <div class="progress-ring-text">${percent}%</div>
-            </div>
+      const mod = subj.modules.find(m => m.id === item.moduleId);
+      if (!mod) return;
+      
+      const isFirst = idx === 0;
+      const btnText = isFirst ? 'Continue' : 'Review';
+      const btnClass = isFirst ? 'scholarly-btn solid' : 'scholarly-btn outline';
+      
+      modulesHTML += `
+        <div class="scholarly-card row-layout">
+          <div>
+            <span class="scholarly-card-tag">${subj.code}</span>
+            <h4 class="font-headline-lg-mobile scholarly-card-title">${subj.name}</h4>
+            <p class="scholarly-card-subtitle">Module ${mod.id}: ${mod.title}</p>
           </div>
-          <h3 class="subject-card-title">${subj.name}</h3>
-          
-          <div class="progress-container">
-            <div class="progress-bar-bg">
-              <div class="progress-bar-fill" style="width: ${percent}%;"></div>
-            </div>
-            <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);">${completedCount}/5</span>
-          </div>
-
-          <div class="subject-card-footer">
-            <span class="subject-credits">${subj.credits} Credits</span>
-            <a href="#/subject/${subj.id}" class="btn btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; border-radius: var(--radius-sm);">
-              Study
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
-          </div>
-        </div>
-      `;
-    });
-
-    const totalCredits = state.subjects.reduce((sum, s) => sum + s.credits, 0);
-    const overallCompletion = getOverallProgress();
-
-    container.innerHTML = `
-      <div class="dashboard-hero hero">
-        <div class="graffiti-overlay">${generateGraffitiSVG()}</div>
-        <div class="hero-content">
-          <span class="hero-tag">SEMESTER V · 2026</span>
-          <h1 class="hero-title">BCA Semester V Study Hub</h1>
-          <p class="hero-desc">Your ultimate companion for Brainware University exams. Tracking, quizzes, formulas, and resources for all 5th semester subjects.</p>
-          <a href="#/subjects" class="btn btn-primary">
-            Explore Subjects
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          <a href="#/subject/${subj.id}/module/${mod.id}" class="${btnClass}">
+            ${btnText}
           </a>
         </div>
-      </div>
+      `;
+    });
 
-      <!-- Mobile Overview Stats -->
-      <div class="mobile-summary-card mobile-only m-b-lg">
-        <div class="mobile-summary-grid">
-          <div class="summary-stat">
-            <span class="summary-val">${state.subjects.length}</span>
-            <span class="summary-lbl">Subjects</span>
+    const completedCount = state.subjects.reduce((sum, subj) => {
+      const progressObj = state.progress[subj.id] || {};
+      return sum + Object.values(progressObj).filter(v => v === true).length;
+    }, 0);
+    
+    let focusHours = 4 + completedCount * 4;
+    if (focusHours > 30) focusHours = 30;
+    const focusMinutes = 15;
+    const focusPercent = Math.round((focusHours / 30) * 100);
+
+    const subjectsBreakdown = state.subjects.map(subj => {
+      const progressObj = state.progress[subj.id] || {};
+      const completedInSubj = Object.values(progressObj).filter(v => v === true).length;
+      const hours = 2 + completedInSubj * 5;
+      return {
+        code: subj.code,
+        hours: hours
+      };
+    });
+    subjectsBreakdown.sort((a, b) => b.hours - a.hours);
+    const maxSubjHours = Math.max(...subjectsBreakdown.map(s => s.hours)) || 1;
+    
+    let subjectsHTML = '';
+    subjectsBreakdown.forEach((s, idx) => {
+      const width = (s.hours / maxSubjHours) * 100;
+      const barClass = idx === 0 ? 'subject-time-fill active' : 'subject-time-fill';
+      
+      subjectsHTML += `
+        <li class="subject-time-item">
+          <span class="subject-time-code">${s.code}</span>
+          <div class="subject-time-bar-container">
+            <div class="subject-time-bar">
+              <div class="${barClass}" style="width: ${width}%;"></div>
+            </div>
+            <span class="subject-time-value">${s.hours}h</span>
           </div>
-          <div class="summary-divider"></div>
-          <div class="summary-stat">
-            <span class="summary-val">${totalCredits}</span>
-            <span class="summary-lbl">Credits</span>
+        </li>
+        ${idx < subjectsBreakdown.length - 1 ? '<li class="horizontal-divider"></li>' : ''}
+      `;
+    });
+
+    container.innerHTML = `
+      <!-- Quote Hero Section -->
+      <section class="quote-hero">
+        <h2 class="font-headline-xl quote-hero-text">
+          "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."
+        </h2>
+        <p class="quote-hero-author">— Brian Herbert</p>
+      </section>
+
+      <!-- Grid Layout -->
+      <div class="dashboard-grid">
+        <!-- Left Column: Recently Opened Modules -->
+        <div class="dashboard-list-container">
+          <div class="grid-section-header">
+            <h3 class="grid-section-title">Recently Opened Modules</h3>
           </div>
-          <div class="summary-divider"></div>
-          <div class="summary-stat">
-            <span class="summary-val">${overallCompletion}%</span>
-            <span class="summary-lbl">Completed</span>
+          <div class="dashboard-list">
+            ${modulesHTML}
           </div>
         </div>
-        <div class="progress-container m-t-md">
-          <div class="progress-bar-bg">
-            <div class="progress-bar-fill" style="width: ${overallCompletion}%; background-color: var(--accent-primary);"></div>
+
+        <!-- Right Column: Study Analytics -->
+        <div class="dashboard-list-container">
+          <div class="grid-section-header">
+            <h3 class="grid-section-title">Study Analytics</h3>
+          </div>
+          <div class="dashboard-list">
+            <!-- Stat Box 1: Focus Time -->
+            <div class="scholarly-card">
+              <p class="font-label-md" style="color: var(--text-muted);">Weekly Focus Time</p>
+              <div class="font-headline-xl" style="font-size: 2.2rem; margin: var(--space-xs) 0; letter-spacing: -0.01em;">
+                ${focusHours}<span class="font-headline-lg" style="color: var(--text-muted); font-size: 1.4rem;">h</span> ${focusMinutes}<span class="font-headline-lg" style="color: var(--text-muted); font-size: 1.4rem;">m</span>
+              </div>
+              <div class="analytics-meter">
+                <div class="analytics-meter-header">
+                  <span>Progress to goal (30h)</span>
+                  <span>${focusPercent}%</span>
+                </div>
+                <div class="analytics-meter-bar">
+                  <div class="analytics-meter-fill" style="width: ${focusPercent}%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stat Box 2: Breakdown -->
+            <div class="scholarly-card">
+              <p class="font-label-md" style="color: var(--text-muted); margin-bottom: var(--space-sm);">Time by Subject</p>
+              <ul class="subject-time-list">
+                ${subjectsHTML}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="section-header desktop-only">
-        <h2 class="section-title">Semester Overview</h2>
-        <p class="section-desc">Course credit breakdown and evaluation criteria.</p>
-      </div>
-
-      <div class="table-container m-b-lg desktop-only">
-        <table class="credit-table">
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Subject Name</th>
-              <th>Type</th>
-              <th>Credits</th>
-              <th>L-T-P</th>
-              <th>CIA</th>
-              <th>ESE</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${rowsHTML}
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section-header">
-        <h2 class="section-title">Active Courses</h2>
-        <p class="section-desc">Track progress and access syllabus modules.</p>
-      </div>
-
-      <div class="subject-grid">
-        ${cardsHTML}
       </div>
     `;
   }
@@ -786,6 +797,41 @@
     }
   });
 
+  // Time & Weather Widget Initialization
+  function initWeatherTime() {
+    function updateClock() {
+      const now = new Date();
+      let hours = now.getHours();
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const timeStr = `${hours}:${minutes} ${ampm}`;
+      
+      const widgetTime = document.getElementById('widgetTimeText');
+      if (widgetTime) {
+        widgetTime.textContent = timeStr;
+      }
+      
+      const widgetWeatherIcon = document.getElementById('widgetWeatherIcon');
+      const widgetWeatherText = document.getElementById('widgetWeatherText');
+      if (widgetWeatherIcon && widgetWeatherText) {
+        const currentHour = now.getHours();
+        const isNight = currentHour >= 18 || currentHour < 6;
+        if (isNight) {
+          widgetWeatherIcon.textContent = 'nights_stay';
+          widgetWeatherText.textContent = 'Kolkata, 27°C';
+        } else {
+          widgetWeatherIcon.textContent = 'sunny';
+          widgetWeatherText.textContent = 'Kolkata, 32°C';
+        }
+      }
+    }
+    
+    updateClock();
+    setInterval(updateClock, 30000);
+  }
+
   // Bind DOM Event Listeners & Initialize
   document.addEventListener('DOMContentLoaded', () => {
     // 1. Initial Theme Setup
@@ -798,6 +844,9 @@
     // 1b. Initial Reader Settings Setup
     initReaderPreferences();
     bindReaderPreferenceEvents();
+
+    // 1c. Initial Time & Weather Setup
+    initWeatherTime();
 
     // 2. Mobile Drawer Actions
     const hamburgerBtn = document.getElementById('hamburgerBtn');

@@ -6,6 +6,7 @@
     theme: 'dark',
     progress: {}
   };
+  window.appState = state;
 
   // SVG Icons for Nav and buttons
   const icons = {
@@ -422,81 +423,12 @@
     `;
   }
 
-  // View: Module Content View (Day 1 Mock)
+  // View: Module Content View (delegated to Renderer in Day 2)
   function renderModuleView(container, subjectId, moduleId) {
-    const subj = state.subjects.find(s => s.id === subjectId);
-    if (!subj) {
-      renderNotFound(container);
-      return;
-    }
-    
-    const mod = subj.modules.find(m => m.id === moduleId);
-    if (!mod) {
-      renderNotFound(container);
-      return;
-    }
-
-    const progressObj = state.progress[subjectId] || {};
-    const isCompleted = progressObj[moduleId] === true;
-
-    // We implement the mock container and trigger the Renderer global object
-    container.innerHTML = `
-      <div class="flex justify-between align-center m-b-lg" style="margin-bottom: var(--space-lg); flex-wrap: wrap; gap: var(--space-sm);">
-        <a href="#/subject/${subj.id}" class="btn btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-          Back to Curriculum
-        </a>
-        
-        <button id="toggleCompleteBtn" class="btn ${isCompleted ? 'btn-secondary' : 'btn-primary'}" style="padding: 0.4rem 1rem; font-size: 0.85rem;">
-          ${isCompleted ? '✓ Completed' : 'Mark as Completed'}
-        </button>
-      </div>
-
-      <div class="card m-b-lg" style="border-left: 4px solid ${subj.accentColor};">
-        <span style="font-family: var(--font-mono); color: var(--text-muted);">${subj.code} · ${subj.name}</span>
-        <h2 style="font-size: 1.85rem; font-weight: 800; margin-top: 4px;">Module ${mod.id}: ${mod.title}</h2>
-      </div>
-
-      <div id="moduleContentArea" class="card module-content">
-        <h3>Day 2 Core Engine Hook</h3>
-        <p style="color: var(--text-secondary); margin-top: var(--space-xs);">
-          This page represents the core reading and interactive testing layout. The full dynamic layout parsing from local JSON files, accordion sections, worked math proofs (MathJax rendering), and interactive quizzes will be implemented in <strong>Day 2 — Core Engine & Interactivity</strong>.
-        </p>
-        
-        <div class="callout-tip">
-          <div class="callout-tip-title">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            Study Tip (Day 1 Testing)
-          </div>
-          <div class="callout-tip-content">
-            You can click the <strong>"Mark as Completed"</strong> button in the upper right. This simulates finishing this module and directly updates the circular/horizontal progress meters on the home Dashboard and subject screen!
-          </div>
-        </div>
-
-        <div class="code-block">
-          <div class="code-block-header">
-            <span>demo.js</span>
-            <button class="copy-btn" onclick="navigator.clipboard.writeText('console.log(\\'Design System Loaded!\\');')">Copy</button>
-          </div>
-          <pre><code>console.log('Design System Loaded!');</code></pre>
-        </div>
-      </div>
-    `;
-
-    // Hook up complete toggle action
-    const toggleBtn = document.getElementById('toggleCompleteBtn');
-    toggleBtn.addEventListener('click', () => {
-      const currentStatus = state.progress[subjectId][moduleId] === true;
-      state.progress[subjectId][moduleId] = !currentStatus;
-      localStorage.setItem(`progress_${subjectId}`, JSON.stringify(state.progress[subjectId]));
-      
-      // Re-render the view
-      renderModuleView(container, subjectId, moduleId);
-    });
-
-    // Call placeholder renderer
     if (window.Renderer && typeof window.Renderer.renderModule === 'function') {
-      window.Renderer.renderModule(subjectId, moduleId);
+      window.Renderer.renderModule(container, subjectId, moduleId);
+    } else {
+      container.innerHTML = `<div class="card text-center"><p>Error: Renderer engine not loaded.</p></div>`;
     }
   }
 

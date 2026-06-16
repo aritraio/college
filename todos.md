@@ -45,40 +45,40 @@
 
 ## Day 2 — Core Engine & Interactivity
 
-- [ ] Create `js/renderer.js`
-  - [ ] Fetch module JSON via `fetch()` API
-  - [ ] Parse JSON and render topic sections as HTML
-  - [ ] Generate table of contents from rendered headings
-  - [ ] Scroll-spy logic to highlight active TOC item
-  - [ ] Trigger `MathJax.typeset()` after injecting content
-  - [ ] Collapsible/accordion sections for mobile
-  - [ ] Interview tip callout rendering with slide-in animation
-  - [ ] Code block rendering with copy-to-clipboard button
-  - [ ] Previous / Next module navigation buttons
-  - [ ] Mark module as completed in localStorage
-  - [ ] Swipe gesture detection for module navigation (touch events)
-- [ ] Create `js/quiz.js`
-  - [ ] Render MCQ questions from module JSON data
-  - [ ] Option selection with visual hover/active feedback
-  - [ ] Submit answer with validation
-  - [ ] Correct answer: green pulse animation + explanation reveal
-  - [ ] Wrong answer: red shake animation + correct answer highlight + explanation
-  - [ ] Score calculation and percentage display
-  - [ ] Save quiz results per module to localStorage
-  - [ ] Retake quiz functionality (reset state)
-  - [ ] Confetti animation trigger on scores >= 80%
-  - [ ] Practice questions section with collapsible model answers
-- [ ] Create `data/subjects.json`
-  - [ ] All 6 subjects (code, name, credits, L-T-P, CIA/ESE marks, course type)
-  - [ ] Module titles for each of the 4 theory subjects
-  - [ ] Course objectives and outcomes per subject
-  - [ ] Textbooks and reference books per subject
-- [ ] End-to-end navigation test
-  - [ ] Dashboard → Subject → Module → Quiz flow
-  - [ ] Back button and breadcrumb navigation
-  - [ ] Mobile bottom nav switching views
-  - [ ] Theme toggle persisting across reloads
-  - [ ] Progress data persisting in localStorage
+- [x] Create `js/renderer.js`
+  - [x] Fetch module JSON via `fetch()` API
+  - [x] Parse JSON and render topic sections as HTML
+  - [x] Generate table of contents from rendered headings
+  - [x] Scroll-spy logic to highlight active TOC item
+  - [x] Trigger `MathJax.typeset()` after injecting content
+  - [x] Collapsible/accordion sections for mobile
+  - [x] Interview tip callout rendering with slide-in animation
+  - [x] Code block rendering with copy-to-clipboard button
+  - [x] Previous / Next module navigation buttons
+  - [x] Mark module as completed in localStorage
+  - [x] Swipe gesture detection for module navigation (touch events)
+- [x] Create `js/quiz.js`
+  - [x] Render MCQ questions from module JSON data
+  - [x] Option selection with visual hover/active feedback
+  - [x] Submit answer with validation
+  - [x] Correct answer: green pulse animation + explanation reveal
+  - [x] Wrong answer: red shake animation + correct answer highlight + explanation
+  - [x] Score calculation and percentage display
+  - [x] Save quiz results per module to localStorage
+  - [x] Retake quiz functionality (reset state)
+  - [x] Confetti animation trigger on scores >= 80%
+  - [x] Practice questions section with collapsible model answers
+- [x] Create `data/subjects.json`
+  - [x] All 6 subjects (code, name, credits, L-T-P, CIA/ESE marks, course type)
+  - [x] Module titles for each of the 4 theory subjects
+  - [x] Course objectives and outcomes per subject
+  - [x] Textbooks and reference books per subject
+- [x] End-to-end navigation test
+  - [x] Dashboard → Subject → Module → Quiz flow
+  - [x] Back button and breadcrumb navigation
+  - [x] Mobile bottom nav switching views
+  - [x] Theme toggle persisting across reloads
+  - [x] Progress data persisting in localStorage
 
 ---
 

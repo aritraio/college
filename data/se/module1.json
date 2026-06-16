@@ -1,0 +1,166 @@
+{
+  "module": 1,
+  "title": "Introduction to Software Engineering",
+  "hours": "3H",
+  "topics": [
+    {
+      "title": "Definition of Software",
+      "content": "<p>Software is not just program code, but a collection of items or objects that form a configuration that includes programs, documents, and data structures. It is defined as: (1) Instructions (computer programs) that when executed provide desired features, function, and performance; (2) Data structures that enable the programs to adequately manipulate information; and (3) Documentation that describes the operation and use of the programs.</p><p>Key characteristics of software include: it is engineered (not manufactured in the classical sense), it does not wear out physically (though it suffers from deterioration due to changes), and it is custom-built rather than assembled from components.</p>",
+      "interviewTip": "In interviews, emphasize that software is NOT just code. It consists of programs, documentation (SRS, design docs, user guides), and configuration data. Failing to mention documentation is a common slip."
+    },
+    {
+      "title": "Types of Software",
+      "content": "<p>Software is broadly classified into several categories based on its function and application area:</p><ul><li><strong>System Software:</strong> Programs that manage computer hardware resources and provide common services for other software. Examples include Operating Systems (OS), Device Drivers, and Linkers/Compilers.</li><li><strong>Application Software:</strong> Programs designed to perform specific user-oriented tasks. Examples include Web Browsers, Word Processors, and Databases.</li><li><strong>Embedded Software:</strong> Software resident in read-only memory used to control products and systems (e.g., microwave controls, automotive dashboards).</li><li><strong>Product-Line Software:</strong> Designed to provide a specific capability for use by many different customers (e.g., inventory control products).</li><li><strong>Web Apps:</strong> Network-centric applications spanning multiple devices.</li><li><strong>AI Software:</strong> Utilizes non-numerical algorithms to solve complex problems (e.g., robotics, expert systems).</li></ul>"
+    },
+    {
+      "title": "Characteristics & Attributes of Good Software",
+      "content": "<p>Good software should deliver the required functionality and performance to the user and should be maintainable, dependable, and usable. The key attributes of good software are:</p><ul><li><strong>Maintainability:</strong> Software should be written in such a way that it can evolve to meet the changing needs of customers.</li><li><strong>Dependability and Security:</strong> Software dependability includes a range of characteristics such as reliability, security, and safety. Dependable software should not cause physical or economic damage in the event of system failure.</li><li><strong>Efficiency:</strong> Software should not make wasteful use of system resources such as memory and processor cycles.</li><li><strong>Acceptability:</strong> Software must be acceptable to the type of users for whom it is designed. This means it must be understandable, usable, and compatible with other systems they use.</li></ul>"
+    },
+    {
+      "title": "Software Engineering & Costs",
+      "content": "<p>Software Engineering is an engineering discipline that is concerned with all aspects of software production from the early stages of system specification through to maintaining the system after it has gone into use.</p><p><strong>Software Costs:</strong> Roughly 60% of software costs are development costs, and 40% are testing costs. For custom software, evolution costs often exceed development costs. The distribution of costs depends on the type of development model used.</p>"
+    },
+    {
+      "title": "Key Challenges in Software Engineering",
+      "content": "<p>Software engineers face several primary challenges in the modern era:</p><ul><li><strong>Copining with legacy systems (Heterogeneity):</strong> Increasingly, systems are required to operate as distributed systems across networks that include different types of computers and mobile devices.</li><li><strong>Delivery:</strong> There is increasing pressure to deliver software quickly without compromising quality.</li><li><strong>Trust:</strong> Ensuring software is reliable and secure, particularly for systems that are accessed over the web.</li></ul>"
+    },
+    {
+      "title": "Systems Engineering Concept",
+      "content": "<p>Systems Engineering is concerned with all aspects of the development and evolution of complex systems where software plays a major role. Systems engineering is therefore concerned with hardware development, policy and process design, and system deployment, as well as software engineering. Software engineering is a part of this wider process.</p>"
+    }
+  ],
+  "practiceQuestions": [
+    {
+      "question": "What is software engineering? State its main goals.",
+      "answer": "Software Engineering is the systematic, disciplined, and quantifiable approach to the development, operation, and maintenance of software. Its goals include delivering high-quality software on time, within budget, and meeting user requirements."
+    },
+    {
+      "question": "Differentiate between system software and application software with examples.",
+      "answer": "System software manages hardware resources and provides a platform for other software (e.g., Operating Systems, compilers). Application software performs specific tasks for users (e.g., web browsers, word processors)."
+    },
+    {
+      "question": "What are the four essential attributes of good software?",
+      "answer": "The four essential attributes are: Maintainability (can evolve), Dependability/Security (reliable and safe), Efficiency (optimal resource usage), and Acceptability (usable and compatible)."
+    },
+    {
+      "question": "Explain the concept of software deterioration (software rot) versus hardware wear-out.",
+      "answer": "Hardware wears out physically due to environmental friction and use (bathtub curve). Software does not wear out physically, but deteriorates because multiple changes are made to it over time, introducing new errors and increasing complexity."
+    },
+    {
+      "question": "How does Software Engineering differ from Systems Engineering?",
+      "answer": "Systems Engineering is concerned with all aspects of developing complex systems including hardware, software, processes, and policies. Software Engineering is a sub-discipline focused specifically on the software components of those systems."
+    }
+  ],
+  "mcqs": [
+    {
+      "question": "Which of the following is NOT a characteristic of software?",
+      "options": [
+        "Software does not wear out physically",
+        "Software is manufactured physically using assembly lines",
+        "Software is custom-built or engineered",
+        "Software deteriorates due to changes over time"
+      ],
+      "correct": 1,
+      "explanation": "Software is engineered logically, not manufactured physically. Physical manufacturing implies a repetitive replication step, whereas software replication is simply copying files."
+    },
+    {
+      "question": "Which attribute represents the ease with which software can adapt to changing user requirements?",
+      "options": [
+        "Efficiency",
+        "Maintainability",
+        "Acceptability",
+        "Dependability"
+      ],
+      "correct": 1,
+      "explanation": "Maintainability is the quality attribute reflecting how easily a system can be modified to correct faults, improve performance, or adapt to a changed environment."
+    },
+    {
+      "question": "What percentage of software costs is typically spent on software maintenance/evolution after release?",
+      "options": [
+        "Less than 10%",
+        "Approximately 20%",
+        "Around 40%",
+        "60% or more"
+      ],
+      "correct": 3,
+      "explanation": "For long-lifetime software systems, maintenance and evolution costs often dominate, typically accounting for 60% to 80% of total lifetime software costs."
+    },
+    {
+      "question": "Systems engineering is concerned with which of the following?",
+      "options": [
+        "Software development only",
+        "Hardware development only",
+        "All aspects of complex system development including hardware, software, and processes",
+        "Web application styling and design only"
+      ],
+      "correct": 2,
+      "explanation": "Systems engineering encompasses hardware, software, human factors, policies, and process design for complex systems, while software engineering is a component of it."
+    },
+    {
+      "question": "Which type of software is resident in read-only memory and controls devices like washing machines or automotive components?",
+      "options": [
+        "System Software",
+        "Embedded Software",
+        "Application Software",
+        "Artificial Intelligence Software"
+      ],
+      "correct": 1,
+      "explanation": "Embedded software resides inside a hardware device's ROM or EEPROM to control its specific functionality."
+    },
+    {
+      "question": "What are the two major components of software engineering costs during initial development?",
+      "options": [
+        "60% development, 40% testing",
+        "90% development, 10% testing",
+        "30% development, 70% testing",
+        "50% development, 50% testing"
+      ],
+      "correct": 0,
+      "explanation": "Typically, design/coding (development) represents about 60% of development costs, and testing/validation accounts for the remaining 40%."
+    },
+    {
+      "question": "The challenge of heterogeneous systems refers to which of the following?",
+      "options": [
+        "Developing software quickly",
+        "Ensuring the code executes on multiple hardware and network platforms",
+        "Developing software with low cost",
+        "Ensuring the software has a good user interface"
+      ],
+      "correct": 1,
+      "explanation": "Heterogeneity refers to the need to build software that operates reliably across distributed platforms consisting of different operating systems, devices, and networks."
+    },
+    {
+      "question": "Which is an attribute of 'good software' relating to memory and CPU cycles utilization?",
+      "options": [
+        "Maintainability",
+        "Efficiency",
+        "Acceptability",
+        "Dependability"
+      ],
+      "correct": 1,
+      "explanation": "Efficiency refers to how well the software utilizes system resources like processor cycles, memory, and disk space."
+    },
+    {
+      "question": "Why does software deteriorate over time?",
+      "options": [
+        "Physical parts of the hardware scratch the code",
+        "Multiple modifications introduce new bugs and degrade software structure",
+        "Dust accumulates on magnetic media containing the software",
+        "The software runs out of electrical energy"
+      ],
+      "correct": 1,
+      "explanation": "Software deteriorates because modifications introduced during maintenance often introduce side-effects and degrade the original structural design."
+    },
+    {
+      "question": "What is the relationship between computer science and software engineering?",
+      "options": [
+        "They are the exact same field",
+        "Computer science focuses on theories and fundamentals, while software engineering focuses on practical aspects of production",
+        "Software engineering is purely theoretical, computer science is purely practical",
+        "Software engineering is a subset of web design"
+      ],
+      "correct": 1,
+      "explanation": "Computer science is concerned with theories and theoretical underpinnings of computers, whereas software engineering is concerned with the practicalities of developing large-scale software products."
+    }
+  ]
+}

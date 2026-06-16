@@ -477,7 +477,7 @@
           
           <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.5; margin-bottom: auto;">${subj.courseObjective}</p>
           
-          <div class="progress-container" style="margin-top: var(--space-sm);">
+          <div class="progress-container" style="margin-top: var(--space-sm); flex-direction: column; align-items: stretch; gap: var(--space-xs);">
             <div class="flex justify-between align-center" style="font-size: 0.85rem; margin-bottom: var(--space-xxs); font-family: var(--font-mono);">
               <span style="color: var(--text-muted);">${completedCount}/5 Modules Completed</span>
               <span style="font-weight: 700; color: var(--text-primary);">${percent}%</span>

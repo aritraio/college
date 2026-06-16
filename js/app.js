@@ -100,6 +100,156 @@
     return Math.round(totalPercent / state.subjects.length);
   }
 
+  // Generate random graffiti art as background SVG string
+  function generateGraffitiSVG() {
+    const startTime = performance.now();
+    const width = 800;
+    const height = 240;
+    const elements = [];
+
+    // 1. Abstract geometric lines & shapes
+    const numLines = 5 + Math.floor(Math.random() * 4);
+    for (let i = 0; i < numLines; i++) {
+      const x1 = Math.random() * width;
+      const y1 = Math.random() * height;
+      const x2 = Math.random() * width;
+      const y2 = Math.random() * height;
+      const strokeWidth = 1 + Math.random() * 2;
+      const opacity = 0.12 + Math.random() * 0.15;
+      const shades = ['var(--text-muted)', 'var(--border-color-hover)', 'var(--text-secondary)'];
+      const color = shades[Math.floor(Math.random() * shades.length)];
+      elements.push(`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${strokeWidth}" opacity="${opacity}" />`);
+    }
+
+    const numRects = 2 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < numRects; i++) {
+      const x = Math.random() * (width - 150);
+      const y = Math.random() * (height - 80);
+      const w = 40 + Math.random() * 100;
+      const h = 20 + Math.random() * 60;
+      const opacity = 0.05 + Math.random() * 0.12;
+      const shades = ['var(--border-color)', 'var(--text-muted)'];
+      const color = shades[Math.floor(Math.random() * shades.length)];
+      elements.push(`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="${color}" stroke-width="1.5" opacity="${opacity}" />`);
+    }
+
+    // 2. Splatter dots in monochromatic shades
+    const numDots = 25 + Math.floor(Math.random() * 20);
+    for (let i = 0; i < numDots; i++) {
+      const cx = Math.random() * width;
+      const cy = Math.random() * height;
+      const r = 1 + Math.random() * 3.5;
+      const opacity = 0.1 + Math.random() * 0.22;
+      const shades = ['var(--text-muted)', 'var(--border-color-hover)', 'var(--text-secondary)', 'var(--border-color)'];
+      const color = shades[Math.floor(Math.random() * shades.length)];
+      elements.push(`<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="${opacity}" />`);
+    }
+
+    // 3. Text fragments ("CODE", "STUDY", "BCA", "SEM5")
+    const texts = ["CODE", "STUDY", "BCA", "SEM5"];
+    texts.forEach(text => {
+      const x = Math.random() * (width - 120) + 30;
+      const y = Math.random() * (height - 40) + 35;
+      const fontSize = 12 + Math.floor(Math.random() * 14);
+      const opacity = 0.08 + Math.random() * 0.15;
+      const rotate = -20 + Math.floor(Math.random() * 40);
+      const shades = ['var(--text-muted)', 'var(--text-secondary)', 'var(--border-color-hover)'];
+      const color = shades[Math.floor(Math.random() * shades.length)];
+      elements.push(`<text x="${x}" y="${y}" font-family="var(--font-mono)" font-size="${fontSize}" font-weight="900" fill="${color}" opacity="${opacity}" transform="rotate(${rotate} ${x} ${y})">${text}</text>`);
+    });
+
+    const duration = performance.now() - startTime;
+    console.log(`generateGraffitiSVG generated in ${duration.toFixed(2)}ms`);
+
+    return `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="100%" height="100%" preserveAspectRatio="none">
+        ${elements.join('\n')}
+      </svg>
+    `;
+  }
+
+  // Apply Reader Preferences from selection or storage
+  function applyReaderBg(bg) {
+    document.body.classList.remove('reader-bg-sepia', 'reader-bg-mint', 'reader-bg-sunset');
+    if (bg !== 'default') {
+      document.body.classList.add(`reader-bg-${bg}`);
+    }
+    localStorage.setItem('reader_bg', bg);
+    
+    // Update active swatch state
+    document.querySelectorAll('.swatch').forEach(btn => {
+      if (btn.dataset.bg === bg) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function applyReaderFont(font) {
+    document.body.classList.remove('reader-font-georgia', 'reader-font-merriweather', 'reader-font-mono');
+    if (font !== 'inter') {
+      document.body.classList.add(`reader-font-${font}`);
+    }
+    localStorage.setItem('reader_font', font);
+    
+    // Update active font button state
+    document.querySelectorAll('.font-opt').forEach(btn => {
+      if (btn.dataset.font === font) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function applyReaderSize(size) {
+    document.body.classList.remove('reader-size-sm', 'reader-size-lg', 'reader-size-xl');
+    if (size !== 'md') {
+      document.body.classList.add(`reader-size-${size}`);
+    }
+    localStorage.setItem('reader_size', size);
+    
+    // Update active size button state
+    document.querySelectorAll('.size-opt').forEach(btn => {
+      if (btn.dataset.size === size) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  function initReaderPreferences() {
+    const bg = localStorage.getItem('reader_bg') || 'default';
+    const font = localStorage.getItem('reader_font') || 'inter';
+    const size = localStorage.getItem('reader_size') || 'md';
+    
+    applyReaderBg(bg);
+    applyReaderFont(font);
+    applyReaderSize(size);
+  }
+
+  function bindReaderPreferenceEvents() {
+    document.querySelectorAll('.swatch').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyReaderBg(btn.dataset.bg);
+      });
+    });
+    
+    document.querySelectorAll('.font-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyReaderFont(btn.dataset.font);
+      });
+    });
+    
+    document.querySelectorAll('.size-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyReaderSize(btn.dataset.size);
+      });
+    });
+  }
+
   // Router: Match paths & render layouts
   function router() {
     const hash = window.location.hash || '#/';
@@ -209,22 +359,54 @@
       `;
     });
 
+    const totalCredits = state.subjects.reduce((sum, s) => sum + s.credits, 0);
+    const overallCompletion = getOverallProgress();
+
     container.innerHTML = `
-      <div class="hero">
-        <h1 class="hero-title">BCA Semester V Study Hub</h1>
-        <p class="hero-desc">Your ultimate companion for Brainware University exams. Tracking, quizzes, formulas, and resources for all 5th semester subjects.</p>
-        <a href="#/subjects" class="btn btn-primary">
-          Explore Subjects
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-        </a>
+      <div class="dashboard-hero hero">
+        <div class="graffiti-overlay">${generateGraffitiSVG()}</div>
+        <div class="hero-content">
+          <span class="hero-tag">SEMESTER V · 2024</span>
+          <h1 class="hero-title">BCA Semester V Study Hub</h1>
+          <p class="hero-desc">Your ultimate companion for Brainware University exams. Tracking, quizzes, formulas, and resources for all 5th semester subjects.</p>
+          <a href="#/subjects" class="btn btn-primary">
+            Explore Subjects
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
       </div>
 
-      <div class="section-header">
+      <!-- Mobile Overview Stats -->
+      <div class="mobile-summary-card mobile-only m-b-lg">
+        <div class="mobile-summary-grid">
+          <div class="summary-stat">
+            <span class="summary-val">${state.subjects.length}</span>
+            <span class="summary-lbl">Subjects</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-stat">
+            <span class="summary-val">${totalCredits}</span>
+            <span class="summary-lbl">Credits</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-stat">
+            <span class="summary-val">${overallCompletion}%</span>
+            <span class="summary-lbl">Completed</span>
+          </div>
+        </div>
+        <div class="progress-container m-t-md">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width: ${overallCompletion}%; background-color: var(--accent-primary);"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header desktop-only">
         <h2 class="section-title">Semester Overview</h2>
         <p class="section-desc">Course credit breakdown and evaluation criteria.</p>
       </div>
 
-      <div class="table-container m-b-lg">
+      <div class="table-container m-b-lg desktop-only">
         <table class="credit-table">
           <thead>
             <tr>
@@ -503,6 +685,10 @@
     // 1. Initial Theme Setup
     initTheme();
     document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
+
+    // 1b. Initial Reader Settings Setup
+    initReaderPreferences();
+    bindReaderPreferenceEvents();
 
     // 2. Mobile Drawer Actions
     const hamburgerBtn = document.getElementById('hamburgerBtn');

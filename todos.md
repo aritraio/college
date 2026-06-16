@@ -61,51 +61,51 @@ Structured checklist organized by implementation phase. Each phase builds on the
 ## Phase 3 — Major Feature Additions
 
 ### 3A — Dashboard Graffiti Art Enhancement (SVG)
-- [ ] **3A.1** Create `generateGraffitiSVG()` function in `app.js`
-  - [ ] Generate random splatter dots in monochromatic shades
-  - [ ] Generate abstract geometric lines and shapes
-  - [ ] Include text fragments ("CODE", "STUDY", "BCA", "SEM5")
-  - [ ] Make art randomize on each page load
-- [ ] **3A.2** Redesign hero section HTML with `.dashboard-hero` container
-- [ ] **3A.3** Add `.hero-tag` monospaced label ("SEMESTER V · 2024")
-- [ ] **3A.4** Style graffiti canvas as subtle SVG background overlay (opacity 0.06-0.08)
-- [ ] **3A.5** Test performance — ensure < 50ms render time
-- [ ] **3A.6** Verify graffiti renders correctly in both themes
+- [x] **3A.1** Create `generateGraffitiSVG()` function in `app.js`
+  - [x] Generate random splatter dots in monochromatic shades
+  - [x] Generate abstract geometric lines and shapes
+  - [x] Include text fragments ("CODE", "STUDY", "BCA", "SEM5")
+  - [x] Make art randomize on each page load
+- [x] **3A.2** Redesign hero section HTML with `.dashboard-hero` container
+- [x] **3A.3** Add `.hero-tag` monospaced label ("SEMESTER V · 2024")
+- [x] **3A.4** Style graffiti canvas as subtle SVG background overlay (opacity 0.06-0.08)
+- [x] **3A.5** Test performance — ensure < 50ms render time
+- [x] **3A.6** Verify graffiti renders correctly in both themes
 
 ### 3B — Reader Customization Sidebar (Kindle-Style)
-- [ ] **3B.1** Add Google Font import for Merriweather in `index.html`
-- [ ] **3B.2** Add reader preferences HTML section to sidebar in `index.html`
-  - [ ] Background color swatches — 4 Kindle-style options (Default, Sepia, Mint, Sunset)
-  - [ ] Font family selector buttons (Inter, Georgia, Merriweather, Mono)
-  - [ ] Font size selector buttons (Small, Medium, Large, XL)
-- [ ] **3B.3** Style reader preference controls in `style.css`
-  - [ ] `.reader-settings` container
-  - [ ] `.swatch` color buttons with visual preview of each tint
-  - [ ] `.font-opt` font buttons with active states
-  - [ ] `.size-opt` size buttons with graduated sizing
-- [ ] **3B.4** Add Kindle-style reader CSS override classes
-  - [ ] `body.reader-bg-sepia` — warm brown tint (dark: `#1A1611`, light: `#F5EDDC`)
-  - [ ] `body.reader-bg-mint` — green tint (dark: `#0F1A14`, light: `#E8F5EC`)
-  - [ ] `body.reader-bg-sunset` — peach tint (dark: `#1A1210`, light: `#FFF0E8`)
-  - [ ] Override both `--bg-primary` and `--text-primary` for readable contrast
-  - [ ] Font override classes (`.reader-font-georgia`, `.reader-font-merriweather`, `.reader-font-mono`)
-  - [ ] Size override classes (`.reader-size-sm`, `.reader-size-lg`, `.reader-size-xl`)
-- [ ] **3B.5** Add JavaScript logic in `app.js` for reader preferences
-  - [ ] Event listeners for swatch/font/size button clicks
-  - [ ] Apply CSS classes to `<body>` based on selection
-  - [ ] Save selections to `localStorage`
-  - [ ] Restore selections on page load
-- [ ] **3B.6** Test all combinations work correctly with both dark/light base themes
-- [ ] **3B.7** Ensure reader settings persist across page refreshes
+- [x] **3B.1** Add Google Font import for Merriweather in `index.html`
+- [x] **3B.2** Add reader preferences HTML section to sidebar in `index.html`
+  - [x] Background color swatches — 4 Kindle-style options (Default, Sepia, Mint, Sunset)
+  - [x] Font family selector buttons (Inter, Georgia, Merriweather, Mono)
+  - [x] Font size selector buttons (Small, Medium, Large, XL)
+- [x] **3B.3** Style reader preference controls in `style.css`
+  - [x] `.reader-settings` container
+  - [x] `.swatch` color buttons with visual preview of each tint
+  - [x] `.font-opt` font buttons with active states
+  - [x] `.size-opt` size buttons with graduated sizing
+- [x] **3B.4** Add Kindle-style reader CSS override classes
+  - [x] `body.reader-bg-sepia` — warm brown tint (dark: `#1A1611`, light: `#F5EDDC`)
+  - [x] `body.reader-bg-mint` — green tint (dark: `#0F1A14`, light: `#E8F5EC`)
+  - [x] `body.reader-bg-sunset` — peach tint (dark: `#1A1210`, light: `#FFF0E8`)
+  - [x] Override both `--bg-primary` and `--text-primary` for readable contrast
+  - [x] Font override classes (`.reader-font-georgia`, `.reader-font-merriweather`, `.reader-font-mono`)
+  - [x] Size override classes (`.reader-size-sm`, `.reader-size-lg`, `.reader-size-xl`)
+- [x] **3B.5** Add JavaScript logic in `app.js` for reader preferences
+  - [x] Event listeners for swatch/font/size button clicks
+  - [x] Apply CSS classes to `<body>` based on selection
+  - [x] Save selections to `localStorage`
+  - [x] Restore selections on page load
+- [x] **3B.6** Test all combinations work correctly with both dark/light base themes
+- [x] **3B.7** Ensure reader settings persist across page refreshes
 
 ### 3C — Mobile Home Page Redesign
-- [ ] **3C.1** Add `.desktop-only` and `.mobile-only` utility classes to CSS
-- [ ] **3C.2** Wrap credit table in `.desktop-only` container in `renderDashboard()`
-- [ ] **3C.3** Create mobile compact summary card (subjects count, credits, completion %)
-- [ ] **3C.4** Adjust hero section sizing for mobile (smaller font, full-width CTA)
-- [ ] **3C.5** Increase subject card spacing and touch targets on mobile
-- [ ] **3C.6** Fix bottom nav padding to prevent content overlap
-- [ ] **3C.7** Test on 375px (iPhone SE), 414px (iPhone 14), 390px (iPhone 15) viewports
+- [x] **3C.1** Add `.desktop-only` and `.mobile-only` utility classes to CSS
+- [x] **3C.2** Wrap credit table in `.desktop-only` container in `renderDashboard()`
+- [x] **3C.3** Create mobile compact summary card (subjects count, credits, completion %)
+- [x] **3C.4** Adjust hero section sizing for mobile (smaller font, full-width CTA)
+- [x] **3C.5** Increase subject card spacing and touch targets on mobile
+- [x] **3C.6** Fix bottom nav padding to prevent content overlap
+- [x] **3C.7** Test on 375px (iPhone SE), 414px (iPhone 14), 390px (iPhone 15) viewports
 
 ---
 

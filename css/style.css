@@ -1270,12 +1270,13 @@ code:not(pre code) {
   gap: var(--space-xl);
   position: relative;
   width: 100%;
+  max-width: 1200px;
 }
 
 .reading-column {
   min-width: 0; /* Prevents flex/grid overflow */
   width: 100%;
-  max-width: 720px;
+  max-width: 900px;
 }
 
 .toc-column {

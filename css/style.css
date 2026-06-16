@@ -1766,3 +1766,133 @@ body.reader-size-xl {
   text-decoration: underline;
   transform: translateX(2px);
 }
+
+/* ==========================================
+   PHASE 5 — LEARNING RESOURCES GRID
+   ========================================== */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.resource-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-md);
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  text-decoration: none;
+  color: inherit;
+}
+
+.resource-card:hover {
+  border-color: var(--border-color-hover);
+  background-color: var(--bg-card-hover);
+}
+
+.badge-resource {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  width: fit-content;
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.badge-video {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+:root[data-theme="light"] .badge-video {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.badge-article {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  border: 1px dashed var(--border-color);
+}
+:root[data-theme="light"] .badge-article {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.badge-docs {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+:root[data-theme="light"] .badge-docs {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* ==========================================
+   KEY CONCEPT CALLOUT BOX
+   ========================================== */
+.callout-concept {
+  background: var(--bg-surface);
+  border-left: 4px solid var(--text-primary);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-md) var(--space-lg);
+  margin: var(--space-lg) 0;
+  box-shadow: none;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.callout-concept-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.callout-concept-content {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ==========================================
+   COMMON MISTAKES CALLOUT BOX
+   ========================================== */
+.callout-mistake {
+  background: var(--bg-surface);
+  border-left: 4px solid #ff6b6b;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-md) var(--space-lg);
+  margin: var(--space-lg) 0;
+  box-shadow: none;
+  animation: slideInLeft 0.5s ease-out;
+}
+
+.callout-mistake-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 700;
+  color: #ff6b6b;
+  margin-bottom: var(--space-xs);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.callout-mistake-content {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}

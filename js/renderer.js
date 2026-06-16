@@ -134,10 +134,40 @@
               <h3 id="${topicId}" class="topic-header" style="font-size: 1.4rem; font-weight: 700; margin-top: var(--space-lg); margin-bottom: var(--space-sm); scroll-margin-top: 90px;">
                 ${topic.title}
               </h3>
+          `;
+
+          // Append key concept callout if exists
+          if (topic.keyConcept) {
+            htmlContent += `
+              <div class="callout-concept">
+                <div class="callout-concept-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                  Key Concept
+                </div>
+                <div class="callout-concept-content">${topic.keyConcept}</div>
+              </div>
+            `;
+          }
+
+          htmlContent += `
               <div style="color: var(--text-secondary); line-height: 1.7;">
                 ${topic.content}
               </div>
           `;
+
+          // Append common mistakes callout if exists
+          const mistakeContent = topic.commonMistakes || topic.commonMistake;
+          if (mistakeContent) {
+            htmlContent += `
+              <div class="callout-mistake">
+                <div class="callout-mistake-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                  Common Mistake
+                </div>
+                <div class="callout-mistake-content">${mistakeContent}</div>
+              </div>
+            `;
+          }
           
           // Append interview tips callout if exists
           if (topic.interviewTip) {
@@ -145,7 +175,7 @@
               <div class="callout-tip">
                 <div class="callout-tip-title">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                  Placement / Interview Tip
+                  Tip
                 </div>
                 <div class="callout-tip-content">${topic.interviewTip}</div>
               </div>

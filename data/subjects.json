@@ -33,6 +33,12 @@
       ],
       "references": [
         "Ian Sommerville, 'Software Engineering', Pearson Education"
+      ],
+      "resources": [
+        { "title": "GeeksforGeeks: Software Engineering", "url": "https://www.geeksforgeeks.org/software-engineering/", "type": "Article" },
+        { "title": "JavaTPoint: SE Tutorial", "url": "https://www.javatpoint.com/software-engineering", "type": "Article" },
+        { "title": "Tutorialspoint: SE", "url": "https://www.tutorialspoint.com/software_engineering/", "type": "Article" },
+        { "title": "NPTEL: Software Engineering Lectures", "url": "https://nptel.ac.in/courses/106105182", "type": "Video" }
       ]
     },
     {
@@ -65,6 +71,12 @@
       ],
       "references": [
         "Anany Levitin, 'Introduction to the Design and Analysis of Algorithms', Pearson Education"
+      ],
+      "resources": [
+        { "title": "GeeksforGeeks: Algorithms", "url": "https://www.geeksforgeeks.org/fundamentals-of-algorithms/", "type": "Article" },
+        { "title": "Visualgo: Algorithm Visualizations", "url": "https://visualgo.net/", "type": "Docs" },
+        { "title": "MIT OCW: Intro to Algorithms", "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/", "type": "Video" },
+        { "title": "Abdul Bari Algorithms (YouTube)", "url": "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O", "type": "Video" }
       ]
     },
     {
@@ -97,6 +109,12 @@
       ],
       "references": [
         "React and Angular Official Documentation websites"
+      ],
+      "resources": [
+        { "title": "React Official Docs", "url": "https://react.dev/", "type": "Docs" },
+        { "title": "W3Schools React", "url": "https://www.w3schools.com/react/", "type": "Article" },
+        { "title": "AngularJS Developer Guide", "url": "https://docs.angularjs.org/guide", "type": "Docs" },
+        { "title": "freeCodeCamp: React", "url": "https://www.freecodecamp.org/learn/front-end-development-libraries/", "type": "Article" }
       ]
     },
     {
@@ -129,6 +147,12 @@
       ],
       "references": [
         "Stephen Marsland, 'Machine Learning: An Algorithmic Perspective', CRC Press"
+      ],
+      "resources": [
+        { "title": "GeeksforGeeks: ML", "url": "https://www.geeksforgeeks.org/machine-learning/", "type": "Article" },
+        { "title": "Andrew Ng's ML Course", "url": "https://www.coursera.org/learn/machine-learning", "type": "Video" },
+        { "title": "Scikit-learn Docs", "url": "https://scikit-learn.org/stable/", "type": "Docs" },
+        { "title": "StatQuest (YouTube)", "url": "https://www.youtube.com/c/joshstarmer", "type": "Video" }
       ]
     }
   ]

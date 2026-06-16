@@ -546,7 +546,39 @@
       `;
     });
 
+    let resourcesHTML = '';
+    if (subj.resources && subj.resources.length > 0) {
+      let cardsHTML = '';
+      subj.resources.forEach(res => {
+        let badgeClass = 'badge-article';
+        if (res.type.toLowerCase() === 'video') badgeClass = 'badge-video';
+        if (res.type.toLowerCase() === 'docs') badgeClass = 'badge-docs';
+        if (res.type.toLowerCase() === 'book') badgeClass = 'badge-book';
+        
+        cardsHTML += `
+          <a href="${res.url}" target="_blank" rel="noopener noreferrer" class="resource-card">
+            <div>
+              <span class="badge-resource ${badgeClass}">${res.type}</span>
+              <h4 style="font-size: 1rem; font-weight: 700; margin-top: 4px; line-height: 1.4;">${res.title}</h4>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: var(--space-md); display: flex; align-items: center; gap: 4px;">
+              Visit Resource 
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </span>
+          </a>
+        `;
+      });
 
+      resourcesHTML = `
+        <div class="section-header" style="margin-top: var(--space-xl);">
+          <h3 class="section-title">Learning Resources</h3>
+          <p class="section-desc">External tutorials, visualizations, and video lectures to supplement your learning.</p>
+        </div>
+        <div class="resource-grid">
+          ${cardsHTML}
+        </div>
+      `;
+    }
 
     container.innerHTML = `
       <div style="margin-bottom: var(--space-lg);">
@@ -582,6 +614,7 @@
         ${modulesHTML}
       </div>
 
+      ${resourcesHTML}
     `;
   }
 
@@ -833,7 +866,13 @@
             courseObjective: 'To understand software development lifecycles and structured analysis.',
             courseOutcomes: ['CO1: Analyze models', 'CO2: Build SRS'],
             textbooks: ['Roger S. Pressman'],
-            references: []
+            references: [],
+            resources: [
+              { "title": "GeeksforGeeks: Software Engineering", "url": "https://www.geeksforgeeks.org/software-engineering/", "type": "Article" },
+              { "title": "JavaTPoint: SE Tutorial", "url": "https://www.javatpoint.com/software-engineering", "type": "Article" },
+              { "title": "Tutorialspoint: SE", "url": "https://www.tutorialspoint.com/software_engineering/", "type": "Article" },
+              { "title": "NPTEL: Software Engineering Lectures", "url": "https://nptel.ac.in/courses/106105182", "type": "Video" }
+            ]
           },
           {
             id: 'daa',
@@ -854,7 +893,13 @@
             courseObjective: 'To understand complexities and design methodologies.',
             courseOutcomes: ['CO1: Analyze bounds'],
             textbooks: ['T.H. Cormen'],
-            references: []
+            references: [],
+            resources: [
+              { "title": "GeeksforGeeks: Algorithms", "url": "https://www.geeksforgeeks.org/fundamentals-of-algorithms/", "type": "Article" },
+              { "title": "Visualgo: Algorithm Visualizations", "url": "https://visualgo.net/", "type": "Docs" },
+              { "title": "MIT OCW: Intro to Algorithms", "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/", "type": "Video" },
+              { "title": "Abdul Bari Algorithms (YouTube)", "url": "https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O", "type": "Video" }
+            ]
           },
           {
             id: 'fsd',
@@ -875,7 +920,13 @@
             courseObjective: 'To build web apps with React and Angular.',
             courseOutcomes: ['CO1: Write React components'],
             textbooks: ['Kirupa Chinnathambi'],
-            references: []
+            references: [],
+            resources: [
+              { "title": "React Official Docs", "url": "https://react.dev/", "type": "Docs" },
+              { "title": "W3Schools React", "url": "https://www.w3schools.com/react/", "type": "Article" },
+              { "title": "AngularJS Developer Guide", "url": "https://docs.angularjs.org/guide", "type": "Docs" },
+              { "title": "freeCodeCamp: React", "url": "https://www.freecodecamp.org/learn/front-end-development-libraries/", "type": "Article" }
+            ]
           },
           {
             id: 'ml',
@@ -896,7 +947,13 @@
             courseObjective: 'To study learning theories and ensemble schemes.',
             courseOutcomes: ['CO1: Formulate ML workflows'],
             textbooks: ['Tom M. Mitchell'],
-            references: []
+            references: [],
+            resources: [
+              { "title": "GeeksforGeeks: ML", "url": "https://www.geeksforgeeks.org/machine-learning/", "type": "Article" },
+              { "title": "Andrew Ng's ML Course", "url": "https://www.coursera.org/learn/machine-learning", "type": "Video" },
+              { "title": "Scikit-learn Docs", "url": "https://scikit-learn.org/stable/", "type": "Docs" },
+              { "title": "StatQuest (YouTube)", "url": "https://www.youtube.com/c/joshstarmer", "type": "Video" }
+            ]
           }
         ];
         

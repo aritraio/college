@@ -50,11 +50,17 @@ Structured checklist organized by implementation phase. Each phase builds on the
 - [ ] **2C.3** Add hover effect: `border-color` change and `→` arrow indicator
 - [ ] **2C.4** Test navigation from subject landing → each module for all 4 subjects
 
+### 2D — Remove Course Outcomes & Textbooks from Subject Landing
+- [ ] **2D.1** Remove the `grid-2-col` section from `renderSubjectLanding()` (Course Outcomes + Textbooks cards)
+- [ ] **2D.2** Remove `outcomesHTML` and `booksHTML` variable construction code
+- [ ] **2D.3** Keep the data in `subjects.json` (don't delete from JSON, just don't render it)
+- [ ] **2D.4** Verify subject landing pages look clean without bottom sections
+
 ---
 
 ## Phase 3 — Major Feature Additions
 
-### 3A — Dashboard Graffiti Art Enhancement
+### 3A — Dashboard Graffiti Art Enhancement (SVG)
 - [ ] **3A.1** Create `generateGraffitiSVG()` function in `app.js`
   - [ ] Generate random splatter dots in monochromatic shades
   - [ ] Generate abstract geometric lines and shapes
@@ -62,31 +68,34 @@ Structured checklist organized by implementation phase. Each phase builds on the
   - [ ] Make art randomize on each page load
 - [ ] **3A.2** Redesign hero section HTML with `.dashboard-hero` container
 - [ ] **3A.3** Add `.hero-tag` monospaced label ("SEMESTER V · 2024")
-- [ ] **3A.4** Style graffiti canvas as subtle background overlay (opacity 0.06-0.08)
+- [ ] **3A.4** Style graffiti canvas as subtle SVG background overlay (opacity 0.06-0.08)
 - [ ] **3A.5** Test performance — ensure < 50ms render time
 - [ ] **3A.6** Verify graffiti renders correctly in both themes
 
-### 3B — Reader Customization Sidebar
+### 3B — Reader Customization Sidebar (Kindle-Style)
 - [ ] **3B.1** Add Google Font import for Merriweather in `index.html`
 - [ ] **3B.2** Add reader preferences HTML section to sidebar in `index.html`
-  - [ ] Background color swatches (4 options)
-  - [ ] Font family selector buttons (4 options)
-  - [ ] Font size selector buttons (4 options)
+  - [ ] Background color swatches — 4 Kindle-style options (Default, Sepia, Mint, Sunset)
+  - [ ] Font family selector buttons (Inter, Georgia, Merriweather, Mono)
+  - [ ] Font size selector buttons (Small, Medium, Large, XL)
 - [ ] **3B.3** Style reader preference controls in `style.css`
   - [ ] `.reader-settings` container
-  - [ ] `.swatch` color buttons with active states
+  - [ ] `.swatch` color buttons with visual preview of each tint
   - [ ] `.font-opt` font buttons with active states
-  - [ ] `.size-opt` size buttons with active states
-- [ ] **3B.4** Add reader preference CSS override classes
-  - [ ] `body.reader-bg-warm`, `.reader-bg-cool`, `.reader-bg-paper`
-  - [ ] `body.reader-font-georgia`, `.reader-font-merriweather`, `.reader-font-mono`
-  - [ ] `body.reader-size-sm`, `.reader-size-lg`, `.reader-size-xl`
+  - [ ] `.size-opt` size buttons with graduated sizing
+- [ ] **3B.4** Add Kindle-style reader CSS override classes
+  - [ ] `body.reader-bg-sepia` — warm brown tint (dark: `#1A1611`, light: `#F5EDDC`)
+  - [ ] `body.reader-bg-mint` — green tint (dark: `#0F1A14`, light: `#E8F5EC`)
+  - [ ] `body.reader-bg-sunset` — peach tint (dark: `#1A1210`, light: `#FFF0E8`)
+  - [ ] Override both `--bg-primary` and `--text-primary` for readable contrast
+  - [ ] Font override classes (`.reader-font-georgia`, `.reader-font-merriweather`, `.reader-font-mono`)
+  - [ ] Size override classes (`.reader-size-sm`, `.reader-size-lg`, `.reader-size-xl`)
 - [ ] **3B.5** Add JavaScript logic in `app.js` for reader preferences
   - [ ] Event listeners for swatch/font/size button clicks
   - [ ] Apply CSS classes to `<body>` based on selection
   - [ ] Save selections to `localStorage`
   - [ ] Restore selections on page load
-- [ ] **3B.6** Test all 4×4×4 = 64 combinations work correctly
+- [ ] **3B.6** Test all combinations work correctly with both dark/light base themes
 - [ ] **3B.7** Ensure reader settings persist across page refreshes
 
 ### 3C — Mobile Home Page Redesign
@@ -147,42 +156,74 @@ Structured checklist organized by implementation phase. Each phase builds on the
 
 ---
 
-## Phase 5 — Content Depth Enhancement
+## Phase 5 — Content Depth Enhancement + Resource Links
 
-> This phase can be done incrementally, module by module, and in parallel with other phases.
+> Content depth is being addressed NOW alongside the UI work.
 
-### 5A — Content Structure Improvements
-- [ ] **5A.1** Add "Key Concept" summary box renderer to `renderer.js`
-- [ ] **5A.2** Add "Common Mistakes" callout box renderer to `renderer.js`
-- [ ] **5A.3** Style new content components in `style.css`
+### 5A — Add Resource Links Infrastructure
+- [ ] **5A.1** Add `resources` array to each subject in `data/subjects.json`
+- [ ] **5A.2** Create "Learning Resources" section in `renderSubjectLanding()` (replaces removed Course Outcomes/Textbooks)
+- [ ] **5A.3** Style resource link cards with type badges (Video / Article / Docs / Book)
+- [ ] **5A.4** Each link opens in new tab (`target="_blank"`)
 
-### 5B — Software Engineering Modules
-- [ ] **5B.1** Enrich `data/se/module1.json` — add real-world examples, more detail per topic
-- [ ] **5B.2** Enrich `data/se/module2.json` — add SDLC model comparison table
-- [ ] **5B.3** Enrich `data/se/module3.json` — add SRS template examples
-- [ ] **5B.4** Enrich `data/se/module4.json` — add UML diagram descriptions
-- [ ] **5B.5** Enrich `data/se/module5.json` — add testing strategy examples
+**Resource links to add:**
 
-### 5C — Design & Analysis of Algorithms Modules
-- [ ] **5C.1** Enrich `data/daa/module1.json` — add complexity comparison tables
-- [ ] **5C.2** Enrich `data/daa/module2.json` — add sorting algorithm pseudocode & step-by-step
-- [ ] **5C.3** Enrich `data/daa/module3.json` — add greedy/DP worked examples
-- [ ] **5C.4** Enrich `data/daa/module4.json` — add graph algorithm walkthroughs
-- [ ] **5C.5** Enrich `data/daa/module5.json` — add P vs NP explanations
+**Software Engineering:**
+- [ ] **5A.5** GeeksforGeeks: Software Engineering — https://www.geeksforgeeks.org/software-engineering/
+- [ ] **5A.6** JavaTPoint: SE Tutorial — https://www.javatpoint.com/software-engineering
+- [ ] **5A.7** Tutorialspoint: SE — https://www.tutorialspoint.com/software_engineering/
+- [ ] **5A.8** NPTEL: Software Engineering (YouTube/NPTEL)
 
-### 5D — Full-stack Development Modules
-- [ ] **5D.1** Enrich `data/fsd/module1.json` — add React code examples
-- [ ] **5D.2** Enrich `data/fsd/module2.json` — add routing code samples
-- [ ] **5D.3** Enrich `data/fsd/module3.json` — add form handling examples
-- [ ] **5D.4** Enrich `data/fsd/module4.json` — add API fetch examples
-- [ ] **5D.5** Enrich `data/fsd/module5.json` — add Angular directive examples
+**Design & Analysis of Algorithms:**
+- [ ] **5A.9** GeeksforGeeks: Algorithms — https://www.geeksforgeeks.org/fundamentals-of-algorithms/
+- [ ] **5A.10** Visualgo: Algorithm Visualizations — https://visualgo.net/
+- [ ] **5A.11** MIT OCW: Intro to Algorithms — https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/
+- [ ] **5A.12** Abdul Bari Algorithms (YouTube) — https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O
 
-### 5E — Machine Learning Modules
-- [ ] **5E.1** Enrich `data/ml/module1.json` — add ML pipeline diagrams
-- [ ] **5E.2** Enrich `data/ml/module2.json` — add supervised vs unsupervised comparison
-- [ ] **5E.3** Enrich `data/ml/module3.json` — add training workflow examples
-- [ ] **5E.4** Enrich `data/ml/module4.json` — add business use-case studies
-- [ ] **5E.5** Enrich `data/ml/module5.json` — add ensemble method comparison tables
+**Full-stack Development:**
+- [ ] **5A.13** React Official Docs — https://react.dev/
+- [ ] **5A.14** W3Schools React — https://www.w3schools.com/react/
+- [ ] **5A.15** AngularJS Developer Guide — https://docs.angularjs.org/guide
+- [ ] **5A.16** freeCodeCamp: React — https://www.freecodecamp.org/learn/front-end-development-libraries/
+
+**Machine Learning:**
+- [ ] **5A.17** GeeksforGeeks: ML — https://www.geeksforgeeks.org/machine-learning/
+- [ ] **5A.18** Andrew Ng's ML Course — https://www.coursera.org/learn/machine-learning
+- [ ] **5A.19** Scikit-learn Docs — https://scikit-learn.org/stable/
+- [ ] **5A.20** StatQuest (YouTube) — https://www.youtube.com/c/joshstarmer
+
+### 5B — Content Structure Improvements
+- [ ] **5B.1** Add "Key Concept" summary box renderer to `renderer.js`
+- [ ] **5B.2** Add "Common Mistakes" callout box renderer to `renderer.js`
+- [ ] **5B.3** Style new content components in `style.css`
+
+### 5C — Software Engineering Content Enrichment
+- [ ] **5C.1** Enrich `data/se/module1.json` — expand definitions, add real-world software project examples
+- [ ] **5C.2** Enrich `data/se/module2.json` — add SDLC model comparison table (Waterfall vs Agile vs Spiral vs V-Model)
+- [ ] **5C.3** Enrich `data/se/module3.json` — add SRS template walkthrough, requirement elicitation techniques
+- [ ] **5C.4** Enrich `data/se/module4.json` — add UML diagram examples, design pattern descriptions
+- [ ] **5C.5** Enrich `data/se/module5.json` — add testing strategy matrix, COCOMO estimation walkthrough
+
+### 5D — Design & Analysis of Algorithms Content Enrichment
+- [ ] **5D.1** Enrich `data/daa/module1.json` — add Big-O/Omega/Theta comparison table, recurrence examples
+- [ ] **5D.2** Enrich `data/daa/module2.json` — add sorting algorithm step-by-step traces with pseudocode
+- [ ] **5D.3** Enrich `data/daa/module3.json` — add greedy vs DP worked examples (knapsack, coin change)
+- [ ] **5D.4** Enrich `data/daa/module4.json` — add Dijkstra/Bellman-Ford/Prim/Kruskal walkthroughs
+- [ ] **5D.5** Enrich `data/daa/module5.json` — add P vs NP explanation, NP-complete problem examples
+
+### 5E — Full-stack Development Content Enrichment
+- [ ] **5E.1** Enrich `data/fsd/module1.json` — add JSX code examples, component lifecycle diagram
+- [ ] **5E.2** Enrich `data/fsd/module2.json` — add React Router code samples, CSS-in-JS comparison
+- [ ] **5E.3** Enrich `data/fsd/module3.json` — add controlled vs uncontrolled form examples
+- [ ] **5E.4** Enrich `data/fsd/module4.json` — add fetch/axios API examples, async/await patterns
+- [ ] **5E.5** Enrich `data/fsd/module5.json` — add Angular directive code, service injection examples
+
+### 5F — Machine Learning Content Enrichment
+- [ ] **5F.1** Enrich `data/ml/module1.json` — add ML pipeline diagram, AI vs ML vs DL comparison
+- [ ] **5F.2** Enrich `data/ml/module2.json` — add supervised vs unsupervised vs reinforcement comparison table
+- [ ] **5F.3** Enrich `data/ml/module3.json` — add gradient descent walkthrough, bias-variance tradeoff
+- [ ] **5F.4** Enrich `data/ml/module4.json` — add industry use-case studies (healthcare, finance, retail)
+- [ ] **5F.5** Enrich `data/ml/module5.json` — add Bagging vs Boosting comparison, Random Forest walkthrough
 
 ---
 
@@ -191,8 +232,8 @@ Structured checklist organized by implementation phase. Each phase builds on the
 | Phase | Focus | Items | Priority |
 |-------|-------|-------|----------|
 | **Phase 1** | Monochromatic Theme Redesign | 17 | 🔴 Critical (do first) |
-| **Phase 2** | Surgical Fixes (scroll bar, favicon, subject click) | 14 | 🔴 Critical |
-| **Phase 3** | Major Features (graffiti art, reader settings, mobile) | 21 | 🟡 High |
+| **Phase 2** | Surgical Fixes (scroll bar, favicon, subject click, remove CO/textbooks) | 18 | 🔴 Critical |
+| **Phase 3** | Major Features (SVG graffiti, Kindle reader, mobile) | 21 | 🟡 High |
 | **Phase 4** | UX Polish (typography, transitions, keyboard nav, footer) | 20 | 🟢 Medium |
-| **Phase 5** | Content Depth Enhancement | 23 | 🔵 Ongoing |
-| **Total** | | **95 items** | |
+| **Phase 5** | Content Depth + Resource Links | 45 | 🔴 Critical (do alongside) |
+| **Total** | | **121 items** | |

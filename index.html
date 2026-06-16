@@ -17,7 +17,7 @@
   <!-- Google Fonts Connection -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
   <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -58,43 +58,28 @@
     <!-- Sidebar (Desktop/Tablet) -->
     <aside id="sidebar" class="sidebar">
       <div class="logo-container">
-        <div class="logo-icon">S5</div>
-        <span class="logo-text">Study Hub</span>
+        <h1 class="logo-title">University Portal</h1>
+        <p class="logo-subtitle">Academic Records</p>
       </div>
       
       <nav class="sidebar-menu">
         <a href="#/" class="sidebar-link active" data-route="dashboard">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <rect x="3" y="3" width="7" height="9" rx="1"></rect>
-            <rect x="14" y="3" width="7" height="5" rx="1"></rect>
-            <rect x="14" y="12" width="7" height="9" rx="1"></rect>
-            <rect x="3" y="16" width="7" height="5" rx="1"></rect>
-          </svg>
+          <span class="material-symbols-outlined sidebar-icon">dashboard</span>
           <span>Dashboard</span>
         </a>
         
         <a href="#/subjects" class="sidebar-link" data-route="subjects">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-          </svg>
+          <span class="material-symbols-outlined sidebar-icon">book</span>
           <span>Subjects</span>
         </a>
         
         <a href="#/progress" class="sidebar-link" data-route="progress">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-          </svg>
+          <span class="material-symbols-outlined sidebar-icon">trending_up</span>
           <span>Progress</span>
         </a>
         
         <a href="#/settings" class="sidebar-link" data-route="settings">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-          </svg>
+          <span class="material-symbols-outlined sidebar-icon">settings</span>
           <span>Settings</span>
         </a>
       </nav>
@@ -143,6 +128,12 @@
           </div>
         </div>
       </div>
+      
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <span class="material-symbols-outlined footer-icon">info</span>
+        <span>Term 2, 2024</span>
+      </div>
     </aside>
     
     <!-- Sidebar Backdrop/Overlay (Tablet Drawer) -->
@@ -150,6 +141,29 @@
 
     <!-- Main Content Dynamic Host -->
     <main class="main-content">
+      <!-- Desktop TopNavBar -->
+      <header class="top-nav-bar desktop-only">
+        <div class="top-nav-search">
+          <span class="material-symbols-outlined search-icon">search</span>
+          <input type="text" placeholder="Search archive..." id="dashboardSearchInput">
+        </div>
+        <div class="top-nav-widgets">
+          <!-- Time & Weather Widget -->
+          <div class="weather-time-widget" id="weatherTimeWidget">
+            <span class="material-symbols-outlined weather-icon" id="widgetWeatherIcon">light_mode</span>
+            <span class="weather-text" id="widgetWeatherText">Kolkata, 28°C</span>
+            <span class="widget-divider">·</span>
+            <span class="time-text" id="widgetTimeText">--:--</span>
+          </div>
+          <button class="top-nav-btn" aria-label="Notifications">
+            <span class="material-symbols-outlined">notifications</span>
+          </button>
+          <button class="top-nav-btn" aria-label="Account Profile">
+            <span class="material-symbols-outlined">account_circle</span>
+          </button>
+        </div>
+      </header>
+
       <div id="app" class="fade-in-view">
         <!-- Dynamic view injection -->
       </div>

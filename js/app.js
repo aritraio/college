@@ -344,7 +344,7 @@
       const btnClass = isFirst ? 'scholarly-btn solid' : 'scholarly-btn outline';
       
       modulesHTML += `
-        <div class="scholarly-card row-layout">
+        <div class="scholarly-card row-layout" onclick="if (!event.target.closest('a')) window.location.hash = '#/subject/${subj.id}/module/${mod.id}'">
           <div>
             <span class="scholarly-card-tag">${subj.code}</span>
             <h4 class="font-headline-lg-mobile scholarly-card-title">${subj.name}</h4>
@@ -477,7 +477,7 @@
       const resumeHref = `#/subject/${subj.id}/module/${isAllCompleted ? 1 : resumeModuleId}`;
 
       listHTML += `
-        <div class="card subject-list-card" style="border-left: 4px solid ${subj.accentColor || 'var(--accent-primary)'}; display: flex; flex-direction: column; gap: var(--space-md);">
+        <div class="card subject-list-card" style="border-left: 4px solid ${subj.accentColor || 'var(--accent-primary)'}; display: flex; flex-direction: column; gap: var(--space-md);" onclick="if (!event.target.closest('a')) window.location.hash = '#/subject/${subj.id}'">
           <div class="flex justify-between align-start">
             <div>
               <span style="font-family: var(--font-mono); color: var(--text-muted); font-size: 0.85rem;">${subj.code} · ${subj.type}</span>

@@ -1756,6 +1756,7 @@ body.reader-size-xl {
   position: relative;
   overflow: hidden;
   height: 100%;
+  cursor: pointer;
 }
 
 .subject-number {
@@ -2124,6 +2125,7 @@ body.reader-size-xl {
   flex-direction: column;
   gap: var(--space-sm);
   transition: background var(--transition-fast), border-color var(--transition-fast);
+  cursor: pointer;
 }
 
 @media (min-width: 640px) {

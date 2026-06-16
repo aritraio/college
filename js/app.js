@@ -1142,7 +1142,7 @@
               <dt>Subjects</dt>
               <dd>${state.subjects.length} subjects · ${totalModules} modules</dd>
               <dt>Built by</dt>
-              <dd>aritra ❤️</dd>
+              <dd>Aritra ❤️</dd>
               <dt>Version</dt>
               <dd>2.0.0</dd>
             </dl>

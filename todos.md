@@ -208,38 +208,38 @@
 
 ## Day 5 — Polish, Testing & Deploy
 
-- [ ] Cross-browser testing
-  - [ ] Chrome
-  - [ ] Firefox
-  - [ ] Safari
-  - [ ] MathJax rendering in all browsers
-- [ ] Mobile responsive testing
-  - [ ] iPhone SE (375px width)
-  - [ ] iPhone 14 (390px width)
-  - [ ] iPad (768px width)
-  - [ ] iPad Pro (1024px width)
-  - [ ] Bottom nav usability on all phone sizes
-  - [ ] Swipe gestures working on touch devices
-  - [ ] Accordion sections smooth on mobile
-  - [ ] No horizontal overflow anywhere
-- [ ] Content quality review
-  - [ ] All module topics match syllabus PDF
-  - [ ] All MCQ answers verified correct
-  - [ ] MathJax formulas render properly
-  - [ ] No typos or broken formatting
-  - [ ] Code examples are syntactically correct
-- [ ] Performance check
-  - [ ] JSON files lazy-loaded (fetch on navigate, not upfront)
-  - [ ] Remove any unused CSS
-  - [ ] Page loads in under 2 seconds
-- [ ] Final visual polish
-  - [ ] All transitions and hover effects smooth
-  - [ ] Animations not janky on low-end devices
-  - [ ] localStorage persistence confirmed
-  - [ ] Confetti works on quiz high scores
-  - [ ] Dark/light theme toggle seamless
-- [ ] Project wrap-up
-  - [ ] Add favicon
-  - [ ] Add Open Graph meta tags (for sharing link previews)
-  - [ ] Update `README.md` with project description, tech stack, how to use
-  - [ ] Final commit
+- [x] Cross-browser testing
+  - [x] Chrome
+  - [x] Firefox
+  - [x] Safari
+  - [x] MathJax rendering in all browsers
+- [x] Mobile responsive testing
+  - [x] iPhone SE (375px width)
+  - [x] iPhone 14 (390px width)
+  - [x] iPad (768px width)
+  - [x] iPad Pro (1024px width)
+  - [x] Bottom nav usability on all phone sizes
+  - [x] Swipe gestures working on touch devices
+  - [x] Accordion sections smooth on mobile
+  - [x] No horizontal overflow anywhere
+- [x] Content quality review
+  - [x] All module topics match syllabus PDF
+  - [x] All MCQ answers verified correct
+  - [x] MathJax formulas render properly
+  - [x] No typos or broken formatting
+  - [x] Code examples are syntactically correct
+- [x] Performance check
+  - [x] JSON files lazy-loaded (fetch on navigate, not upfront)
+  - [x] Remove any unused CSS
+  - [x] Page loads in under 2 seconds
+- [x] Final visual polish
+  - [x] All transitions and hover effects smooth
+  - [x] Animations not janky on low-end devices
+  - [x] localStorage persistence confirmed
+  - [x] Confetti works on quiz high scores
+  - [x] Dark/light theme toggle seamless
+- [x] Project wrap-up
+  - [x] Add favicon
+  - [x] Add Open Graph meta tags (for sharing link previews)
+  - [x] Update `README.md` with project description, tech stack, how to use
+  - [x] Final commit and push

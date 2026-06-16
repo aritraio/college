@@ -4,6 +4,16 @@ A comprehensive redesign and enhancement plan to transform the Study Hub into a 
 
 ---
 
+## Decisions Made
+
+| Question | Decision |
+|----------|----------|
+| Graffiti Art Style | **SVG** — subtle, abstract procedural SVG background patterns |
+| Color Theme | **Default black/white**, with Kindle-style reader color modes (Warm Sepia, Cool Grey, Paper White, Green Tint) |
+| Content Depth | **Enrich now** — increase depth, add resource links, remove Course Outcomes & Textbooks sections from subject landing |
+
+---
+
 ## Current State Analysis
 
 The website is a functional vanilla HTML/CSS/JS SPA with hash routing, 4 subjects × 5 modules of content, MCQ quizzes, and localStorage-based progress tracking. While the architectural foundation is solid, several areas need improvement:
@@ -18,6 +28,7 @@ The website is a functional vanilla HTML/CSS/JS SPA with hash routing, 4 subject
 | **Dashboard** | Feels dull — just a data table and plain subject cards, no visual personality |
 | **Reading Experience** | No way to customize background color, font family, or font size for comfortable reading |
 | **Theme** | Currently uses violet + teal + pink + amber accents — needs monochromatic overhaul |
+| **Subject Landing** | Course Outcomes and Textbook sections at the bottom are unnecessary clutter — remove them |
 
 ---
 
@@ -27,7 +38,7 @@ The website is a functional vanilla HTML/CSS/JS SPA with hash routing, 4 subject
 
 > **CRITICAL**: This is the foundational change. All other visual improvements build on this new design system.
 
-Inspired by [career-wallah.vercel.app](https://career-wallah.vercel.app), the entire color palette shifts to a **monochromatic black/white/grey** system with sharp borders, minimal radii, and a brutalist-modern aesthetic.
+Inspired by [career-wallah.vercel.app](https://career-wallah.vercel.app), the entire color palette shifts to a **monochromatic black/white/grey** system with sharp borders, minimal radii, and a brutalist-modern aesthetic. Default is pure black & white — color tints are accessible via Kindle-style reader mode.
 
 #### Files: `css/style.css`
 
@@ -164,17 +175,17 @@ And update `.logo-icon` in CSS to remove the violet-teal gradient → flat monoc
 
 ---
 
-### 5. Subject Page — Click to Open Modules
+### 5. Subject Page — Click to Open Modules + Remove Bottom Sections
 
 #### Files: `js/app.js`, `css/style.css`
 
-**Problem:** On the subject landing page (e.g., `#/subject/daa`), module cards display but clicking them doesn't do anything visible. The `onclick` handler exists on `.module-header-row` but the card has no visual affordance (no cursor change, no hover effect, no arrow indicator).
+**Problem 1:** On the subject landing page (e.g., `#/subject/daa`), module cards display but clicking them doesn't do anything visible. The `onclick` handler exists on `.module-header-row` but the card has no visual affordance (no cursor change, no hover effect, no arrow indicator).
 
-**Proposed fix in `app.js` → `renderSubjectLanding()`:**
+**Fix in `app.js` → `renderSubjectLanding()`:**
 - Move the `onclick` handler from `.module-header-row` to the entire `.module-card` wrapper div
 - Wrap in an anchor tag or add proper click handlers
 
-**Proposed fix in `style.css`:**
+**Fix in `style.css`:**
 ```css
 .module-card {
   cursor: pointer;
@@ -199,6 +210,11 @@ And update `.logo-icon` in CSS to remove the violet-teal gradient → flat monoc
   color: var(--text-primary);
 }
 ```
+
+**Problem 2:** The "Course Outcomes (COs)" and "Textbooks & Resources" cards at the bottom of the subject landing page add clutter. These are academic metadata that readers don't need while studying.
+
+**Fix in `app.js` → `renderSubjectLanding()`:**
+Remove the entire `grid-2-col` section that renders `outcomesHTML` and `booksHTML` (lines 408-422). This removes both the Course Outcomes and Textbooks & Resources cards.
 
 ---
 
@@ -262,13 +278,11 @@ A `generateGraffitiSVG()` function that creates:
 }
 ```
 
-This keeps the graffiti as a subtle background texture — adds personality without overwhelming content.
-
 ---
 
-### 7. Reader Customization Sidebar
+### 7. Reader Customization Sidebar (Kindle-Style)
 
-> **KEY FEATURE**: For a study website, readers need control over their reading environment.
+> **KEY FEATURE**: Kindle-style reading experience. Default is monochromatic black/white, with switchable color modes.
 
 #### Files: `index.html`, `js/app.js`, `css/style.css`
 
@@ -281,14 +295,14 @@ Add a new section at the bottom of the sidebar navigation with reader preference
 <div class="reader-settings">
   <h5 class="reader-settings-title">Reader Preferences</h5>
 
-  <!-- Background Color — 4 options -->
+  <!-- Background Color — 4 Kindle-style options -->
   <div class="reader-option-group">
     <label class="reader-label">Background</label>
     <div class="reader-swatches" id="bgSwatches">
-      <button class="swatch active" data-bg="default" title="Default"></button>
-      <button class="swatch" data-bg="warm" title="Warm Sepia"></button>
-      <button class="swatch" data-bg="cool" title="Cool Grey"></button>
-      <button class="swatch" data-bg="paper" title="Paper White"></button>
+      <button class="swatch active" data-bg="default" title="Default Black/White"></button>
+      <button class="swatch" data-bg="sepia" title="Warm Sepia"></button>
+      <button class="swatch" data-bg="mint" title="Mint Green"></button>
+      <button class="swatch" data-bg="sunset" title="Sunset Peach"></button>
     </div>
   </div>
 
@@ -316,14 +330,16 @@ Add a new section at the bottom of the sidebar navigation with reader preference
 </div>
 ```
 
-**Background presets:**
+**Background presets (Kindle-inspired readable tints):**
 
-| Option | Dark Mode | Light Mode |
-|--------|-----------|------------|
-| Default | `#0A0A0A` | `#FAFAFA` |
-| Warm Sepia | `#1A1611` | `#F5F0E8` |
-| Cool Grey | `#131518` | `#EEEEF2` |
-| Paper White | `#141414` | `#FFFFFF` |
+| Option | Dark Mode BG | Dark Mode Text | Light Mode BG | Light Mode Text |
+|--------|-------------|----------------|---------------|-----------------|
+| Default | `#0A0A0A` | `#FFFFFF` | `#FAFAFA` | `#0A0A0A` |
+| Warm Sepia | `#1A1611` | `#E8DCC8` | `#F5EDDC` | `#3B2F1E` |
+| Mint Green | `#0F1A14` | `#C8E6D0` | `#E8F5EC` | `#1A3B26` |
+| Sunset Peach | `#1A1210` | `#E8D0C0` | `#FFF0E8` | `#3B261A` |
+
+These are the exact kind of muted, eye-friendly reading tints that Kindle/iBooks use — designed for long reading sessions without eye strain.
 
 **Font presets:**
 
@@ -345,14 +361,21 @@ Add a new section at the bottom of the sidebar navigation with reader preference
 
 **CSS override classes applied to `<body>`:**
 ```css
-body.reader-bg-warm   { --bg-primary: #1A1611; }
-body.reader-bg-cool   { --bg-primary: #131518; }
-body.reader-bg-paper  { --bg-primary: #141414; }
+/* Kindle-style background tints */
+body.reader-bg-sepia  { --bg-primary: #1A1611; --text-primary: #E8DCC8; --text-secondary: #C4B89C; }
+body.reader-bg-mint   { --bg-primary: #0F1A14; --text-primary: #C8E6D0; --text-secondary: #9CC8A8; }
+body.reader-bg-sunset { --bg-primary: #1A1210; --text-primary: #E8D0C0; --text-secondary: #C4A890; }
 
+:root[data-theme="light"] body.reader-bg-sepia  { --bg-primary: #F5EDDC; --text-primary: #3B2F1E; }
+:root[data-theme="light"] body.reader-bg-mint   { --bg-primary: #E8F5EC; --text-primary: #1A3B26; }
+:root[data-theme="light"] body.reader-bg-sunset { --bg-primary: #FFF0E8; --text-primary: #3B261A; }
+
+/* Font overrides */
 body.reader-font-georgia      { --font-body: Georgia, 'Times New Roman', serif; }
 body.reader-font-merriweather { --font-body: 'Merriweather', serif; }
 body.reader-font-mono         { --font-body: 'JetBrains Mono', monospace; }
 
+/* Size overrides */
 body.reader-size-sm { font-size: 14px; }
 body.reader-size-lg { font-size: 18px; }
 body.reader-size-xl { font-size: 20px; }
@@ -412,24 +435,76 @@ Add keyboard shortcuts for power users:
 
 ---
 
-### 12. Content Depth Enhancement
+### 12. Content Depth Enhancement + Resource Links
 
-> **NOTE**: This is a content task, not a code task. The module JSON files need richer content.
+> **IMPORTANT**: Content depth is being addressed NOW, not deferred.
 
-Each module currently has 4-6 topics with 1-2 short paragraphs each. To add depth, each topic should include:
+Each module currently has 4-6 topics with 1-2 short paragraphs each. This is insufficient for exam prep.
 
+**Content enrichment per topic:**
 - A **"Key Concept"** summary box at the top
+- **Detailed explanations** — expand from 1-2 paragraphs to 3-5 paragraphs per topic
 - **Real-world examples** (at least 1 per topic)
 - **Comparison tables** where applicable (Waterfall vs Agile, BFS vs DFS, etc.)
 - **Step-by-step walkthroughs** for algorithms (DAA) with pseudocode
 - **"Common Mistakes"** callout boxes alongside existing Interview Tips
 - **Cross-references** to related topics in other modules
 
-This is a larger content effort that should be done incrementally — module by module.
+**Resource links per subject — added to `subjects.json`:**
+
+Each subject gets a `resources` array with external learning links:
+
+```json
+"resources": [
+  { "title": "Resource Name", "url": "https://...", "type": "video|article|docs|book" }
+]
+```
+
+**Software Engineering Resources:**
+- GeeksforGeeks: Software Engineering — https://www.geeksforgeeks.org/software-engineering/
+- JavaTPoint: Software Engineering Tutorial — https://www.javatpoint.com/software-engineering
+- Tutorialspoint: Software Engineering — https://www.tutorialspoint.com/software_engineering/
+- NPTEL Lectures (YouTube) — Software Engineering by IIT KGP
+
+**Design & Analysis of Algorithms Resources:**
+- GeeksforGeeks: Analysis of Algorithms — https://www.geeksforgeeks.org/fundamentals-of-algorithms/
+- Visualgo: Algorithm Visualizations — https://visualgo.net/
+- MIT OCW: Introduction to Algorithms — https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/
+- Abdul Bari Algorithms (YouTube) — https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O
+
+**Full-stack Development Resources:**
+- React Official Docs — https://react.dev/
+- W3Schools React Tutorial — https://www.w3schools.com/react/
+- AngularJS Developer Guide — https://docs.angularjs.org/guide
+- freeCodeCamp: React Course — https://www.freecodecamp.org/learn/front-end-development-libraries/
+
+**Machine Learning Resources:**
+- GeeksforGeeks: Machine Learning — https://www.geeksforgeeks.org/machine-learning/
+- Andrew Ng's ML Course (Coursera) — https://www.coursera.org/learn/machine-learning
+- Scikit-learn Documentation — https://scikit-learn.org/stable/
+- StatQuest (YouTube) — https://www.youtube.com/c/joshstarmer
+
+**Where resource links appear:**
+- On the **subject landing page** — a "Learning Resources" section replaces the removed Course Outcomes/Textbooks section
+- Each link shows title, type badge (Video / Article / Docs), and opens in a new tab
 
 ---
 
-### 13. Improve Code Block Styling
+### 13. Remove Course Outcomes & Textbooks from Subject Landing
+
+#### Files: `js/app.js`
+
+In `renderSubjectLanding()`, remove the entire grid section at the bottom that displays:
+- "Course Outcomes (COs)" card with `outcomesHTML`
+- "Textbooks & Resources" card with `booksHTML`
+
+This is the `grid-2-col` div (lines 408-422 in app.js). Replace it with the new "Learning Resources" section that shows external resource links instead.
+
+Also remove the variables `outcomesHTML` and `booksHTML` that build this content (lines 357-372).
+
+---
+
+### 14. Improve Code Block Styling
 
 #### Files: `css/style.css`
 
@@ -453,7 +528,7 @@ Current code blocks use `#05050a` background with rounded corners. Align with mo
 
 ---
 
-### 14. Add Footer
+### 15. Add Footer
 
 #### Files: `index.html`, `css/style.css`
 
@@ -472,7 +547,7 @@ Style it with `border-top: 1px solid var(--border-color)`, monospaced meta text 
 
 ---
 
-### 15. Improve Subjects List Page Visual Hierarchy
+### 16. Improve Subjects List Page Visual Hierarchy
 
 #### Files: `js/app.js`
 
@@ -489,24 +564,8 @@ The subjects list page (`#/subjects`) is a plain stack of cards. Redesign to:
 | File | Changes |
 |------|---------|
 | `index.html` | Remove scroll bar HTML, update favicon, update logo, add reader settings to sidebar, remove floating theme toggle, add footer |
-| `css/style.css` | Monochromatic tokens, remove gradients/blur/glows, flat borders, reader override classes, mobile fixes, typography, footer, code blocks |
-| `js/app.js` | Remove scroll handler, graffiti SVG generator, mobile dashboard summary, reader preferences JS, smooth transitions, keyboard shortcuts |
+| `css/style.css` | Monochromatic tokens, remove gradients/blur/glows, flat borders, Kindle-style reader override classes, mobile fixes, typography, footer, code blocks |
+| `js/app.js` | Remove scroll handler, graffiti SVG generator, mobile dashboard summary, reader preferences JS, smooth transitions, keyboard shortcuts, remove Course Outcomes/Textbooks section, add Learning Resources section |
 | `js/renderer.js` | Add support for "Key Concept" and "Common Mistakes" content blocks |
-| `data/*/module*.json` | Enrich content with examples, tables, pseudocode, diagrams (Phase 5) |
-| `data/subjects.json` | Update `accentColor` values to monochromatic greys |
-
----
-
-## Open Questions
-
-1. **Graffiti Art Style** — Should the graffiti be:
-   - **(A)** Subtle, abstract SVG patterns as background texture *(recommended)*
-   - **(B)** A prominent, hand-drawn style illustration banner
-   - **(C)** CSS-only abstract art using pseudo-elements and gradients
-
-2. **Monochromatic Strictness** — The reference site uses purely `#0A0A0A` + `#1A1A1A` + `#262626` + white. Should we:
-   - **(A)** Go fully monochromatic — no color at all *(recommended for consistency)*
-   - **(B)** Keep subject-specific accent colors but desaturated (grey-scale with tint)
-   - **(C)** Use a single accent color (e.g., muted blue or green) + monochromatic
-
-3. **Content Depth** — Should content enrichment (Phase 5) be done alongside the UI changes, or focused on separately after the redesign is complete?
+| `data/*/module*.json` | Significantly enrich content — more depth, examples, tables, pseudocode |
+| `data/subjects.json` | Update `accentColor` to monochromatic, add `resources` array with external links, keep textbooks/courseOutcomes in data but don't render them |

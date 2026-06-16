@@ -197,7 +197,7 @@
 
   // Apply Reader Preferences from selection or storage
   function applyReaderBg(bg) {
-    document.body.classList.remove('reader-bg-sepia', 'reader-bg-mint', 'reader-bg-sunset');
+    document.body.classList.remove('reader-bg-sepia', 'reader-bg-mint', 'reader-bg-sunset', 'reader-bg-ocean', 'reader-bg-lavender', 'reader-bg-nord');
     if (bg !== 'default') {
       document.body.classList.add(`reader-bg-${bg}`);
     }
@@ -214,7 +214,7 @@
   }
 
   function applyReaderFont(font) {
-    document.body.classList.remove('reader-font-georgia', 'reader-font-merriweather', 'reader-font-mono');
+    document.body.classList.remove('reader-font-georgia', 'reader-font-merriweather', 'reader-font-mono', 'reader-font-lora', 'reader-font-system');
     if (font !== 'inter') {
       document.body.classList.add(`reader-font-${font}`);
     }
@@ -231,7 +231,7 @@
   }
 
   function applyReaderSize(size) {
-    document.body.classList.remove('reader-size-sm', 'reader-size-lg', 'reader-size-xl');
+    document.body.classList.remove('reader-size-xs', 'reader-size-sm', 'reader-size-lg', 'reader-size-xl', 'reader-size-xxl');
     if (size !== 'md') {
       document.body.classList.add(`reader-size-${size}`);
     }
@@ -362,10 +362,11 @@
       return sum + Object.values(progressObj).filter(v => v === true).length;
     }, 0);
     
+    const goalHours = parseInt(localStorage.getItem('study_goal') || '30', 10);
     let focusHours = 4 + completedCount * 4;
-    if (focusHours > 30) focusHours = 30;
+    if (focusHours > goalHours) focusHours = goalHours;
     const focusMinutes = 15;
-    const focusPercent = Math.round((focusHours / 30) * 100);
+    const focusPercent = Math.round((focusHours / goalHours) * 100);
 
     const subjectsBreakdown = state.subjects.map(subj => {
       const progressObj = state.progress[subj.id] || {};
@@ -433,7 +434,7 @@
               </div>
               <div class="analytics-meter">
                 <div class="analytics-meter-header">
-                  <span>Progress to goal (30h)</span>
+                  <span>Progress to goal (${goalHours}h)</span>
                   <span>${focusPercent}%</span>
                 </div>
                 <div class="analytics-meter-bar">
@@ -642,101 +643,652 @@
   function renderProgressStats(container) {
     const overall = getOverallProgress();
     
-    let subjectsProgressHTML = '';
+    // Calculate total stats
+    const totalModules = state.subjects.reduce((sum, s) => sum + s.modules.length, 0);
+    const completedModules = state.subjects.reduce((sum, subj) => {
+      const progressObj = state.progress[subj.id] || {};
+      return sum + Object.values(progressObj).filter(v => v === true).length;
+    }, 0);
+    
+    // Gather quiz results from localStorage
+    const quizResults = [];
+    state.subjects.forEach(subj => {
+      subj.modules.forEach(mod => {
+        const stored = localStorage.getItem(`quiz_${subj.id}_${mod.id}`);
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            quizResults.push({
+              subjectId: subj.id,
+              subjectName: subj.name,
+              subjectCode: subj.code,
+              moduleId: mod.id,
+              moduleTitle: mod.title,
+              ...parsed
+            });
+          } catch (e) { /* skip invalid */ }
+        }
+      });
+    });
+    
+    const quizCount = quizResults.length;
+    const avgQuizScore = quizCount > 0
+      ? Math.round(quizResults.reduce((sum, q) => sum + q.percent, 0) / quizCount)
+      : 0;
+    
+    // Study streak: days since first progress entry
+    let streakDays = 0;
+    const firstOpened = localStorage.getItem('recently_opened_modules');
+    if (firstOpened) {
+      try {
+        const list = JSON.parse(firstOpened);
+        if (list.length > 0) {
+          const oldest = list[list.length - 1];
+          if (oldest.timestamp) {
+            streakDays = Math.max(1, Math.floor((Date.now() - oldest.timestamp) / (1000 * 60 * 60 * 24)));
+          }
+        }
+      } catch (e) { /* skip */ }
+    }
+    if (completedModules > 0 && streakDays === 0) streakDays = 1;
+    
+    // SVG ring calculations
+    const radius = 76;
+    const circumference = 2 * Math.PI * radius;
+    const overallOffset = circumference - (overall / 100) * circumference;
+    
+    // Build per-subject detail cards
+    let subjectCardsHTML = '';
     state.subjects.forEach(subj => {
       const percent = getSubjectProgressPercent(subj.id);
       const progressObj = state.progress[subj.id] || {};
       const completedCount = Object.values(progressObj).filter(v => v === true).length;
       
-      subjectsProgressHTML += `
-        <div class="card m-b-md">
-          <div class="flex justify-between align-center m-b-md" style="margin-bottom: var(--space-sm);">
-            <h4 style="font-weight: 700; font-size: 1.15rem;">${subj.name}</h4>
-            <span style="font-family: var(--font-mono); font-weight: bold; color: ${subj.accentColor};">${percent}%</span>
+      // Mini ring calculations
+      const miniRadius = 18;
+      const miniCircumference = 2 * Math.PI * miniRadius;
+      const miniOffset = miniCircumference - (percent / 100) * miniCircumference;
+      
+      // Module checklist
+      let checklistHTML = '';
+      subj.modules.forEach(mod => {
+        const isCompleted = progressObj[mod.id] === true;
+        const checkIcon = isCompleted
+          ? `<span class="check-icon completed">
+               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+             </span>`
+          : `<span class="check-icon incomplete"></span>`;
+        
+        checklistHTML += `
+          <li class="module-checklist-item">
+            <a href="#/subject/${subj.id}/module/${mod.id}">
+              ${checkIcon}
+              <span class="module-check-label">${mod.title}</span>
+            </a>
+            <span class="module-check-num">${mod.hours}</span>
+          </li>
+        `;
+      });
+      
+      subjectCardsHTML += `
+        <div class="subject-detail-card" style="border-left-color: ${subj.accentColor};">
+          <div class="subject-detail-header">
+            <div>
+              <span class="subject-detail-code">${subj.code} · ${subj.type}</span>
+              <h4>${subj.name}</h4>
+            </div>
+            <div class="subject-detail-ring">
+              <svg viewBox="0 0 48 48">
+                <circle class="mini-ring-bg" cx="24" cy="24" r="${miniRadius}"></circle>
+                <circle class="mini-ring-fill" cx="24" cy="24" r="${miniRadius}"
+                  stroke="${subj.accentColor}"
+                  stroke-dasharray="${miniCircumference}"
+                  stroke-dashoffset="${miniCircumference}"
+                  data-target-offset="${miniOffset}"></circle>
+              </svg>
+              <span class="mini-ring-label">${percent}%</span>
+            </div>
           </div>
           
-          <div class="progress-container">
-            <div class="progress-bar-bg">
+          <div class="progress-container" style="flex-direction: column; align-items: stretch; gap: var(--space-xxs);">
+            <div class="flex justify-between" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">
+              <span>${completedCount}/${subj.modules.length} completed</span>
+              <span style="font-weight: 700; color: var(--text-primary);">${percent}%</span>
+            </div>
+            <div class="progress-bar-bg" style="height: 6px;">
               <div class="progress-bar-fill" style="width: ${percent}%; background-color: ${subj.accentColor};"></div>
             </div>
-            <span style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--text-muted);">${completedCount}/5 Modules</span>
           </div>
+          
+          <ul class="module-checklist">
+            ${checklistHTML}
+          </ul>
         </div>
       `;
     });
-
-    container.innerHTML = `
-      <div class="section-header">
-        <h2 class="section-title">Your Progress Tracker</h2>
-        <p class="section-desc">Visual summaries of subject completion and exam readiness.</p>
-      </div>
-
-      <div class="grid-2-col" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-lg); margin-top: var(--space-xl);">
-        <div class="card flex flex-col align-center justify-between" style="text-align: center; padding: var(--space-xl);">
-          <div>
-            <h3 style="font-weight: 600; color: var(--text-muted); margin-bottom: var(--space-sm);">Overall Semester Completion</h3>
-            <div style="font-size: 4.5rem; font-weight: 800; color: var(--text-primary);">
-              ${overall}%
+    
+    // Build quiz performance cards
+    let quizPerfHTML = '';
+    if (quizResults.length > 0) {
+      let quizCardsHTML = '';
+      quizResults.forEach(q => {
+        const passClass = q.percent >= 60 ? 'pass' : 'fail';
+        quizCardsHTML += `
+          <div class="quiz-perf-card">
+            <span class="quiz-perf-subject">${q.subjectCode}</span>
+            <span class="quiz-perf-module">Module ${q.moduleId}: ${q.moduleTitle}</span>
+            <div class="quiz-perf-score">
+              <span class="quiz-perf-value ${passClass}">${q.percent}%</span>
+              <span class="quiz-perf-date">${q.score}/${q.total} · ${q.date}</span>
             </div>
           </div>
-          <p style="color: var(--text-secondary); margin-top: var(--space-md); font-size: 0.95rem;">
-            Calculated across all 20 modules in the syllabus course structures.
+        `;
+      });
+      
+      quizPerfHTML = `
+        <div class="section-header" style="margin-top: var(--space-xl);">
+          <h3 class="section-title">Quiz Performance</h3>
+          <p class="section-desc">Your best scores across module quizzes.</p>
+        </div>
+        <div class="quiz-perf-grid">
+          ${quizCardsHTML}
+        </div>
+      `;
+    }
+    
+    // Empty state CTA when nothing completed
+    const emptyStateCTA = completedModules === 0 && quizCount === 0
+      ? `
+        <div class="empty-state">
+          <div class="empty-state-icon">📚</div>
+          <h3>Your journey begins here</h3>
+          <p>You haven't completed any modules yet. Start studying to see your progress visualized with detailed analytics and module checklists.</p>
+          <a href="#/subjects" class="btn btn-primary">Browse Subjects →</a>
+        </div>
+      `
+      : '';
+    
+    container.innerHTML = `
+      <div class="section-header" style="margin-top: 0;">
+        <h2 class="section-title">Progress Tracker</h2>
+        <p class="section-desc">Visual summaries of subject completion, module checklists, and quiz performance.</p>
+      </div>
+
+      <div class="progress-hero">
+        <!-- Large circular progress ring -->
+        <div class="progress-ring-card">
+          <h3>Overall Semester Completion</h3>
+          <div class="progress-ring-large">
+            <svg viewBox="0 0 180 180">
+              <circle class="ring-bg" cx="90" cy="90" r="${radius}"></circle>
+              <circle class="ring-fill" cx="90" cy="90" r="${radius}"
+                stroke-dasharray="${circumference}"
+                stroke-dashoffset="${circumference}"
+                data-target-offset="${overallOffset}"></circle>
+            </svg>
+            <div class="ring-label">
+              <span class="ring-label-percent" data-target="${overall}">0</span>
+              <span class="ring-label-sub">percent</span>
+            </div>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 0.85rem;">
+            ${completedModules} of ${totalModules} modules across ${state.subjects.length} subjects
           </p>
         </div>
         
-        <div class="flex flex-col gap-md">
-          ${subjectsProgressHTML}
+        <!-- Stats summary -->
+        <div class="stats-summary-grid">
+          <div class="stat-card">
+            <span class="stat-card-label">Modules Completed</span>
+            <span class="stat-card-value">${completedModules}<span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">/${totalModules}</span></span>
+            <span class="stat-card-detail">${totalModules - completedModules} modules remaining</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card-label">Quiz Average</span>
+            <span class="stat-card-value">${quizCount > 0 ? avgQuizScore + '%' : '—'}</span>
+            <span class="stat-card-detail">${quizCount} quiz${quizCount !== 1 ? 'zes' : ''} attempted</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-card-label">Study Streak</span>
+            <span class="stat-card-value">${streakDays > 0 ? streakDays : '—'}<span style="font-size: 1rem; color: var(--text-muted); font-weight: 400;">${streakDays > 0 ? ' days' : ''}</span></span>
+            <span class="stat-card-detail">${streakDays > 0 ? 'Keep it going!' : 'Start studying to begin'}</span>
+          </div>
         </div>
       </div>
+
+      ${emptyStateCTA}
+
+      <div class="section-header">
+        <h3 class="section-title">Subject Breakdown</h3>
+        <p class="section-desc">Track each module individually. Click any module to jump to its content.</p>
+      </div>
+      <div class="progress-subjects-grid">
+        ${subjectCardsHTML}
+      </div>
+
+      ${quizPerfHTML}
     `;
+    
+    // Animate the ring and counter after render
+    requestAnimationFrame(() => {
+      // Animate large ring
+      const ringFill = container.querySelector('.ring-fill');
+      if (ringFill) {
+        ringFill.style.strokeDashoffset = ringFill.dataset.targetOffset;
+      }
+      
+      // Animate mini rings
+      container.querySelectorAll('.mini-ring-fill').forEach(el => {
+        el.style.strokeDashoffset = el.dataset.targetOffset;
+      });
+      
+      // Count-up animation for the percentage number
+      const percentEl = container.querySelector('.ring-label-percent');
+      if (percentEl) {
+        const target = parseInt(percentEl.dataset.target, 10);
+        if (target > 0) {
+          let current = 0;
+          const duration = 1200;
+          const stepTime = duration / target;
+          const timer = setInterval(() => {
+            current++;
+            percentEl.textContent = current;
+            if (current >= target) clearInterval(timer);
+          }, stepTime);
+        } else {
+          percentEl.textContent = '0';
+        }
+      }
+    });
   }
 
   // View: Settings
   function renderSettings(container) {
+    // Calculate data summary
+    const totalModules = state.subjects.reduce((sum, s) => sum + s.modules.length, 0);
+    const completedModules = state.subjects.reduce((sum, subj) => {
+      const progressObj = state.progress[subj.id] || {};
+      return sum + Object.values(progressObj).filter(v => v === true).length;
+    }, 0);
+    
+    let quizCount = 0;
+    state.subjects.forEach(subj => {
+      subj.modules.forEach(mod => {
+        if (localStorage.getItem(`quiz_${subj.id}_${mod.id}`)) quizCount++;
+      });
+    });
+    
+    // Count total localStorage keys used by this app
+    let storageKeys = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.startsWith('progress_') || key.startsWith('quiz_') || key.startsWith('recently_') || key === 'theme' || key === 'reader_bg' || key === 'reader_font' || key === 'reader_size')) {
+        storageKeys++;
+      }
+    }
+
     container.innerHTML = `
-      <div class="section-header">
-        <h2 class="section-title">Application Settings</h2>
-        <p class="section-desc">Manage themes, data preferences, and app options.</p>
+      <div class="section-header" style="margin-top: 0;">
+        <h2 class="section-title">Settings</h2>
+        <p class="section-desc">Manage appearance, data, shortcuts, and application preferences.</p>
       </div>
 
-      <div class="flex flex-col gap-md m-t-xl" style="max-width: 600px;">
-        <div class="card">
-          <h4 style="font-weight: 700; margin-bottom: var(--space-sm);">UI Theme Selector</h4>
-          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--space-md);">Toggle between glassmorphic dark-mode or light-mode interfaces.</p>
-          <button id="settingsThemeToggle" class="btn btn-primary">
-            Toggle Current Theme (${state.theme === 'dark' ? 'Dark Mode' : 'Light Mode'})
-          </button>
+      <div class="settings-grid m-t-xl">
+        
+        <!-- APPEARANCE -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">Appearance</h3>
+          
+          <div class="settings-card">
+            <h4>
+              <span class="material-symbols-outlined">palette</span>
+              Theme Mode
+            </h4>
+            <p>Switch between dark and light mode. Your preference is saved automatically.</p>
+            <div class="btn-row">
+              <button id="settingsThemeToggle" class="btn btn-primary" style="gap: var(--space-xs);">
+                <span class="material-symbols-outlined" style="font-size: 18px;">${state.theme === 'dark' ? 'light_mode' : 'dark_mode'}</span>
+                ${state.theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              </button>
+            </div>
+          </div>
+          
+          <div class="settings-card">
+            <h4>
+              <span class="material-symbols-outlined">text_fields</span>
+              Reader Preferences
+            </h4>
+            <p>Adjust reading background, font, and text size for comfortable study sessions.</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin-top: var(--space-sm);">
+              <div>
+                <label class="reader-label" style="margin-bottom: var(--space-xs); display: block;">Background Theme</label>
+                <div class="swatches-grid" id="settingsSwatches">
+                  <button class="swatch swatch-default" data-bg="default" title="Default" aria-label="Default Background"></button>
+                  <button class="swatch swatch-sepia" data-bg="sepia" title="Sepia" aria-label="Sepia Background"></button>
+                  <button class="swatch swatch-mint" data-bg="mint" title="Mint" aria-label="Mint Background"></button>
+                  <button class="swatch swatch-sunset" data-bg="sunset" title="Sunset" aria-label="Sunset Background"></button>
+                  <button class="swatch swatch-ocean" data-bg="ocean" title="Ocean" aria-label="Ocean Background"></button>
+                  <button class="swatch swatch-lavender" data-bg="lavender" title="Lavender" aria-label="Lavender Background"></button>
+                  <button class="swatch swatch-nord" data-bg="nord" title="Nord" aria-label="Nord Background"></button>
+                </div>
+              </div>
+              <div>
+                <label class="reader-label" style="margin-bottom: var(--space-xs); display: block;">Font Family</label>
+                <div class="font-options" id="settingsFonts" style="grid-template-columns: repeat(3, 1fr); gap: 4px;">
+                  <button class="font-opt" data-font="inter" style="font-family: var(--font-body);">Sans</button>
+                  <button class="font-opt" data-font="georgia" style="font-family: Georgia, serif;">Georgia</button>
+                  <button class="font-opt" data-font="merriweather" style="font-family: 'Merriweather', serif;">Serif</button>
+                  <button class="font-opt" data-font="mono" style="font-family: var(--font-mono);">Mono</button>
+                  <button class="font-opt" data-font="lora" style="font-family: 'Lora', serif;">Lora</button>
+                  <button class="font-opt" data-font="system" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">System</button>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: var(--space-sm);">
+              <label class="reader-label" style="margin-bottom: var(--space-xs); display: block;">Font Size</label>
+              <div class="size-options" id="settingsSizes" style="max-width: 320px; grid-template-columns: repeat(6, 1fr); gap: 4px;">
+                <button class="size-opt" data-size="xs" title="Extra Small">A--</button>
+                <button class="size-opt" data-size="sm" title="Small">A-</button>
+                <button class="size-opt" data-size="md" title="Medium">A</button>
+                <button class="size-opt" data-size="lg" title="Large">A+</button>
+                <button class="size-opt" data-size="xl" title="Extra Large">A++</button>
+                <button class="size-opt" data-size="xxl" title="Huge">A+++</button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-          <h4 style="font-weight: 700; margin-bottom: var(--space-sm); color: var(--color-error);">Reset Study Progress</h4>
-          <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: var(--space-md);">Warning: This will clear all localStorage attributes, resetting your subject progress and quiz records back to zero.</p>
-          <button id="resetProgressBtn" class="btn btn-ghost" style="border-color: var(--color-error); color: var(--color-error);">
-            Reset All Data
-          </button>
+        <!-- STUDY PREFERENCES -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">Study Preferences</h3>
+          
+          <div class="settings-card">
+            <h4>
+              <span class="material-symbols-outlined">trending_up</span>
+              Weekly Study Goal
+            </h4>
+            <p>Set your target study hours. The progress ring on the dashboard will dynamically adjust based on this goal.</p>
+            <div class="btn-row" id="settingsGoalHours" style="gap: var(--space-xs); flex-wrap: wrap; margin-top: var(--space-sm);">
+              <button class="goal-opt btn btn-secondary" data-goal="10">10 Hours</button>
+              <button class="goal-opt btn btn-secondary" data-goal="20">20 Hours</button>
+              <button class="goal-opt btn btn-secondary" data-goal="30">30 Hours</button>
+              <button class="goal-opt btn btn-secondary" data-goal="40">40 Hours</button>
+              <button class="goal-opt btn btn-secondary" data-goal="50">50 Hours</button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <h4>
+              <span class="material-symbols-outlined">rule</span>
+              Study Rules & Shortcuts
+            </h4>
+            <p>Enforce strict completion rules and toggle keyboard navigation shortcuts.</p>
+            <div style="display: flex; flex-direction: column; gap: var(--space-sm); margin-top: var(--space-sm);">
+              <label class="flex align-center gap-sm" style="cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="requireQuizCheckbox" style="cursor: pointer; width: 18px; height: 18px; margin: 0;">
+                <span>Require quiz passing score (60%) to mark module completed</span>
+              </label>
+              <label class="flex align-center gap-sm" style="cursor: pointer; user-select: none; display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="enableShortcutsCheckbox" style="cursor: pointer; width: 18px; height: 18px; margin: 0;">
+                <span>Enable keyboard shortcuts (Esc, Arrow keys, 1-5)</span>
+              </label>
+            </div>
+          </div>
         </div>
+
+        <!-- DATA MANAGEMENT -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">Study Data</h3>
+          
+          <div class="settings-card">
+            <h4>
+              <span class="material-symbols-outlined">database</span>
+              Data Summary
+            </h4>
+            <p>Overview of your locally stored study data.</p>
+            <div class="data-summary-row">
+              <div class="data-summary-item">
+                <span class="ds-value">${completedModules}</span>
+                <span class="ds-label">Modules Done</span>
+              </div>
+              <div class="data-summary-item">
+                <span class="ds-value">${quizCount}</span>
+                <span class="ds-label">Quizzes Taken</span>
+              </div>
+              <div class="data-summary-item">
+                <span class="ds-value">${storageKeys}</span>
+                <span class="ds-label">Storage Keys</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="settings-card">
+            <h4>
+              <span class="material-symbols-outlined">download</span>
+              Export & Import Progress
+            </h4>
+            <p>Download your progress as a JSON file for backup, or import a previously exported file to restore your data when switching browsers.</p>
+            <div class="btn-row">
+              <button id="exportDataBtn" class="btn btn-secondary" style="gap: var(--space-xs);">
+                <span class="material-symbols-outlined" style="font-size: 16px;">download</span>
+                Export Progress
+              </button>
+              <button id="importDataBtn" class="btn btn-ghost" style="gap: var(--space-xs);">
+                <span class="material-symbols-outlined" style="font-size: 16px;">upload</span>
+                Import Progress
+              </button>
+              <input type="file" id="importFileInput" class="hidden-input" accept=".json">
+            </div>
+          </div>
+        </div>
+        
+        <!-- KEYBOARD SHORTCUTS -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">Keyboard Shortcuts</h3>
+          
+          <div class="settings-card" style="padding: 0; overflow: hidden;">
+            <table class="shortcut-table">
+              <thead>
+                <tr>
+                  <th>Shortcut</th>
+                  <th>Action</th>
+                  <th>Context</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><kbd>←</kbd></td>
+                  <td>Previous module</td>
+                  <td>Module view</td>
+                </tr>
+                <tr>
+                  <td><kbd>→</kbd></td>
+                  <td>Next module</td>
+                  <td>Module view</td>
+                </tr>
+                <tr>
+                  <td><kbd>1</kbd> — <kbd>5</kbd></td>
+                  <td>Jump to module N</td>
+                  <td>Subject landing</td>
+                </tr>
+                <tr>
+                  <td><kbd>Esc</kbd></td>
+                  <td>Go back (to subject or dashboard)</td>
+                  <td>Module / Subject</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- ABOUT -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">About</h3>
+          
+          <div class="about-card">
+            <div class="about-header">
+              <div class="about-logo">S5</div>
+              <div>
+                <h4>BCA Sem 5 Study Hub</h4>
+                <p>Interactive exam preparation tool</p>
+              </div>
+            </div>
+            <dl class="about-details">
+              <dt>Semester</dt>
+              <dd>BCA Semester V — 2026</dd>
+              <dt>University</dt>
+              <dd>Brainware University</dd>
+              <dt>Subjects</dt>
+              <dd>${state.subjects.length} subjects · ${totalModules} modules</dd>
+              <dt>Built by</dt>
+              <dd>aritra ❤️</dd>
+              <dt>Version</dt>
+              <dd>2.0.0</dd>
+            </dl>
+          </div>
+        </div>
+        
+        <!-- DANGER ZONE -->
+        <div class="settings-section">
+          <h3 class="settings-section-title">Danger Zone</h3>
+          
+          <div class="danger-zone">
+            <h4>
+              <span class="material-symbols-outlined" style="font-size: 20px;">warning</span>
+              Reset All Study Data
+            </h4>
+            <p>This will permanently clear all module completion records and quiz scores from your browser's local storage. Reader preferences and theme settings will be preserved. This action cannot be undone.</p>
+            <button id="resetProgressBtn" class="btn-danger">
+              Reset All Progress
+            </button>
+          </div>
+        </div>
+        
       </div>
     `;
 
-    // Bind settings buttons
+    // Sync active states for reader preferences in settings
+    const currentBg = localStorage.getItem('reader_bg') || 'default';
+    const currentFont = localStorage.getItem('reader_font') || 'inter';
+    const currentSize = localStorage.getItem('reader_size') || 'md';
+    const currentGoal = localStorage.getItem('study_goal') || '30';
+    const requireQuiz = localStorage.getItem('require_quiz_to_complete') === 'true';
+    const enableShortcuts = localStorage.getItem('enable_shortcuts') !== 'false';
+    
+    container.querySelectorAll('#settingsSwatches .swatch').forEach(btn => {
+      if (btn.dataset.bg === currentBg) btn.classList.add('active');
+      btn.addEventListener('click', () => applyReaderBg(btn.dataset.bg));
+    });
+    
+    container.querySelectorAll('#settingsFonts .font-opt').forEach(btn => {
+      if (btn.dataset.font === currentFont) btn.classList.add('active');
+      btn.addEventListener('click', () => applyReaderFont(btn.dataset.font));
+    });
+    
+    container.querySelectorAll('#settingsSizes .size-opt').forEach(btn => {
+      if (btn.dataset.size === currentSize) btn.classList.add('active');
+      btn.addEventListener('click', () => applyReaderSize(btn.dataset.size));
+    });
+
+    container.querySelectorAll('#settingsGoalHours .goal-opt').forEach(btn => {
+      if (btn.dataset.goal === currentGoal) {
+        btn.classList.remove('btn-secondary');
+        btn.classList.add('btn-primary');
+      } else {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-secondary');
+      }
+      btn.addEventListener('click', () => {
+        localStorage.setItem('study_goal', btn.dataset.goal);
+        renderSettings(container);
+      });
+    });
+
+    const quizCheckbox = container.querySelector('#requireQuizCheckbox');
+    if (quizCheckbox) {
+      quizCheckbox.checked = requireQuiz;
+      quizCheckbox.addEventListener('change', (e) => {
+        localStorage.setItem('require_quiz_to_complete', e.target.checked);
+      });
+    }
+
+    const shortcutsCheckbox = container.querySelector('#enableShortcutsCheckbox');
+    if (shortcutsCheckbox) {
+      shortcutsCheckbox.checked = enableShortcuts;
+      shortcutsCheckbox.addEventListener('change', (e) => {
+        localStorage.setItem('enable_shortcuts', e.target.checked);
+      });
+    }
+
+    // Bind theme toggle
     const themeBtn = document.getElementById('settingsThemeToggle');
     themeBtn.addEventListener('click', () => {
       toggleTheme();
-      themeBtn.textContent = `Toggle Current Theme (${state.theme === 'dark' ? 'Dark Mode' : 'Light Mode'})`;
+      // Re-render to update button text
+      renderSettings(container);
     });
 
+    // Export progress
+    const exportBtn = document.getElementById('exportDataBtn');
+    exportBtn.addEventListener('click', () => {
+      const exportData = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && (key.startsWith('progress_') || key.startsWith('quiz_') || key.startsWith('recently_'))) {
+          exportData[key] = localStorage.getItem(key);
+        }
+      }
+      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `study-hub-progress-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Import progress
+    const importBtn = document.getElementById('importDataBtn');
+    const importInput = document.getElementById('importFileInput');
+    importBtn.addEventListener('click', () => importInput.click());
+    importInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const data = JSON.parse(event.target.result);
+          let importedCount = 0;
+          Object.entries(data).forEach(([key, value]) => {
+            if (key.startsWith('progress_') || key.startsWith('quiz_') || key.startsWith('recently_')) {
+              localStorage.setItem(key, value);
+              importedCount++;
+            }
+          });
+          loadProgress();
+          alert(`Successfully imported ${importedCount} data entries. Your progress has been restored.`);
+          renderSettings(container); // Re-render to update data summary
+        } catch (err) {
+          alert('Invalid file format. Please select a valid Study Hub export file.');
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    // Reset progress
     const resetBtn = document.getElementById('resetProgressBtn');
     resetBtn.addEventListener('click', () => {
-      if (confirm('Are you sure you want to delete all completion records? This cannot be undone.')) {
+      if (confirm('⚠️ Are you sure you want to delete all completion records and quiz scores?\n\nThis cannot be undone.')) {
         for (let i = localStorage.length - 1; i >= 0; i--) {
           const key = localStorage.key(i);
-          if (key && (key.startsWith('progress_') || key.startsWith('quiz_'))) {
+          if (key && (key.startsWith('progress_') || key.startsWith('quiz_') || key.startsWith('recently_'))) {
             localStorage.removeItem(key);
           }
         }
         loadProgress();
         alert('All study progress has been reset successfully.');
-        window.location.hash = '#/'; // Go back home
+        renderSettings(container); // Re-render to update data summary
       }
     });
   }
@@ -755,6 +1307,11 @@
 
   // Keyboard Navigation listener
   document.addEventListener('keydown', (e) => {
+    // Check if shortcuts are enabled
+    if (localStorage.getItem('enable_shortcuts') === 'false') {
+      return;
+    }
+
     // Disable shortcuts when focusing inputs/textareas
     const activeEl = document.activeElement;
     if (activeEl && (

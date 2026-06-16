@@ -17,7 +17,7 @@
   <!-- Google Fonts Connection -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
   <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -84,12 +84,9 @@
         </a>
       </nav>
 
-      <!-- Reader Customization Preferences -->
+      <!-- Compact Sidebar Controls -->
       <div class="reader-settings">
-        <div class="reader-settings-title">Reader Options</div>
-        
         <div class="reader-group">
-          <label class="reader-label">Theme Mode</label>
           <div class="theme-options">
             <button class="theme-opt" id="sidebarThemeToggle" title="Toggle Theme" aria-label="Toggle Theme Mode">
               <span id="sidebarThemeIcon" class="theme-opt-icon"></span>
@@ -97,42 +94,10 @@
             </button>
           </div>
         </div>
-
-        <div class="reader-group">
-          <label class="reader-label">Background</label>
-          <div class="swatches-grid">
-            <button class="swatch swatch-default active" data-bg="default" title="Default" aria-label="Default Theme Background"></button>
-            <button class="swatch swatch-sepia" data-bg="sepia" title="Sepia" aria-label="Sepia Background"></button>
-            <button class="swatch swatch-mint" data-bg="mint" title="Mint" aria-label="Mint Background"></button>
-            <button class="swatch swatch-sunset" data-bg="sunset" title="Sunset" aria-label="Sunset Background"></button>
-          </div>
-        </div>
-
-        <div class="reader-group">
-          <label class="reader-label">Font Family</label>
-          <div class="font-options">
-            <button class="font-opt active" data-font="inter" style="font-family: var(--font-body);">Sans</button>
-            <button class="font-opt" data-font="georgia" style="font-family: Georgia, serif;">Georgia</button>
-            <button class="font-opt" data-font="merriweather" style="font-family: 'Merriweather', serif;">Serif</button>
-            <button class="font-opt" data-font="mono" style="font-family: var(--font-mono);">Mono</button>
-          </div>
-        </div>
-
-        <div class="reader-group">
-          <label class="reader-label">Font Size</label>
-          <div class="size-options">
-            <button class="size-opt" data-size="sm" title="Small" aria-label="Small text">A-</button>
-            <button class="size-opt active" data-size="md" title="Medium" aria-label="Medium text">A</button>
-            <button class="size-opt" data-size="lg" title="Large" aria-label="Large text">A+</button>
-            <button class="size-opt" data-size="xl" title="Extra Large" aria-label="Extra Large text">A++</button>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Sidebar Footer -->
-      <div class="sidebar-footer">
-        <span class="material-symbols-outlined footer-icon">info</span>
-        <span>Term 2, 2024</span>
+        <a href="#/settings" class="sidebar-settings-link">
+          <span class="material-symbols-outlined" style="font-size: 16px;">tune</span>
+          Customize appearance
+        </a>
       </div>
     </aside>
     

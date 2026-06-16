@@ -301,20 +301,24 @@ button {
   color: var(--bg-primary);
 }
 
-.sidebar-footer {
-  margin-top: auto;
+.sidebar-settings-link {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
   color: var(--text-muted);
-  font-size: 0.85rem;
-  font-family: var(--font-body);
-  padding: 0 var(--space-xs);
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  margin-top: var(--space-xs);
 }
 
-.sidebar-footer .footer-icon {
-  font-size: 16px;
-  color: var(--text-muted);
+.sidebar-settings-link:hover {
+  color: var(--text-primary);
+  border-color: var(--border-color-hover);
+  background: var(--bg-card);
 }
 
 /* Sidebar Overlay */
@@ -1652,6 +1656,98 @@ body.reader-bg-sunset {
   --accent-primary: #331F19;
 }
 
+/* Ocean Theme */
+body.reader-bg-ocean {
+  --bg-primary: #0C1520;
+  --bg-secondary: #111D2B;
+  --bg-card: #162536;
+  --bg-surface: #1B2D3F;
+  --text-primary: #DCE9F4;
+  --text-secondary: #A8BFD4;
+  --border-color: #243548;
+  --border-color-hover: #344C63;
+  --bg-card-hover: #1E3044;
+  --accent-primary: #DCE9F4;
+}
+:root[data-theme="light"] body.reader-bg-ocean {
+  --bg-primary: #E6F0FA;
+  --bg-secondary: #F0F6FC;
+  --bg-card: #FFFFFF;
+  --bg-surface: #D4E4F2;
+  --text-primary: #132A3F;
+  --text-secondary: #3D6285;
+  --border-color: #BDD3EA;
+  --border-color-hover: #92B5D5;
+  --bg-card-hover: #F5FAFF;
+  --accent-primary: #132A3F;
+}
+
+/* Lavender Theme */
+body.reader-bg-lavender {
+  --bg-primary: #14101C;
+  --bg-secondary: #1C1628;
+  --bg-card: #221B32;
+  --bg-surface: #28203B;
+  --text-primary: #EAE4F4;
+  --text-secondary: #C4BBD8;
+  --border-color: #332A48;
+  --border-color-hover: #483D63;
+  --bg-card-hover: #271F38;
+  --accent-primary: #EAE4F4;
+}
+:root[data-theme="light"] body.reader-bg-lavender {
+  --bg-primary: #F0EBF8;
+  --bg-secondary: #F6F3FC;
+  --bg-card: #FFFFFF;
+  --bg-surface: #E2D9F0;
+  --text-primary: #1E1433;
+  --text-secondary: #5A4880;
+  --border-color: #D5CBE8;
+  --border-color-hover: #B5A6D4;
+  --bg-card-hover: #FAF8FF;
+  --accent-primary: #1E1433;
+}
+
+/* Nord Theme */
+body.reader-bg-nord {
+  --bg-primary: #2E3440;
+  --bg-secondary: #3B4252;
+  --bg-card: #434C5E;
+  --bg-surface: #4C566A;
+  --text-primary: #ECEFF4;
+  --text-secondary: #D8DEE9;
+  --border-color: #4C566A;
+  --border-color-hover: #5E6A7E;
+  --bg-card-hover: #4A5568;
+  --accent-primary: #88C0D0;
+}
+:root[data-theme="light"] body.reader-bg-nord {
+  --bg-primary: #ECEFF4;
+  --bg-secondary: #E5E9F0;
+  --bg-card: #FFFFFF;
+  --bg-surface: #D8DEE9;
+  --text-primary: #2E3440;
+  --text-secondary: #4C566A;
+  --border-color: #D8DEE9;
+  --border-color-hover: #B8C4D4;
+  --bg-card-hover: #F5F7FA;
+  --accent-primary: #5E81AC;
+}
+
+/* New swatch colors */
+.swatch-ocean {
+  background: #E6F0FA;
+  color: #132A3F;
+}
+.swatch-lavender {
+  background: #F0EBF8;
+  color: #1E1433;
+}
+.swatch-nord {
+  background: #ECEFF4;
+  color: #2E3440;
+}
+
 body.reader-font-georgia {
   --font-body: Georgia, serif;
 }
@@ -1661,7 +1757,16 @@ body.reader-font-merriweather {
 body.reader-font-mono {
   --font-body: var(--font-mono);
 }
+body.reader-font-lora {
+  --font-body: 'Lora', Georgia, serif;
+}
+body.reader-font-system {
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
 
+body.reader-size-xs {
+  font-size: 0.8rem !important;
+}
 body.reader-size-sm {
   font-size: 0.9rem !important;
 }
@@ -1670,6 +1775,9 @@ body.reader-size-lg {
 }
 body.reader-size-xl {
   font-size: 1.3rem !important;
+}
+body.reader-size-xxl {
+  font-size: 1.45rem !important;
 }
 
 /* Sidebar Theme Swapper Option */

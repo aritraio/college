@@ -113,9 +113,30 @@
         // 6. Bind Completion Toggle Button Click
         const toggleBtn = document.getElementById('toggleCompleteBtn');
         toggleBtn.addEventListener('click', () => {
+          const requireQuiz = localStorage.getItem('require_quiz_to_complete') === 'true';
+          const storedQuiz = localStorage.getItem(`quiz_${subjectId}_${moduleId}`);
+          
           const stored = localStorage.getItem(`progress_${subjectId}`);
           const currentProgress = stored ? JSON.parse(stored) : {};
           const currentStatus = currentProgress[moduleId] === true;
+          
+          // If turning incomplete -> completed, and strict quiz rule is on
+          if (!currentStatus && requireQuiz) {
+            let quizPassed = false;
+            if (storedQuiz) {
+              try {
+                const parsed = JSON.parse(storedQuiz);
+                if (parsed.percent >= 60) {
+                  quizPassed = true;
+                }
+              } catch (e) {}
+            }
+            
+            if (!quizPassed) {
+              alert("Study Rule Enforced: You must pass the Interactive MCQ Quiz for this module (score 60% or higher) before marking it completed manually.");
+              return;
+            }
+          }
           
           currentProgress[moduleId] = !currentStatus;
           localStorage.setItem(`progress_${subjectId}`, JSON.stringify(currentProgress));

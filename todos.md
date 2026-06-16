@@ -161,69 +161,70 @@ Structured checklist organized by implementation phase. Each phase builds on the
 > Content depth is being addressed NOW alongside the UI work.
 
 ### 5A — Add Resource Links Infrastructure
-- [ ] **5A.1** Add `resources` array to each subject in `data/subjects.json`
-- [ ] **5A.2** Create "Learning Resources" section in `renderSubjectLanding()` (replaces removed Course Outcomes/Textbooks)
-- [ ] **5A.3** Style resource link cards with type badges (Video / Article / Docs / Book)
-- [ ] **5A.4** Each link opens in new tab (`target="_blank"`)
+- [x] **5A.1** Add `resources` array to each subject in `data/subjects.json`
+- [x] **5A.2** Create "Learning Resources" section in `renderSubjectLanding()` (replaces removed Course Outcomes/Textbooks)
+- [x] **5A.3** Style resource link cards with type badges (Video / Article / Docs / Book)
+- [x] **5A.4** Each link opens in new tab (`target="_blank"`)
 
 **Resource links to add:**
 
 **Software Engineering:**
-- [ ] **5A.5** GeeksforGeeks: Software Engineering — https://www.geeksforgeeks.org/software-engineering/
-- [ ] **5A.6** JavaTPoint: SE Tutorial — https://www.javatpoint.com/software-engineering
-- [ ] **5A.7** Tutorialspoint: SE — https://www.tutorialspoint.com/software_engineering/
-- [ ] **5A.8** NPTEL: Software Engineering (YouTube/NPTEL)
+- [x] **5A.5** GeeksforGeeks: Software Engineering — https://www.geeksforgeeks.org/software-engineering/
+- [x] **5A.6** JavaTPoint: SE Tutorial — https://www.javatpoint.com/software-engineering
+- [x] **5A.7** Tutorialspoint: SE — https://www.tutorialspoint.com/software_engineering/
+- [x] **5A.8** NPTEL: Software Engineering (YouTube/NPTEL)
 
 **Design & Analysis of Algorithms:**
-- [ ] **5A.9** GeeksforGeeks: Algorithms — https://www.geeksforgeeks.org/fundamentals-of-algorithms/
-- [ ] **5A.10** Visualgo: Algorithm Visualizations — https://visualgo.net/
-- [ ] **5A.11** MIT OCW: Intro to Algorithms — https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/
-- [ ] **5A.12** Abdul Bari Algorithms (YouTube) — https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O
+- [x] **5A.9** GeeksforGeeks: Algorithms — https://www.geeksforgeeks.org/fundamentals-of-algorithms/
+- [x] **5A.10** Visualgo: Algorithm Visualizations — https://visualgo.net/
+- [x] **5A.11** MIT OCW: Intro to Algorithms — https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-spring-2020/
+- [x] **5A.12** Abdul Bari Algorithms (YouTube) — https://www.youtube.com/playlist?list=PLDN4rrl48XKpZkf03iYFl-O29szjTrs_O
 
 **Full-stack Development:**
-- [ ] **5A.13** React Official Docs — https://react.dev/
-- [ ] **5A.14** W3Schools React — https://www.w3schools.com/react/
-- [ ] **5A.15** AngularJS Developer Guide — https://docs.angularjs.org/guide
-- [ ] **5A.16** freeCodeCamp: React — https://www.freecodecamp.org/learn/front-end-development-libraries/
+- [x] **5A.13** React Official Docs — https://react.dev/
+- [x] **5A.14** W3Schools React — https://www.w3schools.com/react/
+- [x] **5A.15** AngularJS Developer Guide — https://docs.angularjs.org/guide
+- [x] **5A.16** freeCodeCamp: React — https://www.freecodecamp.org/learn/front-end-development-libraries/
 
 **Machine Learning:**
-- [ ] **5A.17** GeeksforGeeks: ML — https://www.geeksforgeeks.org/machine-learning/
-- [ ] **5A.18** Andrew Ng's ML Course — https://www.coursera.org/learn/machine-learning
-- [ ] **5A.19** Scikit-learn Docs — https://scikit-learn.org/stable/
-- [ ] **5A.20** StatQuest (YouTube) — https://www.youtube.com/c/joshstarmer
+- [x] **5A.17** GeeksforGeeks: ML — https://www.geeksforgeeks.org/machine-learning/
+- [x] **5A.18** Andrew Ng's ML Course — https://www.coursera.org/learn/machine-learning
+- [x] **5A.19** Scikit-learn Docs — https://scikit-learn.org/stable/
+- [x] **5A.20** StatQuest (YouTube) — https://www.youtube.com/c/joshstarmer
 
 ### 5B — Content Structure Improvements
-- [ ] **5B.1** Add "Key Concept" summary box renderer to `renderer.js`
-- [ ] **5B.2** Add "Common Mistakes" callout box renderer to `renderer.js`
-- [ ] **5B.3** Style new content components in `style.css`
+- [x] **5B.1** Add "Key Concept" summary box renderer to `renderer.js`
+- [x] **5B.2** Add "Common Mistakes" callout box renderer to `renderer.js`
+- [x] **5B.3** Style new content components in `style.css`
 
 ### 5C — Software Engineering Content Enrichment
-- [ ] **5C.1** Enrich `data/se/module1.json` — expand definitions, add real-world software project examples
-- [ ] **5C.2** Enrich `data/se/module2.json` — add SDLC model comparison table (Waterfall vs Agile vs Spiral vs V-Model)
-- [ ] **5C.3** Enrich `data/se/module3.json` — add SRS template walkthrough, requirement elicitation techniques
-- [ ] **5C.4** Enrich `data/se/module4.json` — add UML diagram examples, design pattern descriptions
-- [ ] **5C.5** Enrich `data/se/module5.json` — add testing strategy matrix, COCOMO estimation walkthrough
+- [x] **5C.1** Enrich `data/se/module1.json` — expand definitions, add real-world software project examples
+- [x] **5C.2** Enrich `data/se/module2.json` — add SDLC model comparison table (Waterfall vs Agile vs Spiral vs V-Model)
+- [x] **5C.3** Enrich `data/se/module3.json` — add SRS template walkthrough, requirement elicitation techniques
+- [x] **5C.4** Enrich `data/se/module4.json` — add UML diagram examples, design pattern descriptions
+- [x] **5C.5** Enrich `data/se/module5.json` — add testing strategy matrix, COCOMO estimation walkthrough
 
 ### 5D — Design & Analysis of Algorithms Content Enrichment
-- [ ] **5D.1** Enrich `data/daa/module1.json` — add Big-O/Omega/Theta comparison table, recurrence examples
-- [ ] **5D.2** Enrich `data/daa/module2.json` — add sorting algorithm step-by-step traces with pseudocode
-- [ ] **5D.3** Enrich `data/daa/module3.json` — add greedy vs DP worked examples (knapsack, coin change)
-- [ ] **5D.4** Enrich `data/daa/module4.json` — add Dijkstra/Bellman-Ford/Prim/Kruskal walkthroughs
-- [ ] **5D.5** Enrich `data/daa/module5.json` — add P vs NP explanation, NP-complete problem examples
+- [x] **5D.1** Enrich `data/daa/module1.json` — add Big-O/Omega/Theta comparison table, recurrence examples
+- [x] **5D.2** Enrich `data/daa/module2.json` — add sorting algorithm step-by-step traces with pseudocode
+- [x] **5D.3** Enrich `data/daa/module3.json` — add greedy vs DP worked examples (knapsack, coin change)
+- [x] **5D.4** Enrich `data/daa/module4.json` — add Dijkstra/Bellman-Ford/Prim/Kruskal walkthroughs
+- [x] **5D.5** Enrich `data/daa/module5.json` — add P vs NP explanation, NP-complete problem examples
 
 ### 5E — Full-stack Development Content Enrichment
-- [ ] **5E.1** Enrich `data/fsd/module1.json` — add JSX code examples, component lifecycle diagram
-- [ ] **5E.2** Enrich `data/fsd/module2.json` — add React Router code samples, CSS-in-JS comparison
-- [ ] **5E.3** Enrich `data/fsd/module3.json` — add controlled vs uncontrolled form examples
-- [ ] **5E.4** Enrich `data/fsd/module4.json` — add fetch/axios API examples, async/await patterns
-- [ ] **5E.5** Enrich `data/fsd/module5.json` — add Angular directive code, service injection examples
+- [x] **5E.1** Enrich `data/fsd/module1.json` — add JSX code examples, component lifecycle diagram
+- [x] **5E.2** Enrich `data/fsd/module2.json` — add React Router code samples, CSS-in-JS comparison
+- [x] **5E.3** Enrich `data/fsd/module3.json` — add controlled vs uncontrolled form examples
+- [x] **5E.4** Enrich `data/fsd/module4.json` — add fetch/axios API examples, async/await patterns
+- [x] **5E.5** Enrich `data/fsd/module5.json` — add Angular directive code, service injection examples
 
 ### 5F — Machine Learning Content Enrichment
-- [ ] **5F.1** Enrich `data/ml/module1.json` — add ML pipeline diagram, AI vs ML vs DL comparison
-- [ ] **5F.2** Enrich `data/ml/module2.json` — add supervised vs unsupervised vs reinforcement comparison table
-- [ ] **5F.3** Enrich `data/ml/module3.json` — add gradient descent walkthrough, bias-variance tradeoff
-- [ ] **5F.4** Enrich `data/ml/module4.json` — add industry use-case studies (healthcare, finance, retail)
-- [ ] **5F.5** Enrich `data/ml/module5.json` — add Bagging vs Boosting comparison, Random Forest walkthrough
+- [x] **5F.1** Enrich `data/ml/module1.json` — add ML pipeline diagram, AI vs ML vs DL comparison
+- [x] **5F.2** Enrich `data/ml/module2.json` — add supervised vs unsupervised vs reinforcement comparison table
+- [x] **5F.3** Enrich `data/ml/module3.json` — add gradient descent walkthrough, bias-variance tradeoff
+- [x] **5F.4** Enrich `data/ml/module4.json` — add industry use-case studies (healthcare, finance, retail)
+- [x] **5F.5** Enrich `data/ml/module5.json` — add Bagging vs Boosting comparison, Random Forest walkthrough
+
 
 ---
 

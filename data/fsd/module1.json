@@ -5,24 +5,36 @@
   "topics": [
     {
       "title": "Introduction to React & Prerequisites",
-      "content": "<p>React is a declarative, efficient, and flexible open-source JavaScript library developed by Facebook for building user interfaces, specifically Single Page Applications (SPAs). It allows developers to create reusable UI components.</p><p><strong>Prerequisites:</strong> Before learning React, you should have a solid understanding of HTML, CSS, and modern JavaScript (ES6+), including concepts like arrow functions, classes, array destructuring, modules (import/export), and template literals.</p>",
+      "keyConcept": "React is a component-centric JavaScript library focused exclusively on rendering the View layer of single-page web applications using a Virtual DOM.",
+      "content": "<p>React is a declarative, efficient, and flexible open-source JavaScript library developed by Facebook for building user interfaces, specifically Single Page Applications (SPAs). It allows developers to create complex UIs from small, isolated pieces of code called 'components'. React is not a full MVC framework; it is purely focused on the **View layer** of the application.</p><p><strong>Prerequisites:</strong> Before diving into React, developers must master modern JavaScript (ES6+):</p><ul><li><strong>Arrow Functions:</strong> Shorthand function syntax: <code>const App = () => &lt;div&gt;Hello&lt;/div&gt;;</code></li><li><strong>Destructuring:</strong> Extracting properties: <code>const { title, name } = props;</code> or array destructuring: <code>const [state, setState] = useState();</code></li><li><strong>ES Modules:</strong> Code modularity using <code>import React from 'react';</code> and <code>export default MyComponent;</code></li></ul><p><strong>Real-World Project Example:</strong> Social media feeds (like Facebook or Instagram). The feed is a parent component containing multiple independent 'Post' components. Each post component contains 'LikeButton', 'CommentSection', and 'ShareButton' sub-components, allowing independent rendering when a user likes a post.</p>",
+      "commonMistakes": "Describing React as a full-fledged MVC framework. Unlike Angular, React is a library. It does not include built-in routing, HTTP request clients, or state validation modules; these must be added using third-party libraries (React Router, Axios, etc.).",
       "interviewTip": "When asked: 'What is React?', don't just say it is a framework. Emphasize that React is a **library** focused solely on the View layer of an application, utilizing a Virtual DOM to optimize rendering performance."
     },
     {
       "title": "Installation & Project Structure",
-      "content": "<p>A modern React project is typically initialized using build tools like Vite (or previously Create React App):</p><pre><code>npm create vite@latest my-react-app -- --template react\ncd my-react-app\nnpm install\nnpm run dev</code></pre><p><strong>File Structure:</strong> <ul><li><code>package.json:</code> Defines project dependencies and scripts.</li><li><code>index.html:</code> The main HTML entry point with a root div (<code>&lt;div id=\"root\"&gt;&lt;/div&gt;</code>).</li><li><code>src/main.jsx:</code> Mounts the React application to the root div.</li><li><code>src/App.jsx:</code> The main application component.</li></ul></p>"
+      "keyConcept": "Modern React projects are built using Vite, scaffolded with standard files (package.json, index.html) and a main entry point that mounts to the DOM.",
+      "content": "<p>A modern React project is initialized using fast build tools like Vite rather than the legacy Create React App:</p><pre><code>npm create vite@latest my-react-app -- --template react\ncd my-react-app\nnpm install\nnpm run dev</code></pre><p><strong>Core File Structure:</strong></p><ul><li><code>package.json:</code> Defines metadata, scripts (dev, build, lint), and dependencies (react, react-dom).</li><li><code>index.html:</code> The HTML entry point. It contains a single mount point: <code>&lt;div id=\"root\"&gt;&lt;/div&gt;</code> and a script tag importing <code>src/main.jsx</code>.</li><li><code>src/main.jsx:</code> The bootstrap script. It uses <code>ReactDOM.createRoot()</code> to mount the React application inside the root div.</li><li><code>src/App.jsx:</code> The main parent component.</li></ul><p><strong>Real-World Project Example:</strong> When a user navigates to a React SPA, the web server serves the static `index.html`. The browser then loads the bundled `main.jsx` script, which dynamically injects the entire interactive application layout into the `div id=\"root\"` tag.</p>",
+      "commonMistakes": "Trying to modify the DOM directly using `document.getElementById` inside React. React maintains a Virtual DOM; direct manual modifications bypass React's tracking, leading to rendering bugs and out-of-sync UI states."
     },
     {
-      "title": "JSX (JavaScript XML)",
-      "content": "<p>JSX is a syntax extension to JavaScript that looks similar to HTML. React uses JSX to describe what the UI should look like. JSX compiles down to standard JavaScript <code>React.createElement()</code> calls.</p><p><strong>Rules of JSX:</strong> <ul><li>All tags must be closed (e.g., <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code>).</li><li>A component must return a single root element. We can wrap multiple elements in a React Fragment (<code>&lt;&gt;...&lt;/&gt;</code>).</li><li>Use <code>className</code> instead of <code>class</code>, and <code>htmlFor</code> instead of <code>for</code>.</li></ul></p>"
+      "title": "JSX: JavaScript XML rules and examples",
+      "keyConcept": "JSX is a syntax extension that compiles to standard React.createElement calls, enforcing self-closing tags and single parent root wrapping.",
+      "content": "<p>JSX is a syntax extension to JavaScript that looks similar to HTML. React uses JSX to describe what the UI should look like. JSX compiles down to standard JavaScript function calls: <code>React.createElement()</code>. For example:</p><pre><code>// JSX Code:\nconst element = &lt;h1 className=\"title\"&gt;Hello World&lt;/h1&gt;;\n\n// Compiles to JavaScript:\nconst element = React.createElement('h1', { className: 'title' }, 'Hello World');</code></pre><p><strong>Strict Rules of JSX:</strong></p><ol><li><strong>Single Root:</strong> Components must return a single parent element. To group siblings without adding unnecessary wrapper divs, use React Fragments (<code>&lt;React.Fragment&gt;...&lt;/React.Fragment&gt;</code> or the shorthand <code>&lt;&gt;...&lt;/&gt;</code>).</li><li><strong>Close All Tags:</strong> All tags must be explicitly closed. Self-closing elements like image or line breaks must be written as <code>&lt;img /&gt;</code> or <code>&lt;br /&gt;</code>.</li><li><strong>CamelCase Attributes:</strong> HTML attributes must use JavaScript naming conventions. Use <code>className</code> instead of <code>class</code>, and <code>htmlFor</code> instead of <code>for</code>.</li></ol><p><strong>Real-World Project Example:</strong> Building an input form. In JSX, you must write:<br><pre><code>&lt;&gt;\n  &lt;label htmlFor=\"emailInput\"&gt;Email:&lt;/label&gt;\n  &lt;input type=\"email\" id=\"emailInput\" className=\"form-control\" /&gt;\n&lt;/&gt;</code></pre></p>",
+      "commonMistakes": "Attempting to return multiple sibling elements without a wrapping element. A component return statement like `return <h1>Title</h1><p>Text</p>;` will cause a compilation error. You must wrap them in `<>...</>`.",
+      "interviewTip": "If asked why React components must return a single root element, explain that a JavaScript function can only return a single value, and JSX compiles down to a single `React.createElement` function call."
     },
     {
-      "title": "JavaScript Variables & Comments in JSX",
-      "content": "<p>You can embed any JavaScript expression in JSX by wrapping it in curly braces <code>{ }</code>:</p><pre><code>const name = 'Aritra';\nconst element = &lt;h1&gt;Hello, {name}!&lt;/h1&gt;;</code></pre><p><strong>Comments in JSX:</strong> Inside JSX tags, comments must be wrapped in curly braces and use block comments style:</p><pre><code>{/* This is a comment in JSX */}</code></pre>"
+      "title": "Variables & Comments in JSX",
+      "keyConcept": "JSX evaluates any valid JavaScript expression (variables, functions, maps) inside curly braces { }, and comments are written as {/* ... */}.",
+      "content": "<p>You can embed any valid JavaScript expression in JSX by wrapping it in curly braces <code>{ }</code>. This includes variables, function calls, arithmetic operations, and arrays. Conditional rendering is done using JavaScript's ternary operator <code>condition ? trueVal : falseVal</code> or logical AND operator <code>condition && element</code>.</p><p><strong>Code Example:</strong></p><pre><code>const user = { name: 'Aritra', role: 'Developer' };\nconst isLoggedIn = true;\n\nconst element = (\n  &lt;div&gt;\n    {/* Display welcome message conditional on login state */}\n    {isLoggedIn ? &lt;h1&gt;Welcome back, {user.name}!&lt;/h1&gt; : &lt;h1&gt;Please log in.&lt;/h1&gt;}\n    &lt;p&gt;Role: {user.role}&lt;/p&gt;\n  &lt;/div&gt;\n);</code></pre><p><strong>Comments in JSX:</strong> Standard JS comments (<code>//</code> or <code>/* */</code>) cannot be used inside JSX templates as they will be treated as plain text. You must wrap comments in curly braces: <code>{/* This is a JSX comment */}</code>.</p>",
+      "commonMistakes": "Placing comments outside curly braces in JSX. Writing `// comment` inside a JSX div will literally display '// comment' on the user's web page."
     },
     {
-      "title": "React Components: Functional vs Class",
-      "content": "<p>Components are the building blocks of React. There are two primary types:</p><ul><li><strong>Functional Components:</strong> Simple JavaScript functions that accept props and return JSX. They utilize <em>Hooks</em> (like <code>useState</code>) to manage state.</li><pre><code>function Welcome(props) {\n  return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;\n}</code></pre><li><strong>Class Components:</strong> ES6 classes that extend <code>React.Component</code> and require a <code>render()</code> method. They manage state via <code>this.state</code>. (Legacy, but still found in older systems).</li><pre><code>class Welcome extends React.Component {\n  render() {\n    return &lt;h1&gt;Hello, {this.props.name}&lt;/h1&gt;;\n  }\n}</code></pre></ul>"
+      "title": "React Components & Lifecycle Phases",
+      "keyConcept": "Functional components use hooks to manage state, whereas legacy Class components use lifecycle methods. Component lifecycles have Mount, Update, and Unmount phases.",
+      "content": "<p>Components are reusable, independent blocks of UI. There are two types:</p><ul><li><strong>Functional Components:</strong> Simple JavaScript functions accepting `props` as arguments and returning JSX. Modern standard. They manage state using the <code>useState</code> Hook and side effects using <code>useEffect</code>.</li><li><strong>Class Components (Legacy):</strong> ES6 classes extending <code>React.Component</code>, requiring a <code>render()</code> method and using <code>this.state</code>.</li></ul><p><strong>Component Lifecycle Diagram & Phases:</strong> Components go through three main lifecycle phases:</p><div class='table-container'><table class='credit-table'><thead><tr><th>Lifecycle Phase</th><th>Description</th><th>Class Method Equivalent</th><th>Functional Equivalent (useEffect)</th></tr></thead><tbody><tr><td><strong>Mounting</strong></td><td>Component created and inserted into the DOM</td><td><code>componentDidMount()</code></td><td><code>useEffect(() => {}, [])</code> (Empty dependency array)</td></tr><tr><td><strong>Updating</strong></td><td>Component re-rendered due to state/prop changes</td><td><code>componentDidUpdate()</code></td><td><code>useEffect(() => {}, [dependency])</code> (Listens to dependencies)</td></tr><tr><td><strong>Unmounting</strong></td><td>Component removed from the DOM</td><td><code>componentWillUnmount()</code></td><td><code>useEffect(() => { return () => { /* cleanup */ } })</code> (Cleanup return function)</td></tr></tbody></table></div><p><strong>Real-World Project Example:</strong> Fetching profile details: A component mounts -> <code>useEffect</code> fires an API fetch call -> response returns and updates the local state -> component updates, rendering user details -> user logs out -> component unmounts, cleaning up timers.</p>",
+      "commonMistakes": "Modifying state variables directly. Doing `state.count = count + 1` in functional components or `this.state.count = 5` in class components does not trigger a re-render. You must use `setCount(newVal)` or `this.setState({ count: 5 })`.",
+      "interviewTip": "Be prepared to explain the lifecycle phases. Mounting is for setting up (fetching data, starting timers), Updating is for responding to user inputs, and Unmounting is for cleanups (canceling network requests, removing event listeners)."
     }
   ],
   "practiceQuestions": [
@@ -32,7 +44,7 @@
     },
     {
       "question": "What is JSX? Explain three strict syntax rules of JSX.",
-      "answer": "JSX stands for JavaScript XML. It is a syntax extension for JavaScript that allows writing HTML-like code inside JS. Rules: (1) Every tag must be self-closing or closed explicitly. (2) It must return a single parent element (or a Fragment `<>...</>`). (3) HTML attributes must use camelCase conventions, such as `className` instead of `class` and `tabIndex` instead of `tabindex`."
+      "answer": "JSX stands for JavaScript XML. It is a syntax extension for JavaScript that allows writing HTML-like code inside JS. Rules: (1) Every tag must be self-closing or closed explicitly. (2) It must return a single parent element (or a Fragment `<>...</>`). (3) HTML attributes must use camelCase conventions, such as `className` instead of `class` and `htmlFor` instead of `for`."
     },
     {
       "question": "How do you embed variables and write comments inside a JSX block? Provide code snippets.",
@@ -72,17 +84,6 @@
     },
     {
       "question": "Which attribute must be used in JSX to define a CSS class?",
-      "options": [
-        "class",
-        "className",
-        "styleClass",
-        "cssClass"
-      ],
-      "correct": 0,
-      "explanation": "Wait, 'class' is a reserved keyword in JavaScript. In JSX, we must use 'className' instead of 'class' to avoid compiler issues."
-    },
-    {
-      "question": "Wait! What is the correct answer to the above question?",
       "options": [
         "class",
         "className",
@@ -140,7 +141,7 @@
       "question": "What is the shorthand syntax for React Fragments?",
       "options": [
         "<fragment>...</fragment>",
-        "<#>...</#>",
+        "<#>...<//#>",
         "<>...</>",
         "<div wrapper>...</div>"
       ],

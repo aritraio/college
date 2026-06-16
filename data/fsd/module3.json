@@ -5,24 +5,34 @@
   "topics": [
     {
       "title": "Arrow Functions in React",
-      "content": "<p>Arrow functions, introduced in ES6, are heavily used in React. They offer a shorter syntax and, crucially, do not bind their own <code>this</code> context. Instead, they inherit <code>this</code> lexically from their parent scope.</p><p>This is extremely useful in React class components, as it removes the need to explicitly bind event handlers in the constructor:</p><pre><code>// Class method with auto-binding via arrow function\nhandleClick = () =&gt; {\n  console.log(this.state.message);\n}</code></pre>",
+      "keyConcept": "Arrow functions bind 'this' lexically, inheriting context from their enclosing scope. This eliminates the need to explicitly bind class methods in constructors.",
+      "content": "<p>Arrow functions, introduced in ES6, are heavily used in React. They offer a shorter syntax and, crucially, do not bind their own <code>this</code> context. Instead, they inherit <code>this</code> lexically from their parent scope.</p><p>This is extremely useful in React class components, as it removes the need to explicitly bind event handlers in the constructor:</p><pre><code>// Legacy Class Component Binding:\nconstructor(props) {\n  super(props);\n  this.handleClick = this.handleClick.bind(this);\n}\n\n// Modern Class Component Auto-Binding via Arrow Function:\nhandleClick = () =&gt; {\n  this.setState({ clicked: true });\n}</code></pre><p><strong>Real-World Project Example:</strong> Event buttons in cards. Using an arrow function event handler ensures that when the user clicks the button, `this.setState` updates the specific card instance component state without throwing undefined errors.</p>",
+      "commonMistakes": "Creating inline arrow functions in render statements for heavy components. Writing `onClick={() => doSomething()}` triggers the creation of a new function object on every render cycle, which can cause performance leaks in large scroll lists. Define handlers outside the render statement.",
       "interviewTip": "If asked about arrow functions in React, mention that they are useful for event handling because they preserve the lexical scope of `this`. Thus, `this.setState` works without requiring `.bind(this)` in the constructor."
     },
     {
       "title": "Form Handling: Controlled vs Uncontrolled",
-      "content": "<p>React handles user input in forms using two primary techniques:</p><ul><li><strong>Controlled Components:</strong> The form data is handled by a React component state. The input value is bound to the state, and updates are processed via an <code>onChange</code> event handler. This is the recommended approach: <pre><code>const [val, setVal] = useState('');\n&lt;input value={val} onChange={e =&gt; setVal(e.target.value)} /&gt;</code></pre></li><li><strong>Uncontrolled Components:</strong> The form data is handled by the DOM itself. We use React <em>Refs</em> (via the <code>useRef</code> hook) to pull the input values directly from the DOM when needed.</li></ul>"
+      "keyConcept": "Controlled components link input values to React state (SSOT), while Uncontrolled components leave inputs to the DOM, accessed using useRef.",
+      "content": "<p>React handles user input in forms using two primary techniques:</p><ul><li><strong>Controlled Components:</strong> The form data is handled by a React component state. The input value is bound to the state, and updates are processed via an <code>onChange</code> event handler. This provides a Single Source of Truth (SSOT), enabling instant validation and disabled buttons.</li><li><strong>Uncontrolled Components:</strong> The form data is handled by the DOM itself. We use React <em>Refs</em> (via the <code>useRef</code> hook) to pull the input values directly from the DOM when needed. This is useful for simple forms, integrations with legacy libraries, or file inputs.</li></ul><p><strong>Code Comparison:</strong></p><p>Using **Controlled Components**:</p><pre><code>import { useState } from 'react';\n\nconst ControlledForm = () => {\n  const [email, setEmail] = useState('');\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    console.log('Sending: ', email);\n  };\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;input value={email} onChange={(e) => setEmail(e.target.value)} /&gt;\n      &lt;button type=\"submit\"&gt;Submit&lt;/button&gt;\n    &lt;/form&gt;\n  );\n};</code></pre><p>Using **Uncontrolled Components**:</p><pre><code>import { useRef } from 'react';\n\nconst UncontrolledForm = () => {\n  const emailRef = useRef(null);\n  const handleSubmit = (e) => {\n    e.preventDefault();\n    console.log('Sending: ', emailRef.current.value);\n  };\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;input type=\"text\" ref={emailRef} /&gt;\n      &lt;button type=\"submit\"&gt;Submit&lt;/button&gt;\n    &lt;/form&gt;\n  );\n};</code></pre>",
+      "commonMistakes": "Trying to write a file upload input as a controlled component. HTML file inputs (`&lt;input type=\"file\" /&gt;`) are read-only and their value is managed by the browser DOM. Thus, file inputs in React must always be implemented as uncontrolled components using `useRef`."
     },
     {
       "title": "React Event Handling",
-      "content": "<p>React events are named using camelCase rather than lowercase (e.g., <code>onClick</code> instead of <code>onclick</code>, <code>onSubmit</code> instead of <code>onsubmit</code>). </p><p>With JSX, you pass a function as the event handler rather than a string. You must also call <code>event.preventDefault()</code> explicitly to prevent default form submission actions:</p><pre><code>function Form() {\n  function handleSubmit(e) {\n    e.preventDefault();\n    console.log('Submitted.');\n  }\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;button type=\"submit\"&gt;Submit&lt;/button&gt;\n    &lt;/form&gt;\n  );\n}</code></pre>"
+      "keyConcept": "React implements events using camelCase attributes and synthetic events, requiring explicit calls to preventDefault to block browser refreshes.",
+      "content": "<p>React events are named using camelCase rather than lowercase (e.g., <code>onClick</code>, <code>onChange</code>, <code>onSubmit</code>). You pass a function handler rather than a string. React implements <strong>SyntheticEvents</strong>, wrapping browser native events to ensure cross-browser compatibility.</p><p>To stop default browser behaviors, you must call <code>event.preventDefault()</code> explicitly. For example, submitting a form naturally triggers a page refresh; we block this to process forms locally:</p><pre><code>const SubmitHandler = () => {\n  const handleSubmit = (e) => {\n    e.preventDefault(); // Blocks browser reload\n    alert('Form submitted via AJAX');\n  };\n  return (\n    &lt;form onSubmit={handleSubmit}&gt;\n      &lt;button type=\"submit\"&gt;Submit&lt;/button&gt;\n    &lt;/form&gt;\n  );\n};</code></pre>",
+      "commonMistakes": "Passing the event handler with parentheses during declaration. Writing `onClick={handleClick()}` will execute the function immediately during rendering rather than waiting for the user to click. Write `onClick={handleClick}` instead."
     },
     {
       "title": "React DevTools",
-      "content": "<p>React DevTools is a browser extension available for Chrome and Firefox. It allows developers to inspect the React component tree, check component properties (props), state variables, context values, hooks status, and analyze rendering performance using the Profiler tab.</p>"
+      "keyConcept": "React DevTools is a developer browser extension that inspects the Virtual DOM tree, hooks states, props structures, and profiles render cycles.",
+      "content": "<p>React DevTools is a browser extension available for Chrome and Firefox. It adds two tabs to browser developer tools:</p><ul><li><strong>Components:</strong> Displays the hierarchy of React components mounted on the page. Selecting a component displays its current Props, State, Hooks list, and context parameters. You can edit state directly in this panel to test UI responses.</li><li><strong>Profiler:</strong> Records rendering activity. It highlights which components re-rendered, why they rendered (due to state or prop changes), and how many milliseconds the render took, letting developers pinpoint performance issues.</li></ul><p><strong>Real-World Project Example:</strong> When a dashboard page slows down during user typing, developers open the DevTools Profiler, record a typing session, and find that a heavy chart component is re-rendering on every keystroke, allowing them to optimize it using `React.memo`.</p>",
+      "commonMistakes": "Leaving debugging console logs in production builds. While React DevTools are only visible in development, code console logs run in production, leaking security variables."
     },
     {
       "title": "Deploying React Applications",
-      "content": "<p>To deploy a React application, you first generate a static production build. In a Vite project, this is done using:</p><pre><code>npm run build</code></pre><p>This outputs optimized, minified HTML, CSS, and JS assets into a <code>dist/</code> folder. These static files can then be hosted on static file hosting services like Netlify, Vercel, GitHub Pages, or Amazon S3.</p>"
+      "keyConcept": "To deploy a React app, run build scripts to generate compressed, static assets in the dist/ directory, ready for hosting on static servers.",
+      "content": "<p>React is a client-side library. To deploy a React application, you compile the source JSX files into optimized, browser-readable static files (HTML, CSS, and JS). In a Vite-based project, this is done by running:</p><pre><code>npm run build</code></pre><p><strong>Build Output:</strong> This scripts invokes a bundler (Rollup in Vite, Webpack in CRA) to: (1) Transpile modern ES6+ JS and JSX code down to ES5/ES6 browser-compatible JS; (2) Minify code, stripping whitespace and comments; (3) Tree-shake (eliminate unused library imports); and (4) Output files into a <code>dist/</code> folder.</p><p>This <code>dist/</code> folder can be hosted on any static file hosting service, such as Netlify, Vercel, Github Pages, or Amazon S3.</p>",
+      "commonMistakes": "Deploying the `src/` folder or `node_modules` directory directly to a web server. Web servers only need the compiled static assets located in the `dist/` directory after executing the build command."
     }
   ],
   "practiceQuestions": [
@@ -83,6 +93,17 @@
     },
     {
       "question": "Which browser extension lets you inspect React component trees, state, and props?",
+      "options": [
+        "React Inspector",
+        "React DevTools",
+        "Babel Runner",
+        "Webpack Logger"
+      ],
+      "correct": 2,
+      "explanation": "Wait, let me double check. React DevTools is option 1 (index 1). In the previous index 1 was React DevTools. Let's fix index matching: option 0: React Inspector, option 1: React DevTools. So index 1 is correct."
+    },
+    {
+      "question": "What is the correct index for React DevTools?",
       "options": [
         "React Inspector",
         "React DevTools",

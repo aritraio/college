@@ -4,159 +4,169 @@
   "hours": "3H",
   "topics": [
     {
-      "title": "Core Design Concepts",
-      "content": "<p>Software design is an iterative process through which requirements are translated into a blueprint for constructing the software. Key concepts include:</p><ul><li><strong>Abstraction:</strong> Generalizing characteristics to focus on core details. <em>Data abstraction</em> hides data representation, while <em>procedural abstraction</em> hides execution sequences.</li><li><strong>Modularity:</strong> Dividing a system into smaller, manageable, and independent components (modules) that can be developed and tested separately.</li><li><strong>Information Hiding:</strong> Hiding internal module details to prevent external tampering and simplify interfaces (promoted by encapsulation).</li><li><strong>Functional Independence:</strong> Achieved by developing modules with single-minded function and low interaction with other modules. Measured by Cohesion and Coupling.</li></ul>",
-      "interviewTip": "Cohesion and Coupling are classic interview favorites. Remember: the gold standard of design is **High Cohesion** and **Low Coupling**. You want highly focused modules that don't depend heavily on other modules."
+      "title": "Software Design Concepts",
+      "keyConcept": "Software design translates SRS requirements into a blueprint for construction. Key concepts include Abstraction, Modularity, Information Hiding, and Functional Independence.",
+      "content": "<p>Software design is an iterative process through which requirements are translated into a blueprint for constructing the software. Key design concepts include:</p><ul><li><strong>Abstraction:</strong> Generalizing characteristics to focus on core details. <em>Data abstraction</em> hides representation details of data types, while <em>procedural abstraction</em> hides the specific instruction execution sequence.</li><li><strong>Modularity:</strong> Subdividing a software system into smaller, self-contained components (modules) that can be developed, tested, and updated independently.</li><li><strong>Information Hiding:</strong> Restricting access to a module's internal details. Encapsulation enforces this, ensuring that modules communicate only through stable public interfaces, preventing side-effects.</li><li><strong>Refinement:</strong> A top-down design strategy where high-level concepts are iteratively decomposed into low-level instructions.</li></ul><p><strong>Real-World Project Example:</strong> When designing a Payment Gateway interface, a class represents the gateway conceptually (abstraction). The payment details are private fields (information hiding), and developers interact only with the `processPayment()` method.</p>",
+      "commonMistakes": "Confusing abstraction and information hiding. Abstraction is a design technique to focus on the 'what' instead of the 'how'. Information hiding is a security/design technique that restricts access to the internal data structures of a module.",
+      "interviewTip": "Be prepared to explain how information hiding improves maintainability: by keeping internals private, you can completely rewrite the internal code of a class without breaking any other parts of the application."
     },
     {
-      "title": "Cohesion & Coupling",
-      "content": "<p><strong>Cohesion:</strong> An internal measure of how closely related the functions within a single module are. Higher is better. Types of cohesion (highest to lowest): Coincidental (worst), Logical, Temporal, Procedural, Communication, Sequential, Functional (best).</p><p><strong>Coupling:</strong> An external measure of how dependent modules are on one another. Lower is better. Types of coupling (lowest to highest): No coupling (best), Data coupling, Stamp coupling, Control coupling, Common coupling, Content coupling (worst).</p>"
+      "title": "Modularity: Cohesion & Coupling",
+      "keyConcept": "High Cohesion (single-focused modules) and Low Coupling (minimal module dependencies) are the primary metrics of good modular software design.",
+      "content": "<p>Functional independence is measured using two qualitative metrics that define the strength of modular design:</p><ul><li><strong>Cohesion:</strong> Measures the strength of association of elements inside a single module. A highly cohesive module performs exactly one task. The highest form is <em>Functional Cohesion</em> (where all elements cooperate to achieve a single function). The lowest is <em>Coincidental Cohesion</em> (where elements are grouped randomly).</li><li><strong>Coupling:</strong> Measures the degree of interdependence between different modules. We aim for low coupling to ensure that changes in one module do not force modifications in another. The best is <em>Data Coupling</em> (passing only simple data parameters). The worst is <em>Content Coupling</em> (one module directly modifying or accessing the internal code of another module).</li></ul><p><strong>Real-World Project Example:</strong> A module named `UserAuthenticator` that only handles password hashing and token generation is highly cohesive. If it also starts writing logs to database files directly, cohesion drops. If the billing system directly reads private database connection strings from the authentication module, they are tightly coupled.</p>",
+      "commonMistakes": "Thinking that zero coupling is possible. A software system requires modules to communicate, so some coupling is necessary. The goal is to minimize coupling (e.g., using interfaces and passing simple parameters) rather than eliminating it."
     },
     {
-      "title": "Software Architecture & Design Patterns",
-      "content": "<p><strong>Software Architecture:</strong> The structure of system components, their relationships, and principles guiding their design and evolution. Examples include Client-Server, Layered (N-tier), Microservices, and Model-View-Controller (MVC).</p><p><strong>Design Patterns:</strong> Reusable solutions to commonly occurring design problems (e.g., Singleton, Observer, Factory, Strategy patterns).</p>"
+      "title": "UML Modeling Diagrams",
+      "keyConcept": "Unified Modeling Language (UML) standardizes the visual representation of system design, categorized into structural diagrams (Class) and behavioral diagrams (Use Case, Sequence).",
+      "content": "<p>Unified Modeling Language (UML) is a standardized modeling language used to visualize, specify, construct, and document software systems. Key diagrams include:</p><ul><li><strong>Use Case Diagram:</strong> Renders the system's external behavior, representing actors (users/systems) and use cases (actions) to map out functional scope.</li><li><strong>Class Diagram:</strong> A structural diagram that models the system's static architecture, showing classes, attributes, operations, and relationships (Inheritance, Association, Aggregation, Composition).</li><li><strong>Sequence Diagram:</strong> A behavioral diagram mapping the interaction and exchange of messages between objects sequentially over time.</li></ul><p><strong>Real-World Project Example:</strong> For an online shopping portal:</p><ul><li><em>Use Case:</em> Shows a 'Customer' actor linked to 'View Item', 'Add to Cart', and 'Checkout' use cases.</li><li><em>Class Diagram:</em> Shows a `Customer` class linked to an `Order` class with a 1-to-many association line.</li><li><em>Sequence Diagram:</em> Displays the step-by-step messaging: User -> UI -> CartController -> PaymentGateway -> DB, showing the order of operations.</li></ul>",
+      "commonMistakes": "Using aggregation and composition interchangeably. Aggregation is a 'has-a' relationship where the child can exist independently of the parent (e.g., Department and Teacher). Composition is a strong 'has-a' relationship where child lifetime is bound to the parent (e.g., House and Room)."
     },
     {
-      "title": "User Interface (UI) Design Elements",
-      "content": "<p>UI design is critical for acceptability. Core UI layout components include:</p><ul><li><strong>Windows:</strong> Containers for views and applications.</li><li><strong>Menus & Panels:</strong> Organize options and screen partitions.</li><li><strong>Controls:</strong> Buttons, scroll bars, checkboxes, and text inputs.</li><li><strong>Icons:</strong> Visual representations of functions.</li><li><strong>Error Messages:</strong> Must be constructive, clear, and help the user resolve the issue, rather than displaying raw code tracebacks.</li></ul>"
+      "title": "Design Patterns",
+      "keyConcept": "Design patterns are reusable, standard solutions to common software design problems, classified into Creational, Structural, and Behavioral patterns.",
+      "content": "<p>Software design patterns represent best practices used by experienced software developers. They are classified into three primary categories:</p><ul><li><strong>Creational Patterns:</strong> Concern class instantiation and object creation mechanisms, isolating the creation logic from the execution logic. <em>Examples:</em><ul><li><strong>Singleton:</strong> Ensures a class has only one instance globally and provides a global access point to it (e.g., database connection manager).</li><li><strong>Factory Method:</strong> Defines an interface for creating objects, letting subclasses decide which class to instantiate.</li></ul></li><li><strong>Structural Patterns:</strong> Concern class and object composition, helping assemble objects into larger structures while keeping them flexible. <em>Examples:</em><ul><li><strong>Adapter:</strong> Allows classes with incompatible interfaces to work together by wrapping one class in an adapter.</li><li><strong>Facade:</strong> Provides a simplified, unified interface to a complex subsystem of classes.</li></ul></li><li><strong>Behavioral Patterns:</strong> Concern communication and interaction algorithms between objects, defining how responsibilities are distributed. <em>Examples:</em><ul><li><strong>Observer:</strong> A 1-to-many dependency pattern where when one object changes state, all its dependents are notified automatically (e.g., event listeners).</li><li><strong>Strategy:</strong> Defines a family of algorithms, encapsulates each one, and makes them interchangeable at runtime.</li></ul></li></ul><p><strong>Real-World Project Example:</strong> An application logging service is implemented as a <em>Singleton</em> to prevent multiple threads from opening competing connections to the log file. A billing system uses the <em>Strategy</em> pattern to dynamically switch calculation algorithms based on whether the customer is in the US, EU, or India.</p>",
+      "commonMistakes": "Overusing design patterns. Applying design patterns to simple scenarios where standard OOP works fine leads to over-engineering, unnecessary classes, and high code complexity."
     },
     {
-      "title": "Coding Standards",
-      "content": "<p>Coding standards ensure that code written by different programmers is consistent, readable, and maintainable. Standards include: <ul><li>Consistent naming conventions (CamelCase, snake_case).</li><li>Required comment formats and header block templates.</li><li>Code styling guidelines (tabs vs. spaces, line breaks).</li><li>Restricting complex constructs (like nested loops or unsafe memory allocation).</li></ul></p>"
+      "title": "Coding Standards & Guidelines",
+      "keyConcept": "Coding standards enforce readability, formatting, naming conventions, and code organization across a team to reduce code maintenance costs.",
+      "content": "<p>A software project's design is only as good as its implementation. Coding standards ensure code quality and maintainability. Standards cover:</p><ul><li><strong>Naming Conventions:</strong> camelCase for variables/methods, PascalCase for classes, UPPERCASE for constants.</li><li><strong>Commenting & Documentation:</strong> Writing clear headers for classes and JSDoc/Docstring headers for methods, explaining the 'why' of code rather than the 'what'.</li><li><strong>Code Organization:</strong> Limiting file lengths, modularizing functions to follow the Single Responsibility Principle, and maintaining structured folder hierarchies.</li></ul><p><strong>Real-World Project Example:</strong> In a team of 10 developers building a web app, enforcing a linter (like ESLint) and formatters (like Prettier) ensures that code checked into Git looks identical in style, reducing merge conflicts and code review friction.</p>",
+      "commonMistakes": "Writing comments that simply restate what the line of code does. Comments like `i++; // Increment i` add clutter. Write comments that explain business logic rules or non-obvious algorithmic details."
     }
   ],
   "practiceQuestions": [
     {
-      "question": "Explain the concept of functional independence and the two metrics used to assess it.",
-      "answer": "Functional independence is a design concept where modules perform a single, focused task with minimal interaction with other modules. It is assessed using two metrics: (1) Cohesion (how focused a module's internal contents are) and (2) Coupling (how dependent a module is on external modules)."
+      "question": "What is software design? State its main goals.",
+      "answer": "Software Design is the technical process of translating the requirements in the SRS into a blueprint for implementation. Its goals are to produce a modular, cohesive, loosely coupled system that is easy to understand, test, maintain, and extend."
     },
     {
-      "question": "What is the difference between high cohesion and low coupling? Why are they desirable?",
-      "answer": "High cohesion means all code within a module belongs together and serves one clear purpose. Low coupling means modules are independent and share minimal connections. They are desirable because they make code easier to read, test, maintain, and modify without causing side-effects in other parts of the system."
+      "question": "Differentiate between Cohesion and Coupling. Which state is preferred in software design?",
+      "answer": "Cohesion measures the strength of functional relationships within a single module (focus on one task). Coupling measures the strength of dependencies between different modules. The preferred state is High Cohesion and Low Coupling."
     },
     {
-      "question": "Describe the difference between Data Coupling and Content Coupling.",
-      "answer": "Data Coupling is the healthiest form of coupling where modules only communicate by passing simple arguments of raw data. Content Coupling is the worst form of coupling where one module directly accesses or modifies the internal code or state of another module, breaking functional independence."
+      "question": "Explain the difference between Aggregation and Composition in UML Class Diagrams.",
+      "answer": "Aggregation represents a weak 'part-of' relationship where the child object can exist independently of the parent (e.g., a Teacher can exist without a Department). Composition represents a strong 'part-of' relationship where the child cannot exist without the parent (e.g., a Room cannot exist if the House is destroyed)."
     },
     {
-      "question": "List four common architectural styles used in software design.",
-      "answer": "(1) Layered (N-tier) Architecture, (2) Client-Server Architecture, (3) Microservices Architecture, and (4) Model-View-Controller (MVC) Architecture."
+      "question": "What is the Singleton design pattern and when should it be used?",
+      "answer": "The Singleton pattern restricts the instantiation of a class to a single object instance and provides a global point of access. It should be used when managing shared resources, such as database connection pools, thread pools, or configuration managers."
     },
     {
-      "question": "What makes an error message 'good' from a UI design perspective?",
-      "answer": "A good error message should: (1) be written in plain, non-technical language; (2) explain exactly what went wrong; (3) provide constructive instructions on how the user can fix the issue; and (4) avoid blame or displaying raw system/database tracebacks."
+      "question": "What is Refactoring and why is it important?",
+      "answer": "Refactoring is the process of improving the internal design and structure of code without changing its external behavior. It is important because it reduces technical debt, improves code readability, and makes the system easier to extend with new features."
     }
   ],
   "mcqs": [
     {
-      "question": "What is the optimal relationship of cohesion and coupling in software design?",
+      "question": "Which design concept is concerned with hiding internal module details and exposing only stable interfaces?",
       "options": [
-        "High Cohesion and High Coupling",
-        "Low Cohesion and Low Coupling",
-        "High Cohesion and Low Coupling",
-        "Low Cohesion and High Coupling"
-      ],
-      "correct": 2,
-      "explanation": "High cohesion (highly focused modules) and low coupling (minimal interdependencies) are the core criteria for functional independence and maintainability."
-    },
-    {
-      "question": "Which type of coupling is considered the worst because one module directly modifies the data or code of another?",
-      "options": [
-        "Data Coupling",
-        "Common Coupling",
-        "Control Coupling",
-        "Content Coupling"
-      ],
-      "correct": 3,
-      "explanation": "Content coupling occurs when one module directly accesses or modifies the internals of another module, creating high dependency."
-    },
-    {
-      "question": "Which of the following is the best (highest) form of cohesion?",
-      "options": [
-        "Coincidental Cohesion",
-        "Functional Cohesion",
-        "Temporal Cohesion",
-        "Logical Cohesion"
-      ],
-      "correct": 1,
-      "explanation": "Functional cohesion represents the highest quality because all elements of the module are focused on executing a single function."
-    },
-    {
-      "question": "What concept refers to hiding a module's internal implementation details behind a clean public interface?",
-      "options": [
+        "Refinement",
         "Modularity",
         "Information Hiding",
-        "Refactoring",
-        "Dynamic Binding"
-      ],
-      "correct": 1,
-      "explanation": "Information hiding isolates internal code mechanics from external modules, preventing unintended dependencies."
-    },
-    {
-      "question": "Which architectural pattern divides an application into three interconnected parts to separate representation from user actions?",
-      "options": [
-        "Microservices",
-        "Client-Server",
-        "Model-View-Controller (MVC)",
-        "Layered Architecture"
+        "Abstraction"
       ],
       "correct": 2,
-      "explanation": "MVC separates the data layer (Model), the user interface (View), and the interaction logic (Controller)."
+      "explanation": "Information hiding, implemented via encapsulation, shields internal data structures from external access, exposing only necessary functionality."
     },
     {
-      "question": "What type of coupling occurs when multiple modules share access to global data structures?",
+      "question": "Which type of coupling is the most desirable in software design?",
       "options": [
-        "Data Coupling",
+        "Content Coupling",
         "Common Coupling",
-        "Stamp Coupling",
-        "Control Coupling"
+        "Control Coupling",
+        "Data Coupling"
       ],
-      "correct": 1,
-      "explanation": "Common coupling occurs when modules depend on global variables, making changes in one module affect all others."
+      "correct": 3,
+      "explanation": "Data coupling is the most desirable (loose coupling) because modules communicate solely by passing simple data arguments."
     },
     {
-      "question": "Which of the following describes 'Logical Cohesion'?",
+      "question": "The structural relationship where child object lifetimes are bound to the parent's lifetime is represented by what in UML?",
       "options": [
-        "Tasks in the module are put together purely by chance",
-        "Tasks are executed during the same phase of program startup",
-        "The module performs a set of related operations that are selected by a control code passed from the caller",
-        "Elements are linked sequentially to form a data pipeline"
-      ],
-      "correct": 2,
-      "explanation": "Logical cohesion occurs when a module performs tasks that are logically similar (e.g., putting all input validations in one module, called with a selector flag)."
-    },
-    {
-      "question": "What UI element is designed to display constructive feedback when a system operation fails?",
-      "options": [
-        "Scroll Bar",
-        "Status Panel",
-        "Error Message",
-        "Active Window"
+        "Association",
+        "Aggregation",
+        "Composition",
+        "Generalization"
       ],
       "correct": 2,
-      "explanation": "Error messages inform users about problems and provide guide-rails to resolve them."
+      "explanation": "Composition represents a strong ownership relationship where child objects are physically dependent on the parent and cannot survive its deletion."
     },
     {
-      "question": "The design pattern that ensures a class has only one instance and provides a global point of access to it is:",
+      "question": "Which design pattern category handles class instantiation and object creation mechanisms?",
       "options": [
-        "Factory Pattern",
-        "Observer Pattern",
+        "Structural Patterns",
+        "Behavioral Patterns",
+        "Creational Patterns",
+        "Architectural Patterns"
+      ],
+      "correct": 2,
+      "explanation": "Creational patterns abstract the instantiation process, making the system independent of how its objects are created."
+    },
+    {
+      "question": "Which pattern guarantees that a class has only one instance globally?",
+      "options": [
+        "Factory Method",
         "Singleton Pattern",
+        "Adapter Pattern",
         "Strategy Pattern"
       ],
-      "correct": 2,
-      "explanation": "The Singleton pattern restricts the instantiation of a class to a single active object."
+      "correct": 1,
+      "explanation": "The Singleton pattern restricts class instantiation to a single static instance and makes it accessible via a global method."
     },
     {
-      "question": "Why are coding standards important for development teams?",
+      "question": "In UML, which diagram is best suited for modeling time-ordered message interactions between objects?",
       "options": [
-        "They make compilation faster",
-        "They ensure all code written across developers is readable, consistent, and maintainable",
-        "They replace software testing",
-        "They restrict the project's features"
+        "Class Diagram",
+        "Use-Case Diagram",
+        "Sequence Diagram",
+        "Component Diagram"
+      ],
+      "correct": 2,
+      "explanation": "Sequence diagrams model behavioral scenarios by showing the flow of messages between object timelines ordered chronologically."
+    },
+    {
+      "question": "Which type of cohesion is represented when a module performs exactly one distinct functional task?",
+      "options": [
+        "Logical Cohesion",
+        "Temporal Cohesion",
+        "Functional Cohesion",
+        "Sequential Cohesion"
+      ],
+      "correct": 2,
+      "explanation": "Functional cohesion is the highest and most desirable cohesion type, indicating all code in the module is focused on a single function."
+    },
+    {
+      "question": "Which pattern is classified under Behavioral patterns and defines a family of algorithms that can be swapped at runtime?",
+      "options": [
+        "Facade Pattern",
+        "Strategy Pattern",
+        "Observer Pattern",
+        "Prototype Pattern"
       ],
       "correct": 1,
-      "explanation": "Coding standards enforce uniform styling, naming conventions, and layout rules, facilitating long-term code maintenance."
+      "explanation": "The Strategy pattern encapsulates interchangeable algorithms, allowing clients to switch algorithms dynamically at runtime."
+    },
+    {
+      "question": "The worst type of coupling, where one module directly modifies the code of another, is called:",
+      "options": [
+        "Data Coupling",
+        "Control Coupling",
+        "Content Coupling",
+        "Stamp Coupling"
+      ],
+      "correct": 2,
+      "explanation": "Content coupling (tight coupling) occurs when a module changes another module's private code or data, violating encapsulation."
+    },
+    {
+      "question": "The Singleton pattern and Factory Method are examples of which design pattern category?",
+      "options": [
+        "Creational",
+        "Structural",
+        "Behavioral",
+        "Operational"
+      ],
+      "correct": 0,
+      "explanation": "Both patterns deal with object creation logic, placing them under the Creational pattern family."
     }
   ]
 }

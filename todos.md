@@ -4,42 +4,42 @@
 
 ## Day 1 — Foundation & Design System
 
-- [ ] Create project folder structure (`css/`, `js/`, `data/`, `data/se/`, `data/daa/`, `data/fsd/`, `data/ml/`)
-- [ ] Create `css/style.css`
-  - [ ] CSS custom properties (theme colors, spacing, typography tokens)
-  - [ ] Dark mode and light mode theme variables
-  - [ ] Base reset and typography (Google Fonts: Inter, JetBrains Mono)
-  - [ ] Glassmorphic card component (blur, transparency, borders)
-  - [ ] Button styles (primary, secondary, ghost variants)
-  - [ ] Desktop sidebar navigation
-  - [ ] Mobile bottom tab navigation bar
-  - [ ] Credit table styles (zebra stripes, sticky header, hover rows)
-  - [ ] Subject cards with per-subject accent colors (Teal, Pink, Amber, Mint)
-  - [ ] Progress bar and circular progress ring components
-  - [ ] Module content typography (headings, paragraphs, lists, blockquotes)
-  - [ ] Code block styling (dark theme, copy button)
-  - [ ] Quiz component styles (option cards, correct/wrong states, score display)
-  - [ ] Interview tip callout box component
-  - [ ] All keyframe animations (fadeSlideUp, pulse, shake, confetti, glow)
-  - [ ] Scroll progress bar at page top
-  - [ ] Responsive breakpoints (phone < 480px, tablet 768px, desktop 1024px+)
-  - [ ] Utility classes (spacing, flex, grid helpers)
-- [ ] Create `index.html`
-  - [ ] `<head>` — meta viewport, charset, title, Google Fonts link, MathJax CDN, CSS link
-  - [ ] Desktop sidebar nav structure
-  - [ ] Mobile bottom tab bar (Home, Subjects, Progress, Settings)
-  - [ ] `<main id="app">` content container
-  - [ ] Theme toggle button (sun/moon icon)
-  - [ ] Script tags for app.js, renderer.js, quiz.js
-- [ ] Create `js/app.js`
-  - [ ] Hash-based router (parse `#/`, `#/subject/se`, `#/subject/se/module/1`, etc.)
-  - [ ] Route change listener (`hashchange` event)
-  - [ ] Dashboard view (hero section + credit table + subject cards grid)
-  - [ ] Subject landing page view (overview, module list, textbooks)
-  - [ ] Navigation active-state highlighting
-  - [ ] Theme toggle (save preference to localStorage)
-  - [ ] Scroll progress bar logic (scroll event listener)
-  - [ ] Page transition animations on view switch
+- [x] Create project folder structure (`css/`, `js/`, `data/`, `data/se/`, `data/daa/`, `data/fsd/`, `data/ml/`)
+- [x] Create `css/style.css`
+  - [x] CSS custom properties (theme colors, spacing, typography tokens)
+  - [x] Dark mode and light mode theme variables
+  - [x] Base reset and typography (Google Fonts: Inter, JetBrains Mono)
+  - [x] Glassmorphic card component (blur, transparency, borders)
+  - [x] Button styles (primary, secondary, ghost variants)
+  - [x] Desktop sidebar navigation
+  - [x] Mobile bottom tab navigation bar
+  - [x] Credit table styles (zebra stripes, sticky header, hover rows)
+  - [x] Subject cards with per-subject accent colors (Teal, Pink, Amber, Mint)
+  - [x] Progress bar and circular progress ring components
+  - [x] Module content typography (headings, paragraphs, lists, blockquotes)
+  - [x] Code block styling (dark theme, copy button)
+  - [x] Quiz component styles (option cards, correct/wrong states, score display)
+  - [x] Interview tip callout box component
+  - [x] All keyframe animations (fadeSlideUp, pulse, shake, confetti, glow)
+  - [x] Scroll progress bar at page top
+  - [x] Responsive breakpoints (phone < 480px, tablet 768px, desktop 1024px+)
+  - [x] Utility classes (spacing, flex, grid helpers)
+- [x] Create `index.html`
+  - [x] `<head>` — meta viewport, charset, title, Google Fonts link, MathJax CDN, CSS link
+  - [x] Desktop sidebar nav structure
+  - [x] Mobile bottom tab bar (Home, Subjects, Progress, Settings)
+  - [x] `<main id="app">` content container
+  - [x] Theme toggle button (sun/moon icon)
+  - [x] Script tags for app.js, renderer.js, quiz.js
+- [x] Create `js/app.js`
+  - [x] Hash-based router (parse `#/`, `#/subject/se`, `#/subject/se/module/1`, etc.)
+  - [x] Route change listener (`hashchange` event)
+  - [x] Dashboard view (hero section + credit table + subject cards grid)
+  - [x] Subject landing page view (overview, module list, textbooks)
+  - [x] Navigation active-state highlighting
+  - [x] Theme toggle (save preference to localStorage)
+  - [x] Scroll progress bar logic (scroll event listener)
+  - [x] Page transition animations on view switch
 
 ---
 

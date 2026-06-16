@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>StudyArchive Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#848484",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#f9f9f9",
+                        "tertiary-fixed-dim": "#c7c6c6",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#7e7576",
+                        "inverse-primary": "#c6c6c6",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-primary-fixed-variant": "#474747",
+                        "surface": "#f9f9f9",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-secondary-container": "#646464",
+                        "on-tertiary-fixed-variant": "#464747",
+                        "secondary-fixed": "#e4e2e2",
+                        "outline-variant": "#cfc4c5",
+                        "on-primary-fixed": "#1b1b1b",
+                        "on-primary": "#ffffff",
+                        "on-background": "#1a1c1c",
+                        "primary-container": "#1b1b1b",
+                        "surface-bright": "#f9f9f9",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "on-secondary-fixed-variant": "#474747",
+                        "secondary-container": "#e4e2e2",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#1a1c1c",
+                        "primary": "#000000",
+                        "on-tertiary-container": "#838484",
+                        "surface-container": "#eeeeee",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e2e2e2",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "surface-container-low": "#f3f3f3",
+                        "primary-fixed": "#e2e2e2",
+                        "surface-container-high": "#e8e8e8",
+                        "on-surface": "#1a1c1c",
+                        "tertiary-fixed": "#e3e2e2",
+                        "on-surface-variant": "#4c4546",
+                        "secondary": "#5e5e5e",
+                        "inverse-surface": "#2f3131",
+                        "surface-dim": "#dadada",
+                        "surface-tint": "#5e5e5e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "48px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "container-max": "1120px",
+                        "xs": "4px",
+                        "xl": "80px",
+                        "base": "8px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["\"Source Serif 4\""],
+                        "headline-lg": ["\"Source Serif 4\""],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["\"Source Serif 4\""],
+                        "body-sm": ["Inter"],
+                        "label-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f9;
+            color: #1a1c1c;
+        }
+        .nav-active {
+            background-color: #000000;
+            color: #ffffff;
+            font-weight: 700;
+            transform: translateX(4px);
+            transition: transform 0.2s ease-in-out;
+        }
+        .nav-inactive {
+            color: #4c4546;
+            transition: all 0.2s ease;
+        }
+        .nav-inactive:hover {
+            background-color: #e8e8e8;
+            color: #000000;
+        }
+        .card-container {
+            border: 1px solid #d4d4d4;
+            background-color: #ffffff;
+        }
+        .divider {
+            height: 1px;
+            background-color: #e5e5e5;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen bg-surface dark:bg-surface text-on-surface font-body-md">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-full w-64 bg-surface-container-low border-r border-outline-variant py-md z-20">
+<div class="px-md mb-xl">
+<h1 class="font-label-md text-label-md font-bold uppercase tracking-widest text-primary">University Portal</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Academic Records</p>
+</div>
+<nav class="flex-1 px-sm space-y-xs">
+<a class="flex items-center px-md py-sm rounded nav-active" href="#">
+<span class="material-symbols-outlined mr-sm text-on-primary">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center px-md py-sm rounded nav-inactive" href="#">
+<span class="material-symbols-outlined mr-sm">book</span>
+<span class="font-label-md text-label-md">Subjects</span>
+</a>
+<a class="flex items-center px-md py-sm rounded nav-inactive" href="#">
+<span class="material-symbols-outlined mr-sm">trending_up</span>
+<span class="font-label-md text-label-md">Progress</span>
+</a>
+<a class="flex items-center px-md py-sm rounded nav-inactive" href="#">
+<span class="material-symbols-outlined mr-sm">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-md pb-md">
+<div class="flex items-center text-on-surface-variant text-body-sm font-body-sm">
+<span class="material-symbols-outlined mr-xs text-[16px]">info</span>
+<span>Term 2, 2024</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 relative min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-10 bg-surface border-b border-outline-variant w-full">
+<div class="flex justify-between items-center w-full px-gutter py-sm max-w-container-max mx-auto">
+<div class="flex items-center">
+<span class="font-headline-lg text-headline-lg font-bold text-primary mr-md md:hidden">StudyArchive</span>
+<div class="hidden md:flex items-center border border-outline-variant rounded bg-surface-container-lowest px-sm py-xs focus-within:border-primary focus-within:border-2">
+<span class="material-symbols-outlined text-on-surface-variant mr-xs text-[20px]">search</span>
+<input class="bg-transparent border-none outline-none text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant w-64 p-0" placeholder="Search archive..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-sm">
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-xs text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-container rounded-full">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-gutter md:p-lg max-w-container-max mx-auto w-full">
+<!-- Motivational Quote Hero -->
+<section class="mb-lg text-center md:text-left py-md">
+<h2 class="font-headline-xl text-headline-xl text-primary max-w-3xl leading-tight">
+                    "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."
+                </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm">— Brian Herbert</p>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Recently Opened Modules (Takes 8 columns on large screens) -->
+<div class="lg:col-span-8 flex flex-col gap-md">
+<div class="flex justify-between items-end mb-xs border-b border-outline-variant pb-xs">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Recently Opened Modules</h3>
+</div>
+<!-- Module Card 1 -->
+<div class="card-container p-md flex flex-col sm:flex-row justify-between items-start sm:items-center hover:bg-surface-container-lowest transition-colors">
+<div class="mb-sm sm:mb-0">
+<span class="inline-block bg-surface-container text-primary font-label-md text-[10px] uppercase px-2 py-1 mb-xs">LAW401</span>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Constitutional Law II</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Module 4: Separation of Powers</p>
+</div>
+<button class="bg-primary text-on-primary border-2 border-primary font-label-md text-label-md px-4 py-2 hover:bg-surface-container-lowest hover:text-primary transition-colors whitespace-nowrap">
+                            Continue
+                        </button>
+</div>
+<!-- Module Card 2 -->
+<div class="card-container p-md flex flex-col sm:flex-row justify-between items-start sm:items-center hover:bg-surface-container-lowest transition-colors">
+<div class="mb-sm sm:mb-0">
+<span class="inline-block bg-surface-container text-primary font-label-md text-[10px] uppercase px-2 py-1 mb-xs">ECO302</span>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Macroeconomic Theory</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Module 2: Fiscal Policy Models</p>
+</div>
+<button class="bg-surface-container-lowest text-primary border-2 border-primary font-label-md text-label-md px-4 py-2 hover:bg-primary hover:text-on-primary transition-colors whitespace-nowrap">
+                            Review
+                        </button>
+</div>
+<!-- Module Card 3 -->
+<div class="card-container p-md flex flex-col sm:flex-row justify-between items-start sm:items-center hover:bg-surface-container-lowest transition-colors">
+<div class="mb-sm sm:mb-0">
+<span class="inline-block bg-surface-container text-primary font-label-md text-[10px] uppercase px-2 py-1 mb-xs">HIS210</span>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Modern European History</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Module 7: The Industrial Revolution</p>
+</div>
+<button class="bg-surface-container-lowest text-primary border-2 border-primary font-label-md text-label-md px-4 py-2 hover:bg-primary hover:text-on-primary transition-colors whitespace-nowrap">
+                            Review
+                        </button>
+</div>
+</div>
+<!-- Study Stats (Takes 4 columns on large screens) -->
+<div class="lg:col-span-4 flex flex-col gap-md">
+<div class="flex justify-between items-end mb-xs border-b border-outline-variant pb-xs">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Study Analytics</h3>
+</div>
+<!-- Stat Box 1: Time -->
+<div class="card-container p-md bg-surface-container-lowest flex flex-col h-full justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Weekly Focus Time</p>
+<div class="font-headline-xl text-headline-xl text-primary">24<span class="text-headline-lg font-headline-lg text-on-surface-variant">h</span> 15<span class="text-headline-lg font-headline-lg text-on-surface-variant">m</span></div>
+</div>
+<div class="mt-md">
+<div class="flex justify-between font-label-md text-[10px] text-on-surface-variant mb-1">
+<span>Progress to goal (30h)</span>
+<span>80%</span>
+</div>
+<div class="w-full h-2 bg-surface-container border border-outline-variant">
+<div class="h-full bg-primary" style="width: 80%"></div>
+</div>
+</div>
+</div>
+<!-- Stat Box 2: Breakdown -->
+<div class="card-container p-md bg-surface-container-lowest">
+<p class="font-label-md text-label-md text-on-surface-variant mb-sm">Time by Subject</p>
+<ul class="space-y-sm font-label-md text-label-md">
+<li class="flex justify-between items-center">
+<span class="text-primary">LAW401</span>
+<div class="flex items-center w-3/5">
+<div class="h-2 bg-primary w-full max-w-[60%] mr-2"></div>
+<span class="text-on-surface-variant text-[10px]">12h</span>
+</div>
+</li>
+<li class="divider my-1"></li>
+<li class="flex justify-between items-center">
+<span class="text-primary">ECO302</span>
+<div class="flex items-center w-3/5">
+<div class="h-2 bg-surface-variant w-full max-w-[40%] mr-2"></div>
+<span class="text-on-surface-variant text-[10px]">8h</span>
+</div>
+</li>
+<li class="divider my-1"></li>
+<li class="flex justify-between items-center">
+<span class="text-primary">HIS210</span>
+<div class="flex items-center w-3/5">
+<div class="h-2 bg-surface-variant w-full max-w-[20%] mr-2"></div>
+<span class="text-on-surface-variant text-[10px]">4h</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

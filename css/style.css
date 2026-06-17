@@ -1038,6 +1038,7 @@ code:not(pre code) {
 .m-t-xl { margin-top: var(--space-xl); }
 .m-b-md { margin-bottom: var(--space-md); }
 .m-b-lg { margin-bottom: var(--space-lg); }
+.m-b-xl { margin-bottom: var(--space-xl); }
 
 .text-center { text-align: center; }
 .w-full { width: 100%; }

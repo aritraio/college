@@ -37,6 +37,23 @@
     moon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`
   };
 
+  // Motivational Quotes
+  const quotes = [
+    { text: "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice.", author: "Brian Herbert" },
+    { text: "Learning never exhausts the mind.", author: "Leonardo da Vinci" },
+    { text: "The beautiful thing about learning is that nobody can take it away from you.", author: "B.B. King" },
+    { text: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "Mahatma Gandhi" },
+    { text: "An investment in knowledge pays the best interest.", author: "Benjamin Franklin" },
+    { text: "Tell me and I forget. Teach me and I remember. Involve me and I learn.", author: "Benjamin Franklin" },
+    { text: "The mind is not a vessel to be filled, but a fire to be kindled.", author: "Plutarch" },
+    { text: "Education is the most powerful weapon which you can use to change the world.", author: "Nelson Mandela" },
+    { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
+    { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" }
+  ];
+
+  // Randomly select a quote on load/refresh
+  const currentQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
   // Helper: Get route active key
   function getRouteKey(hash) {
     if (!hash || hash === '#/' || hash === '#') return 'dashboard';
@@ -430,9 +447,9 @@
       <!-- Quote Hero Section -->
       <section class="quote-hero">
         <h2 class="font-headline-xl quote-hero-text">
-          "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."
+          "${currentQuote.text}"
         </h2>
-        <p class="quote-hero-author">— Brian Herbert</p>
+        <p class="quote-hero-author">— ${currentQuote.author}</p>
       </section>
 
       <!-- Grid Layout -->

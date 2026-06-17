@@ -2176,6 +2176,14 @@ body.reader-size-xxl {
   color: var(--text-primary);
   max-width: 800px;
   margin-bottom: var(--space-sm);
+  font-size: 1.85rem;
+  line-height: 1.35;
+}
+
+@media (max-width: 768px) {
+  .quote-hero-text {
+    font-size: 1.45rem;
+  }
 }
 
 .quote-hero-author {

@@ -180,21 +180,25 @@ Then open: **[http://localhost:8080](http://localhost:8080)**
 ```
 sem5-web/
 ├── index.html                 ← Core Entry point, HTML layout shell, SEO, OG meta tags
-├── favicon.ico                ← Custom Neon-styled favicon icon file
 ├── css/
 │   └── style.css              ← Design variables, keyframe animations, grid layouts
 ├── js/
 │   ├── app.js                 ← Router, state initialization, settings, progress logs
 │   ├── renderer.js            ← Content rendering compiler, Touch Swipe gestures
-│   └── quiz.js                ← Interactive MCQ evaluation card, Practice questions
+│   ├── quiz.js                ← Interactive MCQ evaluation card, Practice questions
+│   ├── examprep.js            ← Exam preparation logic
+│   └── examprep-data.js       ← Exam preparation mock content/data
 ├── data/
 │   ├── subjects.json          ← Subject definitions, objectives, credit requirements
 │   ├── se/                    ← Software Engineering Modules (1 - 5)
 │   ├── daa/                   ← Design & Analysis of Algorithms Modules (1 - 5)
 │   ├── fsd/                   ← Full-stack Development II Modules (1 - 5)
 │   └── ml/                    ← Machine Learning Modules (1 - 5)
-├── implementation.md          ← Original design implementation documentation
-├── todos.md                   ← Day-wise milestone tasks tracking logs
+├── docs/                      ← Project documentation and references
+│   ├── 57235_BCA Semester-5.pdf ← Official syllabus guideline document
+│   ├── implementation.md      ← Original design implementation documentation
+│   ├── improvement.md         ← Enhancement documentation
+│   └── todos.md               ← Day-wise milestone tasks tracking logs
 └── README.md                  ← This document
 ```
 

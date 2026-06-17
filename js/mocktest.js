@@ -18,7 +18,7 @@
     customSubject: '',
     customTopic: '',
     numQuestions: 20,
-    timeLimitMins: 20,
+    timePerQuestionSec: 90,
 
     // Initializer/Router entry point
     render: function (container) {
@@ -35,6 +35,7 @@
       const lastSubject = localStorage.getItem('mock_last_subject') || 'se';
       const lastModuleStr = localStorage.getItem('mock_last_module') || '1';
       const lastModules = lastModuleStr.split(',');
+      const lastTimePerQ = parseInt(localStorage.getItem('mock_last_time_per_q') || '90', 10);
       
       const subjects = window.appState && window.appState.subjects ? window.appState.subjects : [];
 
@@ -117,15 +118,15 @@
 
             <!-- Timer Dropdown -->
             <div class="mock-form-group">
-              <label for="mockTimer">Time Limit</label>
+              <label for="mockTimer">Time Per Question</label>
               <select id="mockTimer" class="mock-select">
-                <option value="10">10 Minutes</option>
-                <option value="15">15 Minutes</option>
-                <option value="20" selected>20 Minutes</option>
-                <option value="30">30 Minutes</option>
-                <option value="45">45 Minutes</option>
-                <option value="60">60 Minutes</option>
-                <option value="0">No Timer</option>
+                <option value="30" ${lastTimePerQ === 30 ? 'selected' : ''}>30 Seconds</option>
+                <option value="45" ${lastTimePerQ === 45 ? 'selected' : ''}>45 Seconds</option>
+                <option value="60" ${lastTimePerQ === 60 ? 'selected' : ''}>60 Seconds</option>
+                <option value="90" ${lastTimePerQ === 90 ? 'selected' : ''}>90 Seconds (Default)</option>
+                <option value="120" ${lastTimePerQ === 120 ? 'selected' : ''}>120 Seconds (2 mins)</option>
+                <option value="180" ${lastTimePerQ === 180 ? 'selected' : ''}>180 Seconds (3 mins)</option>
+                <option value="0" ${lastTimePerQ === 0 ? 'selected' : ''}>No Timer</option>
               </select>
             </div>
 
@@ -347,8 +348,9 @@
         }
 
         this.numQuestions = parseInt(questionsSlider.value, 10);
-        this.timeLimitMins = parseInt(container.querySelector('#mockTimer').value, 10);
-
+        this.timePerQuestionSec = parseInt(container.querySelector('#mockTimer').value, 10);
+        localStorage.setItem('mock_last_time_per_q', this.timePerQuestionSec);
+ 
         // Trigger AI generator
         this.generateTest(container);
       });
@@ -610,7 +612,11 @@ Guidelines:
       this.answers = new Array(this.questions.length).fill(null);
       this.startTime = Date.now();
       
-      this.totalDurationSeconds = this.timeLimitMins * 60;
+      if (this.timePerQuestionSec > 0) {
+        this.totalDurationSeconds = this.questions.length * this.timePerQuestionSec;
+      } else {
+        this.totalDurationSeconds = 0;
+      }
       this.timerSeconds = this.totalDurationSeconds;
 
       // Setup layout grid

@@ -3516,4 +3516,20 @@ kbd {
   border: 1px solid var(--border-color);
 }
 
+/* Active buttons for dashboard filters and study tool tabs */
+.btn-secondary.active {
+  background: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
+  border-color: var(--text-primary) !important;
+}
+
+/* Tab contents utility styling */
+.tab-content {
+  display: none;
+}
+.tab-content.active-content {
+  display: block;
+}
+
+
 

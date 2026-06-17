@@ -102,13 +102,13 @@
             <input type="text" placeholder="Search modules, concepts, or formulas..." id="prepSearchInput" style="width: 100%;">
           </div>
           
-          <div class="filter-tabs flex gap-sm" style="flex-wrap: wrap; gap: var(--space-xs);">
+          <div class="filter-tabs flex gap-md" style="flex-wrap: wrap; gap: var(--space-md);">
             ${subjectTabsHTML}
           </div>
         </div>
 
         <!-- Modules Grid Container -->
-        <div id="prepModulesGrid" class="subjects-grid-page">
+        <div id="prepModulesGrid" style="display: flex; flex-direction: column; gap: var(--space-xl); width: 100%;">
           <!-- Dynamically populated -->
         </div>
       `;
@@ -147,6 +147,7 @@
           return;
         }
 
+        let subjectModulesHTML = '';
         subj.modules.forEach(mod => {
           const prepData = window.ExamPrepData.getModuleData(subj.id, mod.id);
           const progress = this.getModuleProgress(subj.id, mod.id, prepData);
@@ -166,7 +167,7 @@
             }
           }
 
-          gridHTML += `
+          subjectModulesHTML += `
             <div class="card subject-list-card" style="border-left: 4px solid ${subj.accentColor || 'var(--accent-primary)'}; display: flex; flex-direction: column; gap: var(--space-md);" onclick="if (!event.target.closest('a')) window.location.hash = '#/examprep/subject/${subj.id}/module/${mod.id}'">
               <div class="flex justify-between align-start">
                 <div>
@@ -199,11 +200,25 @@
             </div>
           `;
         });
+
+        if (subjectModulesHTML !== '') {
+          gridHTML += `
+            <div class="subject-prep-group" style="width: 100%;">
+              <h3 style="font-size: 1.3rem; font-weight: 800; border-bottom: 2px solid ${subj.accentColor || 'var(--accent-primary)'}; padding-bottom: 6px; margin-bottom: var(--space-md); color: var(--text-primary); display: flex; align-items: center; gap: var(--space-sm);">
+                <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: ${subj.accentColor || 'var(--accent-primary)'};"></span>
+                ${subj.name} (${subj.code})
+              </h3>
+              <div class="subjects-grid-page" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-md);">
+                ${subjectModulesHTML}
+              </div>
+            </div>
+          `;
+        }
       });
 
       if (gridHTML === '') {
         grid.innerHTML = `
-          <div class="card text-center" style="grid-column: 1 / -1; padding: var(--space-xxl) 0;">
+          <div class="card text-center" style="padding: var(--space-xxl) 0; width: 100%;">
             <p style="color: var(--text-muted);">No revision modules match your search query.</p>
           </div>
         `;
@@ -212,8 +227,9 @@
       }
     },
 
-    // 2. RENDER DETAILED MODULE REVISION PAGE OR MULTI-PAGES
+    // 2. RENDER DETAILED MODULE REVISION PAGE OR MULTI-PAGES (Consolidated)
     renderModule: function (container, subjectId, moduleId, subRoute = '') {
+      const self = this;
       const subjects = window.appState && window.appState.subjects ? window.appState.subjects : [];
       const subj = subjects.find(s => s.id === subjectId);
       if (!subj) {
@@ -228,164 +244,127 @@
       }
 
       const prepData = window.ExamPrepData.getModuleData(subjectId, moduleId);
-      const progress = this.getModuleProgress(subjectId, moduleId, prepData);
+      const progress = self.getModuleProgress(subjectId, moduleId, prepData);
       const key = `examprep_progress_${subjectId}_${moduleId}`;
-      const savedData = localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : { oneLinersRead: [], mcqsAnswered: {}, flashcardsViewed: [] };
+      const savedData = () => localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : { oneLinersRead: [], mcqsAnswered: {}, flashcardsViewed: [] };
 
-      // Helper: Sub-page header markup
-      const getSubPageHeader = (title) => `
-        <div class="flex justify-between align-center m-t-md m-b-xl" style="margin-top: var(--space-md); margin-bottom: var(--space-xl);">
-          <a href="#/examprep/subject/${subjectId}/module/${moduleId}" class="btn btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
+      // HTML Layout
+      container.innerHTML = `
+        <!-- Breadcrumb back link -->
+        <div class="m-t-md m-b-xl" style="margin-top: var(--space-md); margin-bottom: var(--space-xl);">
+          <a href="#/examprep" class="btn btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back to Module Menu
+            Back to Revision Center
           </a>
         </div>
 
-        <div class="card m-b-lg" style="border-left: 4px solid ${subj.accentColor || 'var(--accent-primary)'};">
-          <span style="font-family: var(--font-mono); color: var(--text-muted);">${subj.code} · Module ${moduleId} · ${mod.title}</span>
-          <h2 style="font-size: 1.85rem; font-weight: 800; margin-top: 4px;">${title}</h2>
+        <!-- Module Progress Header Banner -->
+        <div class="card m-b-xl" style="border-left: 4px solid ${subj.accentColor || 'var(--accent-primary)'}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md);">
+          <div>
+            <span style="font-family: var(--font-mono); color: var(--text-muted);">${subj.code} · Module ${moduleId}</span>
+            <h2 style="font-size: 1.85rem; font-weight: 800; margin-top: 4px;">${mod.title}</h2>
+          </div>
+          <div style="font-family: var(--font-mono); font-weight: 800; font-size: 1.3rem; border: 1px solid var(--border-color); padding: var(--space-sm) var(--space-md); text-align: center; min-width: 180px;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 500; margin-bottom: 2px;">Overall Progress</div>
+            <span id="liveProgressPercent">${progress.percent}</span>%
+            <div class="progress-bar-bg" style="height: 6px; margin-top: 4px; width: 100%;">
+              <div id="liveProgressBarFill" class="progress-bar-fill" style="width: ${progress.percent}%; background-color: ${subj.accentColor || 'var(--accent-primary)'};"></div>
+            </div>
+          </div>
         </div>
-      `;
 
-      // ----------------------------------------------------
-      // CASE A: MODULE MENU DASHBOARD (NO SUBROUTE)
-      // ----------------------------------------------------
-      if (!subRoute) {
-        container.innerHTML = `
-          <!-- Breadcrumb to dashboard -->
-          <div class="m-t-md m-b-xl" style="margin-top: var(--space-md); margin-bottom: var(--space-xl);">
-            <a href="#/examprep" class="btn btn-ghost" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-              Back to Revision Center
-            </a>
-          </div>
+        <!-- Tab Buttons Bar -->
+        <div class="flex gap-md m-b-lg" style="border-bottom: 1px solid var(--border-color); padding-bottom: var(--space-sm); flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-lg);">
+          <button class="btn btn-secondary tab-btn active" data-tab="oneliners">💡 One-Liners & Mnemonics</button>
+          <button class="btn btn-secondary tab-btn" data-tab="flashcards">🎴 Flashcards</button>
+          <button class="btn btn-secondary tab-btn" data-tab="mcqs">📝 MCQ Practice</button>
+          <button class="btn btn-secondary tab-btn" data-tab="short">❓ Short Answers</button>
+          <button class="btn btn-secondary tab-btn" data-tab="long">📚 Long Answers</button>
+        </div>
 
-          <!-- Module Overview -->
-          <div class="card m-b-xl" style="border-left: 4px solid ${subj.accentColor || 'var(--accent-primary)'}; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md);">
-            <div>
-              <span style="font-family: var(--font-mono); color: var(--text-muted);">${subj.code} · Module ${moduleId}</span>
-              <h2 style="font-size: 1.85rem; font-weight: 800; margin-top: 4px;">${mod.title}</h2>
-              <p style="color: var(--text-secondary); margin-top: var(--space-xs); font-size: 0.95rem;">Select an exam prep tool below to begin your focused revision session.</p>
-            </div>
-            <div style="font-family: var(--font-mono); font-weight: 800; font-size: 1.3rem; border: 1px solid var(--border-color); padding: var(--space-sm) var(--space-md); text-align: center; min-width: 180px;">
-              <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 500; margin-bottom: 2px;">Overall Progress</div>
-              ${progress.percent}%
-            </div>
-          </div>
-
-          <!-- Revision tools navigation menu (Subject card / Module card style) -->
-          <div class="module-list" style="margin-top: var(--space-lg); display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-md);">
-            
-            <!-- Tool 1: One Liners -->
-            <div class="card module-card" style="border-left-color: ${subj.accentColor || 'var(--accent-primary)'}; min-height: 180px;" onclick="window.location.hash = '#/examprep/subject/${subjectId}/module/${moduleId}/oneliners'">
-              <div class="module-header-row">
-                <div class="module-info">
-                  <span class="module-num" style="color: ${subj.accentColor || 'var(--accent-primary)'};">01. One-Liners & Mnemonics</span>
-                  <h4 class="module-title">Quick revision facts, formulas, and memory tricks.</h4>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: var(--space-sm); border-top: 1px solid var(--border-color);">
-                  <span style="color: var(--text-muted); font-size: 0.8rem; font-family: var(--font-mono);">${progress.oneLinersCount} / ${prepData.oneLiners.length} Facts Checked</span>
-                  <span class="module-arrow">&rarr;</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tool 2: Flash Cards -->
-            <div class="card module-card" style="border-left-color: ${subj.accentColor || 'var(--accent-primary)'}; min-height: 180px;" onclick="window.location.hash = '#/examprep/subject/${subjectId}/module/${moduleId}/flashcards'">
-              <div class="module-header-row">
-                <div class="module-info">
-                  <span class="module-num" style="color: ${subj.accentColor || 'var(--accent-primary)'};">02. Interactive Flashcards</span>
-                  <h4 class="module-title">Flippable active recall cards to memorize key terminology.</h4>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: var(--space-sm); border-top: 1px solid var(--border-color);">
-                  <span style="color: var(--text-muted); font-size: 0.8rem; font-family: var(--font-mono);">${progress.flashcardsCount} / ${prepData.flashCards.length} Cards Viewed</span>
-                  <span class="module-arrow">&rarr;</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tool 3: MCQs -->
-            <div class="card module-card" style="border-left-color: ${subj.accentColor || 'var(--accent-primary)'}; min-height: 180px;" onclick="window.location.hash = '#/examprep/subject/${subjectId}/module/${moduleId}/mcqs'">
-              <div class="module-header-row">
-                <div class="module-info">
-                  <span class="module-num" style="color: ${subj.accentColor || 'var(--accent-primary)'};">03. MCQ Practice Quiz</span>
-                  <h4 class="module-title">20-30 multiple-choice questions with answers & explanations.</h4>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: var(--space-sm); border-top: 1px solid var(--border-color);">
-                  <span style="color: var(--text-muted); font-size: 0.8rem; font-family: var(--font-mono);">${progress.mcqsCount} / ${prepData.mcqs.length} Solved (Score: ${progress.mcqScore})</span>
-                  <span class="module-arrow">&rarr;</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tool 4: Short Answers -->
-            <div class="card module-card" style="border-left-color: ${subj.accentColor || 'var(--accent-primary)'}; min-height: 180px;" onclick="window.location.hash = '#/examprep/subject/${subjectId}/module/${moduleId}/short'">
-              <div class="module-header-row">
-                <div class="module-info">
-                  <span class="module-num" style="color: ${subj.accentColor || 'var(--accent-primary)'};">04. Short Questions (2-3 Marks)</span>
-                  <h4 class="module-title">Frequently asked short-answer questions with expandable answers.</h4>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: var(--space-sm); border-top: 1px solid var(--border-color);">
-                  <span style="color: var(--text-muted); font-size: 0.8rem; font-family: var(--font-mono);">Expandable List</span>
-                  <span class="module-arrow">&rarr;</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tool 5: Long Answers -->
-            <div class="card module-card" style="border-left-color: ${subj.accentColor || 'var(--accent-primary)'}; min-height: 180px;" onclick="window.location.hash = '#/examprep/subject/${subjectId}/module/${moduleId}/long'">
-              <div class="module-header-row">
-                <div class="module-info">
-                  <span class="module-num" style="color: ${subj.accentColor || 'var(--accent-primary)'};">05. Detailed Answers (5 Marks)</span>
-                  <h4 class="module-title">Detailed exam-oriented answers with highlighted key concepts.</h4>
-                </div>
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: var(--space-sm); border-top: 1px solid var(--border-color);">
-                  <span style="color: var(--text-muted); font-size: 0.8rem; font-family: var(--font-mono);">Highlighted Terms</span>
-                  <span class="module-arrow">&rarr;</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        `;
-      }
-      // ----------------------------------------------------
-      // CASE B: ONE-LINERS & MNEMONICS SUB-PAGE
-      // ----------------------------------------------------
-      else if (subRoute === 'oneliners') {
-        container.innerHTML = `
-          ${getSubPageHeader('Quick One-Liners & Memory Mnemonics')}
-          
+        <!-- Content Area -->
+        <div id="tabContent_oneliners" class="tab-content active-content">
           <div class="examprep-layout-grid" style="display: grid; grid-template-columns: 1fr; gap: var(--space-xl);">
-            
             <div class="card-section">
               <div class="section-header" style="margin-bottom: var(--space-md);">
                 <h3 class="section-title">1. One-Liners Checklist</h3>
                 <p class="section-desc">Mark each core definition or formula completed as you review them.</p>
               </div>
               <div class="one-liners-list" id="oneLinersList" style="display: flex; flex-direction: column; gap: var(--space-xs);">
-                <!-- Checkboxes injected -->
+                <!-- Checklist items will be injected here -->
               </div>
             </div>
-
             <div class="card-section">
               <div class="section-header" style="margin-bottom: var(--space-md);">
                 <h3 class="section-title">2. Memory Mnemonics</h3>
                 <p class="section-desc">Visual association phrase cards to link concepts rapidly.</p>
               </div>
               <div class="mnemonics-grid" id="mnemonicsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-md);">
-                <!-- Mnemonics cards injected -->
+                <!-- Mnemonics will be injected here -->
               </div>
             </div>
-
           </div>
-        `;
+        </div>
 
-        // Render One-Liners list
+        <div id="tabContent_flashcards" class="tab-content" style="display: none;">
+          <div style="max-width: 480px; margin: var(--space-xl) auto; width: 100%;">
+            <div class="flashcard-viewport" style="perspective: 1000px; height: 240px; position: relative; cursor: pointer; width: 100%;">
+              <div class="flashcard-inner" id="flashcardInner" style="position: absolute; width: 100%; height: 100%; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d;">
+                <div class="flashcard-face flashcard-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-card); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--space-lg); text-align: center; border-radius: var(--radius-md);">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-md);">Question (Click to flip)</span>
+                  <p id="flashcardFrontText" style="font-size: 1.15rem; font-weight: 600; line-height: 1.5; color: var(--text-primary);"></p>
+                </div>
+                <div class="flashcard-face flashcard-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-card-hover); border: 1px solid var(--border-color-hover); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--space-lg); text-align: center; border-radius: var(--radius-md); transform: rotateY(180deg);">
+                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-md);">Answer (Click to flip)</span>
+                  <p id="flashcardBackText" style="font-size: 1.05rem; line-height: 1.5; color: var(--text-secondary);"></p>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between align-center m-t-md" style="margin-top: var(--space-md);">
+              <button class="btn btn-secondary" id="prevCardBtn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">&larr; Prev</button>
+              <span id="flashcardCounter" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">Card 1 of X</span>
+              <button class="btn btn-secondary" id="nextCardBtn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Next &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="tabContent_mcqs" class="tab-content" style="display: none;">
+          <div id="mcqsList" style="display: flex; flex-direction: column; gap: var(--space-md); max-width: 800px; margin: 0 auto;">
+            <!-- MCQs will be injected here -->
+          </div>
+        </div>
+
+        <div id="tabContent_short" class="tab-content" style="display: none;">
+          <div class="practice-list" id="shortQuestionsList" style="max-width: 800px; margin: 0 auto;">
+            <!-- Short Qs accordions will be injected here -->
+          </div>
+        </div>
+
+        <div id="tabContent_long" class="tab-content" style="display: none;">
+          <div class="long-questions-list" id="longQuestionsList" style="display: flex; flex-direction: column; gap: var(--space-lg); max-width: 800px; margin: 0 auto;">
+            <!-- Long Qs cards will be injected here -->
+          </div>
+        </div>
+      `;
+
+      // Helper function to update the progress bar in real-time
+      const updateProgressDOM = () => {
+        const liveProgress = self.getModuleProgress(subjectId, moduleId, prepData);
+        const textElement = container.querySelector('#liveProgressPercent');
+        const fillElement = container.querySelector('#liveProgressBarFill');
+        if (textElement) textElement.textContent = liveProgress.percent;
+        if (fillElement) fillElement.style.width = `${liveProgress.percent}%`;
+      };
+
+      // ----------------------------------------------------
+      // SECTION 1: ONE-LINERS & MNEMONICS
+      // ----------------------------------------------------
+      const renderOneLiners = () => {
+        const currentData = savedData();
         const oneLinersList = container.querySelector('#oneLinersList');
         let oneLinersHTML = '';
         prepData.oneLiners.forEach((o, index) => {
-          const isChecked = savedData.oneLinersRead.includes(index);
+          const isChecked = currentData.oneLinersRead.includes(index);
           oneLinersHTML += `
             <div class="one-liner-card card flex justify-between align-center ${isChecked ? 'read' : ''}" data-index="${index}" style="padding: var(--space-sm) var(--space-md); cursor: pointer; gap: var(--space-md); border-left: 3px solid var(--border-color);">
               <div style="display: flex; align-items: center; gap: var(--space-md);">
@@ -404,7 +383,10 @@
         oneLinersList.querySelectorAll('.one-liner-card').forEach(card => {
           card.addEventListener('click', () => {
             const index = parseInt(card.dataset.index, 10);
-            this.saveProgress(subjectId, moduleId, 'oneLiners', index);
+            const freshData = savedData();
+            if (freshData.oneLinersRead.includes(index)) return; // already read
+
+            self.saveProgress(subjectId, moduleId, 'oneLiners', index);
             card.classList.add('read');
             const txt = card.querySelector('.one-liner-text');
             txt.style.color = 'var(--text-muted)';
@@ -413,6 +395,7 @@
             btn.style.background = 'var(--text-primary)';
             btn.style.borderColor = 'var(--text-muted)';
             btn.innerHTML = `<span style="color: var(--bg-primary); font-size: 14px; font-weight: bold;">✓</span>`;
+            updateProgressDOM();
           });
         });
 
@@ -432,39 +415,13 @@
           `;
         });
         mnemonicsGrid.innerHTML = mnemonicsHTML;
-      }
-      // ----------------------------------------------------
-      // CASE C: FLASHCARDS SUB-PAGE
-      // ----------------------------------------------------
-      else if (subRoute === 'flashcards') {
-        container.innerHTML = `
-          ${getSubPageHeader('Interactive Revision Flashcards')}
-          
-          <div style="max-width: 480px; margin: var(--space-xl) auto; width: 100%;">
-            <!-- 3D Card Viewport -->
-            <div class="flashcard-viewport" style="perspective: 1000px; height: 240px; position: relative; cursor: pointer; width: 100%;">
-              <div class="flashcard-inner" id="flashcardInner" style="position: absolute; width: 100%; height: 100%; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d;">
-                <div class="flashcard-face flashcard-front" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-card); border: 1px solid var(--border-color); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--space-lg); text-align: center; border-radius: var(--radius-md);">
-                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-md);">Question (Click to flip)</span>
-                  <p id="flashcardFrontText" style="font-size: 1.15rem; font-weight: 600; line-height: 1.5; color: var(--text-primary);"></p>
-                </div>
-                <div class="flashcard-face flashcard-back" style="position: absolute; width: 100%; height: 100%; backface-visibility: hidden; background: var(--bg-card-hover); border: 1px solid var(--border-color-hover); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: var(--space-lg); text-align: center; border-radius: var(--radius-md); transform: rotateY(180deg);">
-                  <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: var(--space-md);">Answer (Click to flip)</span>
-                  <p id="flashcardBackText" style="font-size: 1.05rem; line-height: 1.5; color: var(--text-secondary);"></p>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Flashcard Navigation Controls -->
-            <div class="flex justify-between align-center m-t-md" style="margin-top: var(--space-md);">
-              <button class="btn btn-secondary" id="prevCardBtn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">&larr; Prev</button>
-              <span id="flashcardCounter" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">Card 1 of X</span>
-              <button class="btn btn-secondary" id="nextCardBtn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Next &rarr;</button>
-            </div>
-          </div>
-        `;
+      };
 
-        this.currentCardIdx = 0; // reset active card index for sub-page context
+      // ----------------------------------------------------
+      // SECTION 2: FLASHCARDS
+      // ----------------------------------------------------
+      const renderFlashcards = () => {
+        self.currentCardIdx = 0;
         const flashcardInner = container.querySelector('#flashcardInner');
         const flashcardFrontText = container.querySelector('#flashcardFrontText');
         const flashcardBackText = container.querySelector('#flashcardBackText');
@@ -476,13 +433,18 @@
           flashcardInner.style.transform = 'rotateY(0deg)';
           
           setTimeout(() => {
-            const card = prepData.flashCards[this.currentCardIdx];
+            const card = prepData.flashCards[self.currentCardIdx];
             flashcardFrontText.textContent = card.question;
             flashcardBackText.textContent = card.answer;
-            flashcardCounter.textContent = `Card ${this.currentCardIdx + 1} of ${prepData.flashCards.length}`;
+            flashcardCounter.textContent = `Card ${self.currentCardIdx + 1} of ${prepData.flashCards.length}`;
 
-            // Save progress
-            this.saveProgress(subjectId, moduleId, 'flashcards', this.currentCardIdx);
+            // Save progress if not already saved
+            const freshData = savedData();
+            const alreadyViewed = freshData.flashcardsViewed.includes(self.currentCardIdx);
+            if (!alreadyViewed) {
+              self.saveProgress(subjectId, moduleId, 'flashcards', self.currentCardIdx);
+              updateProgressDOM();
+            }
 
             if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
               window.MathJax.typesetPromise([flashcardFrontText, flashcardBackText]).catch(e => console.error(e));
@@ -491,7 +453,8 @@
         };
 
         let isFlipped = false;
-        container.querySelector('.flashcard-viewport').addEventListener('click', () => {
+        const viewport = container.querySelector('.flashcard-viewport');
+        viewport.addEventListener('click', () => {
           isFlipped = !isFlipped;
           flashcardInner.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
         });
@@ -499,8 +462,8 @@
         prevCardBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           isFlipped = false;
-          if (this.currentCardIdx > 0) {
-            this.currentCardIdx--;
+          if (self.currentCardIdx > 0) {
+            self.currentCardIdx--;
             updateFlashcard();
           }
         });
@@ -508,31 +471,25 @@
         nextCardBtn.addEventListener('click', (e) => {
           e.stopPropagation();
           isFlipped = false;
-          if (this.currentCardIdx < prepData.flashCards.length - 1) {
-            this.currentCardIdx++;
+          if (self.currentCardIdx < prepData.flashCards.length - 1) {
+            self.currentCardIdx++;
             updateFlashcard();
           }
         });
 
         updateFlashcard();
-      }
-      // ----------------------------------------------------
-      // CASE D: MCQS SUB-PAGE
-      // ----------------------------------------------------
-      else if (subRoute === 'mcqs') {
-        container.innerHTML = `
-          ${getSubPageHeader('Interactive MCQ Practice Quiz')}
-          
-          <div id="mcqsList" style="display: flex; flex-direction: column; gap: var(--space-md); max-width: 800px; margin: 0 auto;">
-            <!-- MCQs injected -->
-          </div>
-        `;
+      };
 
+      // ----------------------------------------------------
+      // SECTION 3: MCQS
+      // ----------------------------------------------------
+      const renderMCQs = () => {
+        const currentData = savedData();
         const mcqsList = container.querySelector('#mcqsList');
         let mcqsHTML = '';
         prepData.mcqs.forEach((q, qIndex) => {
-          const hasAnswered = savedData.mcqsAnswered && savedData.mcqsAnswered[qIndex] !== undefined;
-          const savedAnswer = hasAnswered ? savedData.mcqsAnswered[qIndex] : null;
+          const hasAnswered = currentData.mcqsAnswered && currentData.mcqsAnswered[qIndex] !== undefined;
+          const savedAnswer = hasAnswered ? currentData.mcqsAnswered[qIndex] : null;
 
           let optionsHTML = '';
           q.options.forEach((opt, optIndex) => {
@@ -584,7 +541,7 @@
             const q = prepData.mcqs[qIndex];
             const isCorrect = optIndex === q.correct;
 
-            this.saveProgress(subjectId, moduleId, 'mcqs', qIndex, { selectedOpt: optIndex, isCorrect: isCorrect });
+            self.saveProgress(subjectId, moduleId, 'mcqs', qIndex, { selectedOpt: optIndex, isCorrect: isCorrect });
 
             const options = qCard.querySelectorAll('.mcq-option-item');
             options.forEach((o, idx) => {
@@ -601,32 +558,27 @@
             statusSpan.textContent = isCorrect ? '✓ Correct' : '✗ Incorrect';
             statusSpan.style.color = isCorrect ? 'var(--color-success)' : 'var(--color-error)';
 
+            updateProgressDOM();
+
             if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
               window.MathJax.typesetPromise([qCard]).catch(e => console.error(e));
             }
 
             if (isCorrect && typeof window.confetti === 'function') {
-              const currentSaved = localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : { mcqsAnswered: {} };
-              const correctCount = Object.values(currentSaved.mcqsAnswered).filter(v => v.isCorrect).length;
+              const freshSaved = savedData();
+              const correctCount = Object.values(freshSaved.mcqsAnswered).filter(v => v.isCorrect).length;
               if (correctCount === prepData.mcqs.length) {
                 window.confetti({ particleCount: 100, spread: 60, origin: { y: 0.8 } });
               }
             }
           });
         });
-      }
-      // ----------------------------------------------------
-      // CASE E: SHORT ANSWERS (2-3 MARK)
-      // ----------------------------------------------------
-      else if (subRoute === 'short') {
-        container.innerHTML = `
-          ${getSubPageHeader('Frequently Asked Short-Answer Questions')}
-          
-          <div class="practice-list" id="shortQuestionsList" style="max-width: 800px; margin: 0 auto;">
-            <!-- Short questions accordion injected -->
-          </div>
-        `;
+      };
 
+      // ----------------------------------------------------
+      // SECTION 4: SHORT QUESTIONS
+      // ----------------------------------------------------
+      const renderShortQs = () => {
         const shortQuestionsList = container.querySelector('#shortQuestionsList');
         let shortHTML = '';
         prepData.shortQuestions.forEach((q, index) => {
@@ -665,19 +617,12 @@
             }
           });
         });
-      }
-      // ----------------------------------------------------
-      // CASE F: LONG ANSWERS (5 MARK)
-      // ----------------------------------------------------
-      else if (subRoute === 'long') {
-        container.innerHTML = `
-          ${getSubPageHeader('Detailed Exam-Oriented Solutions')}
-          
-          <div class="long-questions-list" id="longQuestionsList" style="display: flex; flex-direction: column; gap: var(--space-lg); max-width: 800px; margin: 0 auto;">
-            <!-- Long questions cards injected -->
-          </div>
-        `;
+      };
 
+      // ----------------------------------------------------
+      // SECTION 5: LONG QUESTIONS
+      // ----------------------------------------------------
+      const renderLongQs = () => {
         const longQuestionsList = container.querySelector('#longQuestionsList');
         let longHTML = '';
         prepData.longQuestions.forEach((q, index) => {
@@ -702,9 +647,46 @@
           `;
         });
         longQuestionsList.innerHTML = longHTML;
-      }
+      };
 
-      // Compile math formulas if CDN is loaded
+      // Initial renders of sections
+      renderOneLiners();
+      renderFlashcards();
+      renderMCQs();
+      renderShortQs();
+      renderLongQs();
+
+      // Tab Toggling Logic
+      const tabs = container.querySelectorAll('.tab-btn');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // Remove active class from all tab buttons
+          tabs.forEach(t => t.classList.remove('active'));
+          // Add active class to current tab button
+          tab.classList.add('active');
+
+          // Hide all tab contents
+          container.querySelectorAll('.tab-content').forEach(tc => {
+            tc.style.display = 'none';
+            tc.classList.remove('active-content');
+          });
+
+          // Show targeted tab content
+          const targetTab = tab.dataset.tab;
+          const targetContent = container.querySelector(`#tabContent_${targetTab}`);
+          if (targetContent) {
+            targetContent.style.display = 'block';
+            targetContent.classList.add('active-content');
+          }
+
+          // Typeset any mathematical symbols inside the newly visible container
+          if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+            window.MathJax.typesetPromise([targetContent]).catch(e => console.error(e));
+          }
+        });
+      });
+
+      // Compile math formulas if CDN is loaded initially
       if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
         window.MathJax.typesetPromise([container]).catch(e => console.error(e));
       }

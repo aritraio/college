@@ -43,6 +43,7 @@
     if (hash.startsWith('#/subjects')) return 'subjects';
     if (hash.startsWith('#/subject/')) return 'subjects'; // group subjects/subject detail
     if (hash.startsWith('#/examprep')) return 'examprep'; // exam prep
+    if (hash.startsWith('#/mocktest')) return 'mocktest'; // mock test
     if (hash.startsWith('#/progress')) return 'progress';
     if (hash.startsWith('#/settings')) return 'settings';
     return '';
@@ -332,6 +333,12 @@
           } else {
             appContainer.innerHTML = `<div class="card text-center"><p>Error: Exam Prep dashboard engine not loaded.</p></div>`;
           }
+        }
+      } else if (hash.startsWith('#/mocktest')) {
+        if (window.MockTest && typeof window.MockTest.render === 'function') {
+          window.MockTest.render(appContainer);
+        } else {
+          appContainer.innerHTML = `<div class="card text-center"><p>Error: Mock Test engine not loaded.</p></div>`;
         }
       } else if (hash === '#/progress') {
         renderProgressStats(appContainer);

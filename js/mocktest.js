@@ -14,7 +14,7 @@
     apiKey: '',
     apiModel: 'gemini-2.0-flash-lite',
     subjectId: 'se',
-    moduleId: '1',
+    moduleIds: ['1'],
     customSubject: '',
     customTopic: '',
     numQuestions: 20,
@@ -33,7 +33,8 @@
       this.apiKey = localStorage.getItem('gemini_api_key') || '';
       this.apiModel = localStorage.getItem('gemini_api_model') || 'gemini-2.0-flash-lite';
       const lastSubject = localStorage.getItem('mock_last_subject') || 'se';
-      const lastModule = localStorage.getItem('mock_last_module') || '1';
+      const lastModuleStr = localStorage.getItem('mock_last_module') || '1';
+      const lastModules = lastModuleStr.split(',');
       
       const subjects = window.appState && window.appState.subjects ? window.appState.subjects : [];
 
@@ -93,10 +94,10 @@
 
             <!-- Module / Topic Selection -->
             <div class="mock-form-group" id="moduleSelectGroup">
-              <label for="mockModule">Syllabus Module</label>
-              <select id="mockModule" class="mock-select">
+              <label>Syllabus Modules (Select one or more)</label>
+              <div id="moduleCheckboxesContainer" style="display: flex; flex-direction: column; gap: var(--space-xs); background: var(--bg-surface); padding: var(--space-sm); border: 1px solid var(--border-color); max-height: 200px; overflow-y: auto;">
                 <!-- Injected dynamically based on subject -->
-              </select>
+              </div>
             </div>
 
             <!-- Custom Topic Input Group -->
@@ -151,7 +152,7 @@
       const customSubjectGroup = container.querySelector('#customSubjectGroup');
       const customSubjectName = container.querySelector('#customSubjectName');
       const moduleSelectGroup = container.querySelector('#moduleSelectGroup');
-      const moduleSelect = container.querySelector('#mockModule');
+      const moduleCheckboxesContainer = container.querySelector('#moduleCheckboxesContainer');
       const customTopicGroup = container.querySelector('#customTopicGroup');
       const customTopicName = container.querySelector('#customTopicName');
       const questionsSlider = container.querySelector('#mockQuestionsNum');
@@ -204,18 +205,84 @@
           
           const subject = subjects.find(s => s.id === subjId);
           if (subject && subject.modules) {
-            let optionsHTML = subject.modules.map(m => `
-              <option value="${m.id}" ${lastModule === String(m.id) ? 'selected' : ''}>Module ${m.id}: ${m.title}</option>
-            `).join('');
-            optionsHTML += `<option value="custom" ${lastModule === 'custom' ? 'selected' : ''}>Custom Topic / Models...</option>`;
-            moduleSelect.innerHTML = optionsHTML;
+            let optionsHTML = `
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: var(--space-xxs);">
+                <input type="checkbox" id="selectAllModules" style="cursor: pointer;">
+                <label for="selectAllModules" style="cursor: pointer; text-transform: none; color: var(--text-primary); font-weight: 600; font-size: 0.85rem;">Select All Modules</label>
+              </div>
+              <hr style="border: 0; border-top: 1px solid var(--border-color); margin: var(--space-xxs) 0;">
+            `;
+            
+            subject.modules.forEach(m => {
+              const isChecked = lastModules.includes(String(m.id));
+              optionsHTML += `
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 2px;">
+                  <input type="checkbox" name="mockModules" value="${m.id}" id="modCheck-${m.id}" class="module-checkbox" ${isChecked ? 'checked' : ''} style="cursor: pointer;">
+                  <label for="modCheck-${m.id}" style="cursor: pointer; text-transform: none; color: var(--text-secondary); font-weight: normal; font-size: 0.85rem;">Module ${m.id}: ${m.title}</label>
+                </div>
+              `;
+            });
+            
+            const isCustomChecked = lastModules.includes('custom');
+            optionsHTML += `
+              <hr style="border: 0; border-top: 1px solid var(--border-color); margin: var(--space-xxs) 0;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" name="mockModules" value="custom" id="modCheck-custom" class="module-checkbox" ${isCustomChecked ? 'checked' : ''} style="cursor: pointer;">
+                <label for="modCheck-custom" style="cursor: pointer; text-transform: none; color: var(--text-secondary); font-weight: normal; font-size: 0.85rem;">Custom Topic / Models...</label>
+              </div>
+            `;
+            
+            moduleCheckboxesContainer.innerHTML = optionsHTML;
+            
+            // Bind Select All
+            const selectAllCheck = moduleCheckboxesContainer.querySelector('#selectAllModules');
+            const checkboxes = moduleCheckboxesContainer.querySelectorAll('.module-checkbox:not(#modCheck-custom)');
+            const customCheck = moduleCheckboxesContainer.querySelector('#modCheck-custom');
+            
+            selectAllCheck.addEventListener('change', () => {
+              const isChecked = selectAllCheck.checked;
+              checkboxes.forEach(cb => {
+                cb.checked = isChecked;
+              });
+              if (isChecked) {
+                customCheck.checked = false; // Uncheck custom if select all is checked
+              }
+              updateModuleFields();
+            });
+            
+            checkboxes.forEach(cb => {
+              cb.addEventListener('change', () => {
+                const checkedCount = Array.from(checkboxes).filter(c => c.checked).length;
+                selectAllCheck.checked = checkedCount === checkboxes.length;
+                if (cb.checked) {
+                  customCheck.checked = false; // Uncheck custom if a module checkbox is checked
+                }
+                updateModuleFields();
+              });
+            });
+            
+            customCheck.addEventListener('change', () => {
+              if (customCheck.checked) {
+                // Uncheck all standard modules
+                selectAllCheck.checked = false;
+                checkboxes.forEach(c => c.checked = false);
+              }
+              updateModuleFields();
+            });
+
+            // Initialize selectAll check state
+            const checkedCount = Array.from(checkboxes).filter(c => c.checked).length;
+            selectAllCheck.checked = checkedCount === checkboxes.length && checkboxes.length > 0;
           }
           updateModuleFields();
         }
       };
 
       const updateModuleFields = () => {
-        if (subjectSelect.value !== 'custom' && moduleSelect.value === 'custom') {
+        const customCheck = moduleCheckboxesContainer.querySelector('#modCheck-custom');
+        const isCustomChecked = customCheck && customCheck.checked;
+
+        if (subjectSelect.value !== 'custom' && isCustomChecked) {
           customTopicGroup.style.display = 'flex';
           customTopicName.setAttribute('required', 'true');
           customTopicName.placeholder = 'e.g. Red Black Trees, SVM models, SRS generation';
@@ -226,7 +293,6 @@
       };
 
       subjectSelect.addEventListener('change', updateModulesDropdown);
-      moduleSelect.addEventListener('change', updateModuleFields);
       
       // Initialize dropdowns based on defaults
       updateModulesDropdown();
@@ -257,18 +323,26 @@
         if (this.subjectId === 'custom') {
           this.customSubject = customSubjectName.value.trim();
           this.customTopic = customTopicName.value.trim();
-          this.moduleId = 'custom';
+          this.moduleIds = ['custom'];
         } else {
           const selectedSubj = subjects.find(s => s.id === this.subjectId);
           this.customSubject = selectedSubj ? selectedSubj.name : this.subjectId;
-          this.moduleId = moduleSelect.value;
-          localStorage.setItem('mock_last_module', this.moduleId);
+          
+          const checkedCheckboxes = Array.from(moduleCheckboxesContainer.querySelectorAll('.module-checkbox:checked'));
+          this.moduleIds = checkedCheckboxes.map(cb => cb.value);
 
-          if (this.moduleId === 'custom') {
+          if (this.moduleIds.length === 0) {
+            alert("Please select at least one module or choose Custom Topic.");
+            return;
+          }
+
+          localStorage.setItem('mock_last_module', this.moduleIds.join(','));
+
+          if (this.moduleIds.includes('custom')) {
             this.customTopic = customTopicName.value.trim();
           } else {
-            const selectedMod = selectedSubj.modules.find(m => String(m.id) === this.moduleId);
-            this.customTopic = selectedMod ? `Module ${this.moduleId}: ${selectedMod.title}` : `Module ${this.moduleId}`;
+            const selectedModules = selectedSubj.modules.filter(m => this.moduleIds.includes(String(m.id)));
+            this.customTopic = selectedModules.map(m => `Module ${m.id}: ${m.title}`).join(', ');
           }
         }
 
@@ -374,19 +448,33 @@
 
       // Enrich prompt with actual syllabus files if available
       let syllabusContext = '';
-      if (this.subjectId !== 'custom' && this.moduleId !== 'custom') {
+      if (this.subjectId !== 'custom' && !this.moduleIds.includes('custom')) {
         try {
           loadStatus.textContent = 'Analyzing local syllabus...';
           loadDesc.textContent = 'Enriching AI test generator parameters with syllabus lecture materials.';
           
-          const res = await fetch(`data/${this.subjectId}/module${this.moduleId}.json`);
-          if (res.ok) {
-            const data = await res.json();
-            syllabusContext = `Subject Name: ${this.customSubject}\nModule Title: ${data.title}\n`;
-            if (data.topics && Array.isArray(data.topics)) {
-              syllabusContext += `Core Syllabus Topics:\n` + data.topics.map(t => `- Topic: ${t.title}\n  Summary: ${t.keyConcept || ''} ${t.content.substring(0, 150)}...`).join('\n');
+          const fetchPromises = this.moduleIds.map(modId => 
+            fetch(`data/${this.subjectId}/module${modId}.json`)
+              .then(res => res.ok ? res.json() : null)
+              .catch(e => {
+                console.warn(`Failed to fetch module ${modId}:`, e);
+                return null;
+              })
+          );
+          
+          const modulesData = await Promise.all(fetchPromises);
+          
+          syllabusContext = `Subject Name: ${this.customSubject}\n`;
+          modulesData.forEach((data, index) => {
+            if (data) {
+              const modId = this.moduleIds[index];
+              syllabusContext += `\nModule ${modId} Title: ${data.title}\n`;
+              if (data.topics && Array.isArray(data.topics)) {
+                syllabusContext += `Core Topics for Module ${modId}:\n` + 
+                  data.topics.map(t => `- Topic: ${t.title}\n  Summary: ${t.keyConcept || ''} ${t.content.substring(0, 150)}...`).join('\n') + '\n';
+              }
             }
-          }
+          });
         } catch (e) {
           console.warn("Failed to enrich prompt from local JSON:", e);
         }
@@ -654,7 +742,9 @@ Guidelines:
       });
 
       container.querySelector('#nextQBtn').addEventListener('click', () => {
-        if (this.currentQuestionIdx < this.questions.length - 1) {
+        if (this.currentQuestionIdx === this.questions.length - 1) {
+          container.querySelector('#submitExamBtn').click();
+        } else {
           this.currentQuestionIdx++;
           this.renderActiveQuestion(container);
         }
@@ -721,13 +811,8 @@ Guidelines:
 
       if (this.currentQuestionIdx === this.questions.length - 1) {
         nextBtn.textContent = 'Submit Exam';
-        nextBtn.onclick = () => container.querySelector('#submitExamBtn').click();
       } else {
         nextBtn.textContent = 'Next';
-        nextBtn.onclick = () => {
-          this.currentQuestionIdx++;
-          this.renderActiveQuestion(container);
-        };
       }
 
       this.updateNavigatorStates(container);

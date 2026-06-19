@@ -70,50 +70,180 @@
     daa: {
       1: {
         oneLiners: [
-          { fact: "An algorithm is a step-by-step, finite sequence of unambiguous instructions to solve a computational problem.", category: "Definition" },
-          { fact: "Asymptotic notation (Big-O, Omega, Theta) describes algorithm efficiency for very large inputs.", category: "Concept" },
-          { fact: "Big-O \\( O(g(n)) \\) defines an asymptotic upper bound: \\( f(n) \\le c \\cdot g(n) \\) for all \\( n \\ge n_0 \\).", category: "Formula" },
-          { fact: "Big-Omega \\( \\Omega(g(n)) \\) defines an asymptotic lower bound: \\( f(n) \\ge c \\cdot g(n) \\) for all \\( n \\ge n_0 \\).", category: "Formula" },
-          { fact: "Big-Theta \\( \\Theta(g(n)) \\) represents a tight bound, meaning \\( f(n) \\) is bounded above and below by \\( g(n) \\).", category: "Formula" },
-          { fact: "Space complexity measures the total memory space required by an algorithm, including inputs, auxiliary, and stack space.", category: "Definition" }
+          { fact: "Big-O \\( O(g(n)) \\) notation defines an asymptotic upper bound: there exist positive constants \\( c \\) and \\( n_0 \\) such that \\( 0 \\le f(n) \\le c \\cdot g(n) \\) for all \\( n \\ge n_0 \\).", category: "Formula" },
+          { fact: "Big-Theta \\( \\Theta(g(n)) \\) notation represents an asymptotically tight bound, meaning the function is bounded from both above and below by the same growth rate.", category: "Concept" },
+          { fact: "A time-space trade-off is a design choice where one resource (usually execution time) is reduced at the expense of increasing another resource (usually memory consumption), or vice versa.", category: "Concept" },
+          { fact: "The primary limitation of the Master's Theorem is that it can only solve divide-and-conquer recurrences of form \\( T(n) = aT(n/b) + f(n) \\) and fails if the recurrence does not fit one of its three cases.", category: "Concept" },
+          { fact: "Difference between Big-O and Big-Omega: Big-O provides an asymptotic upper bound (worst-case), whereas Big-Omega provides an asymptotic lower bound (best-case).", category: "Concept" },
+          { fact: "The two essential steps in the Substitution Method are: first, guess the exact form of the solution; second, use mathematical induction to prove the guess is correct.", category: "Concept" },
+          { fact: "A recurrence tree represents costs by mapping recursive decomposition; each node represents the cost of a single subproblem, and total cost is the sum of all nodes.", category: "Concept" },
+          { fact: "Little-omega \\( \\omega(g(n)) \\) notation represents a strict asymptotic lower bound, meaning \\( f(n) \\) grows strictly faster than \\( g(n) \\) (\\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = \\infty \\)).", category: "Formula" },
+          { fact: "Using asymptotic notations instead of exact execution times isolates the algorithm's inherent growth rate regarding input size, stripping away hardware and language-specific constants.", category: "Concept" },
+          { fact: "The purpose of empirical analysis (writing programs and timing them) in this module is to provide practical validation of theoretical asymptotic bounds, observing how constants and lower-order terms behave in reality.", category: "Concept" }
         ],
         mcqs: [
-          { question: "Which mathematical notation is used to represent the asymptotic upper bound of an algorithm's time complexity?", options: ["Omega notation", "Big-O notation", "Theta notation", "Little-o notation"], correct: 1, explanation: "Big-O notation provides the asymptotic upper bound, representing the worst-case scenario." },
-          { question: "What does it mean if an algorithm has a time complexity of \\( \\Theta(g(n)) \\)?", options: ["It runs in linear time", "Its worst-case is bounded above by g(n)", "Its running time is tightly bound both above and below by g(n)", "Its best-case is bounded below by g(n)"], correct: 2, explanation: "Theta notation provides a tight bound, meaning the algorithm is asymptotically bounded both above and below." },
-          { question: "An algorithm solves a problem of size n by recursively solving two subproblems of size n/2 and combining them in linear time. What is its recurrence relation?", options: ["T(n) = T(n/2) + O(1)", "T(n) = 2T(n/2) + O(n)", "T(n) = 2T(n/4) + O(n^2)", "T(n) = T(n-1) + O(n)"], correct: 1, explanation: "T(n) = 2T(n/2) + O(n) represents a divide-and-conquer recurrence like Merge Sort." },
-          { question: "Using Master's Theorem, what is the complexity of \\( T(n) = 4T(n/2) + O(n) \\)?", options: ["O(n log n)", "O(n)", "O(n^2)", "O(log n)"], correct: 2, explanation: "Here a=4, b=2, so log_b(a) = log_2(4) = 2. Since f(n) = O(n) is smaller than n^2, by Case 1 of Master's Theorem, T(n) = Theta(n^2)." },
-          { question: "Which of the following functions grows the fastest asymptotically?", options: ["n log n", "n^2", "2^n", "n!"], correct: 3, explanation: "Factorial complexity n! grows faster than exponential 2^n, quadratic n^2, and log-linear n log n." },
-          { question: "Which is the correct ordering of growth rates from slowest to fastest?", options: ["O(1) < O(log n) < O(n) < O(n^2)", "O(n) < O(log n) < O(1) < O(2^n)", "O(log n) < O(1) < O(n log n) < O(n)", "O(n^2) < O(n log n) < O(n) < O(log n)"], correct: 0, explanation: "Constant O(1) is slowest, followed by logarithmic, linear, and quadratic growth." },
-          { question: "Space complexity includes which of the following elements?", options: ["Only the stack frames for recursion", "Only the memory used by dynamic allocation", "Instruction space, data space, and environment stack space", "Only the size of input arguments"], correct: 2, explanation: "Space complexity includes fixed space (instructions, constants) and variable space (inputs, dynamically allocated memory, stack frames)." },
-          { question: "What is the worst-case time complexity of Binary Search?", options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"], correct: 1, explanation: "Binary Search repeatedly halves the search space, resulting in logarithmic O(log n) comparisons." },
-          { question: "What is the best-case time complexity of Bubble Sort on an array that is already sorted?", options: ["O(1)", "O(n) (with optimized flag)", "O(n^2)", "O(n log n)"], correct: 1, explanation: "With an optimized flag that detects if no swaps were made, bubble sort can terminate early in O(n) time." },
-          { question: "An algorithm with complexity O(2^n) is classified as having what type of complexity?", options: ["Polynomial", "Logarithmic", "Exponential", "Factorial"], correct: 2, explanation: "Functions of the form c^n where c > 1 represent exponential growth." },
-          { question: "The recurrence T(n) = T(n-1) + O(1) solves to:", options: ["O(log n)", "O(n)", "O(n^2)", "O(n log n)"], correct: 1, explanation: "Adding a constant running time n times recursively results in a linear summation, resolving to O(n)." },
-          { question: "Which notation represents the absolute best-case lower bound of an algorithm?", options: ["Big-O", "Big-Omega", "Big-Theta", "Small-o"], correct: 1, explanation: "Big-Omega provides the asymptotic lower bound, representing the minimum resources required." },
-          { question: "Which complexity represents an algorithm that takes the same execution time regardless of input size?", options: ["O(1)", "O(log n)", "O(n)", "O(n!)"], correct: 0, explanation: "O(1) represents constant time complexity." },
-          { question: "The average case complexity of Quick Sort is:", options: ["O(n)", "O(n log n)", "O(n^2)", "O(2^n)"], correct: 1, explanation: "Quick sort partitions arrays roughly in half on average, resulting in O(n log n) complexity." },
-          { question: "What is the worst-case complexity of Quick Sort?", options: ["O(n log n)", "O(n^2)", "O(n^3)", "O(2^n)"], correct: 1, explanation: "In the worst case (when pivot partition is highly unbalanced, like on a sorted array), Quick Sort takes O(n^2) time." },
-          { question: "Amortized analysis is used when:", options: ["An algorithm always takes the same time", "A rare expensive operation is averaged out over a sequence of cheap operations", "We want to analyze the best-case behavior", "We are executing code in a parallel system"], correct: 1, explanation: "Amortized analysis averages the time taken per operation over a series of operations to give a representative average." },
-          { question: "Which of the following recurrences represents Merge Sort?", options: ["T(n) = 2T(n/2) + O(n)", "T(n) = T(n/2) + O(1)", "T(n) = 2T(n/2) + O(1)", "T(n) = T(n-1) + O(n)"], correct: 0, explanation: "Merge sort divides the array in half (2T(n/2)) and merges them in linear time (O(n))." },
-          { question: "What is the complexity of searching a key in a hash table in the average case?", options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"], correct: 0, explanation: "A hash table provides constant O(1) time lookup on average, assuming a good hash function." },
-          { question: "Which of the following is NOT an algorithmic design technique?", options: ["Dynamic Programming", "Greedy Method", "Data Normalization", "Divide and Conquer"], correct: 2, explanation: "Data normalization is a database or data engineering process, not an algorithm design technique." },
-          { question: "The Master Theorem can be applied to solve which of the following recurrences?", options: ["T(n) = 2T(sqrt(n)) + log n", "T(n) = 8T(n/2) + n^2", "T(n) = T(n-1) + n", "T(n) = T(n/2) + T(n/3) + n"], correct: 1, explanation: "Master Theorem applies to recurrences of the form T(n) = aT(n/b) + f(n) where a >= 1 and b > 1 are constants." }
+          {
+            question: "Which asymptotic notation is used to define an asymptotic upper bound, representing the worst-case scenario of an algorithm?",
+            options: [
+              "\\( \\Omega \\) (Big-Omega)",
+              "\\( \\Theta \\) (Big-Theta)",
+              "\\( O \\) (Big-O)",
+              "\\( \\omega \\) (Little-omega)"
+            ],
+            correct: 2,
+            explanation: "Big-O notation provides an asymptotic upper bound, representing the worst-case scenario where the running time grows no faster than a constant multiple of the bounding function."
+          },
+          {
+            question: "Space complexity is strictly defined as:",
+            options: [
+              "The amount of time an algorithm takes to execute completely.",
+              "The total amount of computer memory an algorithm requires to run to completion.",
+              "The size of the compiled binary executable file.",
+              "The number of lines of code in the algorithm."
+            ],
+            correct: 1,
+            explanation: "Space complexity measures the total amount of memory space (including variables, instruction execution space, input data, and system stack space) required by an algorithm to run to completion."
+          },
+          {
+            question: "If an algorithm's execution time is bounded from both above and below by the same function (ignoring constant factors), which notation is the most accurate to use?",
+            options: [
+              "\\( O \\)",
+              "\\( \\Omega \\)",
+              "\\( o \\)",
+              "\\( \\Theta \\)"
+            ],
+            correct: 3,
+            explanation: "Big-Theta (\\( \\Theta \\)) notation represents an asymptotically tight bound, which squeeze-bounds a function from both above and below."
+          },
+          {
+            question: "What is the fundamental difference between \\( O \\) (Big-O) and \\( o \\) (Little-o) notation?",
+            options: [
+              "\\( O \\) is an inclusive upper bound (\\( f(n) \\le c \\cdot g(n) \\)), while \\( o \\) is a strict upper bound (\\( f(n) < c \\cdot g(n) \\)).",
+              "\\( O \\) is for time complexity, and \\( o \\) is for space complexity.",
+              "\\( O \\) represents an upper bound, while \\( o \\) represents a lower bound.",
+              "There is no mathematical difference; they are used interchangeably."
+            ],
+            correct: 0,
+            explanation: "Big-O is an inclusive upper bound (allowing the function to grow at the same rate, \\( \\le \\)), whereas Little-o is a strict upper bound (the function must grow strictly slower, \\( < \\))."
+          },
+          {
+            question: "In the Master Theorem formula \\( T(n) = aT(n/b) + f(n) \\), what do the parameters \\( a \\) and \\( b \\) represent?",
+            options: [
+              "\\( a \\) is the size of the subproblems, \\( b \\) is the number of subproblems.",
+              "\\( a \\) is the number of subproblems, \\( b \\) is the factor by which the subproblem size is divided.",
+              "\\( a \\) is the cost of dividing, \\( b \\) is the cost of conquering.",
+              "\\( a \\) and \\( b \\) are arbitrary constants that hold no physical meaning."
+            ],
+            correct: 1,
+            explanation: "In the divide-and-conquer recurrence, \\( a \\) is the number of subproblems recursively solved, and \\( b \\) is the division factor reducing the input size."
+          },
+          {
+            question: "Which statement accurately describes a \"Time-Space Trade-off\"?",
+            options: [
+              "Reducing the execution time of an algorithm always guarantees a reduction in memory usage.",
+              "You can often decrease the execution time of an algorithm by utilizing more memory, or decrease memory usage at the cost of slower execution.",
+              "Modern processors eliminate the need to balance time and space.",
+              "Time and space complexity are completely independent and cannot influence each other."
+            ],
+            correct: 1,
+            explanation: "A Time-Space Trade-off means you can sacrifice space (e.g. by using a lookup table or cache) to achieve faster execution times, or conserve space by recalculating values when needed, increasing execution time."
+          },
+          {
+            question: "When using the Recurrence Tree method, the total cost of the algorithm is determined by:",
+            options: [
+              "The cost of the root node alone.",
+              "The height of the tree multiplied by the number of leaves.",
+              "Summing the costs of the nodes across all levels of the tree.",
+              "The number of recursive calls made in the first step."
+            ],
+            correct: 2,
+            explanation: "The total cost of a recurrence tree is calculated by summing the horizontal costs at each individual level across all levels of the tree."
+          },
+          {
+            question: "Mathematically, \\( f(n) = \\omega(g(n)) \\) implies which of the following limit conditions as \\( n \\to \\infty \\)?",
+            options: [
+              "\\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = 0 \\)",
+              "\\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = \\infty \\)",
+              "\\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = c \\), where \\( c > 0 \\)",
+              "\\( \\lim_{n \\to \\infty} \\frac{g(n)}{f(n)} = \\infty \\)"
+            ],
+            correct: 1,
+            explanation: "Little-omega (\\( \\omega \\)) represents a strict asymptotic lower bound. If \\( f(n) = \\omega(g(n)) \\), then \\( f(n) \\) grows strictly faster than \\( g(n) \\), meaning the limit of their ratio is infinity."
+          },
+          {
+            question: "The Substitution Method for solving recurrences strictly requires the use of which mathematical proof technique?",
+            options: [
+              "Proof by contradiction",
+              "Proof by exhaustion",
+              "Mathematical induction",
+              "Pigeonhole principle"
+            ],
+            correct: 2,
+            explanation: "The Substitution method relies on making a guess of the solution and then using mathematical induction to find the constants and prove that the guess holds true."
+          },
+          {
+            question: "Why is empirical analysis (writing programs and timing them) fundamentally flawed for proving absolute algorithmic complexity?",
+            options: [
+              "It depends heavily on the hardware, language, compiler, and specific inputs used during the test.",
+              "It is impossible to write programs that test worst-case scenarios.",
+              "Timers on modern operating systems lack the precision to measure algorithms.",
+              "Compilers automatically change the asymptotic bounds of code."
+            ],
+            correct: 0,
+            explanation: "Empirical timings represent execution behavior on a single system and are heavily influenced by the CPU speed, RAM, background system load, programming language, and compiler optimizations."
+          }
         ],
         shortQuestions: [
-          { question: "What is the difference between Big-O and Big-Theta notations?", answer: "Big-O (\\( O \\)) represents the asymptotic upper bound. It means the algorithm will run at least as fast as this bound (e.g., worst-case running time). Big-Theta (\\( \\Theta \\)) represents a tight bound, meaning the algorithm's running time is bounded both above and below by the given function for sufficiently large input sizes." },
-          { question: "State the three cases of Master's Theorem.", answer: "For a recurrence \\( T(n) = aT(n/b) + f(n) \\) with \\( a \\ge 1, b > 1 \\):\n1. If \\( f(n) = O(n^c) \\) where \\( c < \\log_b a \\), then \\( T(n) = \\Theta(n^{\\log_b a}) \\).\n2. If \\( f(n) = \\Theta(n^c \\log^k n) \\) where \\( c = \\log_b a \\), then \\( T(n) = \\Theta(n^c \\log^{k+1} n) \\).\n3. If \\( f(n) = \\Omega(n^c) \\) where \\( c > \\log_b a \\), and a regularity condition holds, then \\( T(n) = \\Theta(f(n)) \\)." },
-          { question: "Define Space Complexity and its components.", answer: "Space Complexity is the total memory space required by an algorithm to run to completion. It consists of two main parts:\n1. **Fixed Part**: Memory independent of instance characteristics (e.g., instruction space, simple variables, constants).\n2. **Variable Part**: Memory that depends on instance sizes (e.g., dynamic allocation arrays, recursion stack frame space, input data structures)." }
+          {
+            question: "Differentiate between Big-O and Little-o notation using limit definitions.",
+            answer: "Big-O (\\( O \\)) indicates that a function grows no faster than a certain rate (inclusive upper bound). Little-o (\\( o \\)) indicates that a function grows strictly slower than a certain rate (strict upper bound). Mathematically, using limits:\n\n• For \\( f(n) = O(g(n)) \\), \\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = c \\), where \\( 0 \\le c < \\infty \\).\n• For \\( f(n) = o(g(n)) \\), the limit must equal exactly zero: \\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = 0 \\)."
+          },
+          {
+            question: "Explain the mathematical significance of \\( \\Theta \\) notation.",
+            answer: "\\( \\Theta \\) notation mathematically signifies that two functions grow at the exact same rate asymptotically, ignoring constant factors and lower-order terms. It provides a tight bound, meaning it simultaneously acts as an upper bound (\\( O \\)) and a lower bound (\\( \\Omega \\)). An algorithm is \\( \\Theta(g(n)) \\) if and only if it is both \\( O(g(n)) \\) and \\( \\Omega(g(n)) \\)."
+          },
+          {
+            question: "Outline the procedure to solve a recurrence relation using the Substitution Method.",
+            answer: "The substitution method relies heavily on mathematical intuition and rigor. It involves two steps:\n\n1. **Guess**: Formulate a hypothesis for the asymptotic bound of the solution.\n2. **Induction**: Use mathematical induction to prove the guess holds. This involves proving a base case, assuming the bound holds for a value \\( k < n \\), and substituting this assumption into the original recurrence to prove it holds for \\( n \\)."
+          },
+          {
+            question: "Briefly explain the mechanics of the Recurrence Tree method.",
+            answer: "The Recurrence Tree method converts a recurrence equation into a tree structure. The root is the initial cost. Each child node represents the cost of the recursive subproblems. The tree is expanded down to the base cases (the leaves). The total execution time is calculated by summing the costs horizontally across each level, and then summing those level totals vertically from root to leaves."
+          },
+          {
+            question: "Why is empirical analysis (finding time complexities by writing programs) insufficient on its own?",
+            answer: "Empirical analysis measures execution time in milliseconds/seconds on a physical machine. This data is polluted by the CPU speed, available RAM, background OS processes, the compiler's optimization algorithms, and the specific test data used. It does not yield a mathematical proof of how the algorithm scales as \\( n \\to \\infty \\). It is only useful for validating theoretical asymptotic bounds, not defining them."
+          }
         ],
         longQuestions: [
           {
-            question: "Formally explain asymptotic notations: Big-O, Big-Omega, and Big-Theta with mathematical definitions.",
-            answer: "Asymptotic notations express the execution performance of algorithms as input size n grows infinitely:\n\n1. **Big-O Notation** (Upper Bound): \\( f(n) = O(g(n)) \\) if there exist positive constants \\( c \\) and \\( n_0 \\) such that \\( 0 \\le f(n) \\le c \\cdot g(n) \\) for all \\( n \\ge n_0 \\). It establishes the maximum execution time.\n\n2. **Big-Omega Notation** (Lower Bound): \\( f(n) = \\Omega(g(n)) \\) if there exist positive constants \\( c \\) and \\( n_0 \\) such that \\( 0 \\le c \\cdot g(n) \\le f(n) \\) for all \\( n \\ge n_0 \\). It establishes the minimum execution time.\n\n3. **Big-Theta Notation** (Tight Bound): \\( f(n) = \\Theta(g(n)) \\) if there exist positive constants \\( c_1, c_2, \\) and \\( n_0 \\) such that \\( 0 \\le c_1 \\cdot g(n) \\le f(n) \\le c_2 \\cdot g(n) \\) for all \\( n \\ge n_0 \\). This represents an exact rate of growth.",
-            keyPoints: ["Big-O: f(n) <= c * g(n) (Asymptotic upper limit)", "Big-Omega: f(n) >= c * g(n) (Asymptotic lower limit)", "Big-Theta: c1 * g(n) <= f(n) <= c2 * g(n) (Tight bounding range)"]
+            question: "Discuss the five asymptotic notations (\\( O, \\Omega, \\Theta, o, \\omega \\)) in detail. Define them mathematically and explain their significance in algorithm analysis.",
+            answer: "Asymptotic notations are mathematical tools used to describe the limiting behavior of an algorithm's execution time or space as the input size \\( n \\) tends toward infinity.\n\n1. **\\( O \\)-notation (Big-O): Asymptotic Upper Bound.**\n• *Math*: \\( O(g(n)) = \\{f(n): \\exists \\text{ constants } c, n_0 > 0 \\text{ such that } 0 \\le f(n) \\le c \\cdot g(n) \\text{ for all } n \\ge n_0\\} \\).\n• *Significance*: Defines the worst-case scenario. It guarantees the algorithm will not take longer than this bound.\n\n2. **\\( \\Omega \\)-notation (Big-Omega): Asymptotic Lower Bound.**\n• *Math*: \\( \\Omega(g(n)) = \\{f(n): \\exists \\text{ constants } c, n_0 > 0 \\text{ such that } 0 \\le c \\cdot g(n) \\le f(n) \\text{ for all } n \\ge n_0\\} \\).\n• *Significance*: Defines the best-case scenario or a fundamental limitation. The algorithm will take *at least* this much time.\n\n3. **\\( \\Theta \\)-notation (Big-Theta): Asymptotically Tight Bound.**\n• *Math*: \\( \\Theta(g(n)) = \\{f(n): \\exists \\text{ constants } c_1, c_2, n_0 > 0 \\text{ such that } 0 \\le c_1 \\cdot g(n) \\le f(n) \\le c_2 \\cdot g(n) \\text{ for all } n \\ge n_0\\} \\).\n• *Significance*: The most precise notation. It means the best-case and worst-case grow at the exact same rate.\n\n4. **\\( o \\)-notation (Little-o): Strict Upper Bound.**\n• *Math*: \\( o(g(n)) = \\{f(n): \\text{for any constant } c > 0, \\exists \\text{ a constant } n_0 > 0 \\text{ such that } 0 \\le f(n) < c \\cdot g(n) \\text{ for all } n \\ge n_0\\} \\) (\\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = 0 \\)).\n• *Significance*: Used when an upper bound is not asymptotically tight. \\( f(n) \\) becomes insignificant compared to \\( g(n) \\).\n\n5. **\\( \\omega \\)-notation (Little-omega): Strict Lower Bound.**\n• *Math*: \\( \\omega(g(n)) = \\{f(n): \\text{for any constant } c > 0, \\exists \\text{ a constant } n_0 > 0 \\text{ such that } 0 \\le c \\cdot g(n) < f(n) \\text{ for all } n \\ge n_0\\} \\) (\\( \\lim_{n \\to \\infty} \\frac{f(n)}{g(n)} = \\infty \\)).\n• *Significance*: The inverse of little-o. \\( f(n) \\) grows strictly faster than \\( g(n) \\).",
+            keyPoints: [
+              "Big-O, Big-Omega, Big-Theta define inclusive upper, lower, and tight bounds respectively",
+              "Little-o and Little-omega define strict upper and lower bounds (limit conditions 0 and infinity)",
+              "Significance: isolates growth rate to predict software scaling characteristics independent of hardware"
+            ]
           },
           {
-            question: "Compare Time Complexity and Space Complexity analysis. Why is worst-case analysis preferred?",
-            answer: "Time complexity analyzes the running time of an algorithm as a function of input size, measured by counting primitive computational steps. Space complexity analyzes the total memory layout consumed by the algorithm during execution.\n\nWorst-case analysis is generally preferred in engineering for three reasons:\n1. **Guarantee**: It provides an absolute upper bound guarantee that the algorithm will never perform worse than this limit, preventing critical runtime crashes in production.\n2. **Frequency**: For many algorithms, the worst-case scenario occurs frequently (e.g., searching for a non-existent item).\n3. **Clarity**: Best-case scenarios are often trivial (e.g., finding item at index 0 in linear search) and do not reflect algorithm efficiency.",
-            keyPoints: ["Time complexity counts operations, Space complexity counts memory bytes used", "Worst-case provides a fail-safe maximum bound guarantee", "Best-case analysis is often trivial and uninformative for real engineering scalability"]
+            question: "State the Master's Theorem. Detail the three standard cases used to solve recurrences of the form \\( T(n) = aT(n/b) + f(n) \\).",
+            answer: "The Master Theorem provides a cookbook method for solving recurrence relations that result from divide-and-conquer algorithms. It applies to recurrences of the form:\n\n\\[ T(n) = aT(n/b) + f(n) \\]\n\nWhere:\n• \\( a \\ge 1 \\) is the number of subproblems.\n• \\( b > 1 \\) is the factor by which the input size is divided.\n• \\( f(n) \\) is the cost of dividing the problem and combining the results.\n\nThe theorem compares \\( f(n) \\) to the function \\( n^{\\log_b a} \\) (the watershed function). There are three distinct cases based on this comparison:\n\n• **Case 1: \\( f(n) \\) is polynomially smaller than \\( n^{\\log_b a} \\).**\n  - Condition: If \\( f(n) = O(n^{\\log_b a - \\epsilon}) \\) for some constant \\( \\epsilon > 0 \\).\n  - Result: \\( T(n) = \\Theta(n^{\\log_b a}) \\).\n  - *Logic*: The cost is dominated by the leaves of the recursion tree.\n\n• **Case 2: \\( f(n) \\) is similar in growth to \\( n^{\\log_b a} \\).**\n  - Condition: If \\( f(n) = \\Theta(n^{\\log_b a}) \\).\n  - Result: \\( T(n) = \\Theta(n^{\\log_b a} \\cdot \\log n) \\).\n  - *Logic*: The cost is evenly distributed across all levels of the tree.\n\n• **Case 3: \\( f(n) \\) is polynomially larger than \\( n^{\\log_b a} \\).**\n  - Condition: If \\( f(n) = \\Omega(n^{\\log_b a + \\epsilon}) \\) for some \\( \\epsilon > 0 \\), AND it satisfies the regularity condition: \\( a \\cdot f(n/b) \\le c \\cdot f(n) \\) for some constant \\( c < 1 \\) and sufficiently large \\( n \\).\n  - Result: \\( T(n) = \\Theta(f(n)) \\).\n  - *Logic*: The cost is dominated by the root of the recursion tree.",
+            keyPoints: [
+              "Divide-and-conquer format: T(n) = aT(n/b) + f(n) with a >= 1, b > 1",
+              "Case 1: Leaves dominate (T(n) = Theta(n^(log_b a)))",
+              "Case 2: Distributed costs (T(n) = Theta(n^(log_b a) * log n))",
+              "Case 3: Root dominates (T(n) = Theta(f(n))) subject to regularity condition a*f(n/b) <= c*f(n)"
+            ]
+          },
+          {
+            question: "Analyze the process of solving a recurrence relation using the Recurrence Tree method. Illustrate how it calculates the total cost of an algorithm.",
+            answer: "The Recurrence Tree method is a visual and algebraic way to determine the sum of costs for executing a recursive algorithm. It avoids the pure guesswork of the substitution method by mapping out the algorithm's execution flow.\n\n**Step-by-Step Breakdown:**\n\n1. **Decomposition**: The initial equation \\( T(n) \\) forms the root node. If the recurrence is \\( T(n) = 2T(n/2) + cn \\), the root node has a cost of \\( cn \\).\n2. **Branching**: The root node splits into branches representing the subproblems. In \\( T(n) = 2T(n/2) \\), there are 2 branches, each representing a node of size \\( n/2 \\). The cost at this second level for each node is \\( c(n/2) \\).\n3. **Expansion**: This branching continues. Level 2 will have 4 nodes of size \\( n/4 \\). Level \\( i \\) will have \\( 2^i \\) nodes of size \\( n/2^i \\).\n4. **Determine Tree Depth**: The tree stops expanding when the subproblem size reaches the base case (usually size 1). For a division by 2, the depth of the tree is \\( \\log_2 n \\).\n5. **Calculate Level Costs**: Sum the costs horizontally across each level.\n   • Level 0 (Root): \\( cn \\)\n   • Level 1: \\( 2 \\cdot c(n/2) = cn \\)\n   • Level 2: \\( 4 \\cdot c(n/4) = cn \\)\n6. **Sum Total Cost**: Add the costs of all levels together. In this example, there are \\( \\log_2 n \\) levels, and each level costs \\( cn \\).\n7. **Result**: The total cost is \\( cn \\cdot \\log_2 n \\), which simplifies to an asymptotic bound of \\( \\Theta(n \\log n) \\).",
+            keyPoints: [
+              "Deconstruct recursive subproblems into nodes of a tree structure",
+              "Compute costs horizontally across each tree level",
+              "Determine tree height/depth using input division factors",
+              "Sum costs vertically across all levels to find final bound (e.g. Theta(n log n) for Merge Sort)"
+            ]
           }
         ],
         mnemonics: [
@@ -121,12 +251,12 @@
           { concept: "Algorithm Complexity Ordering", phrase: "C-L-L-Q-E (Cool Llama Likes Quiet Evenings)", association: "**C**onstant O(1), **L**ogarithmic O(log n), **L**inear O(n), **Q**uadratic O(n²), **E**xponential O(2^n)" }
         ],
         flashCards: [
-          { question: "Big-O Notation", answer: "Asymptotic upper bound: describes the absolute worst-case growth rate of an algorithm." },
-          { question: "Big-Omega Notation", answer: "Asymptotic lower bound: describes the absolute best-case growth rate of an algorithm." },
-          { question: "Big-Theta Notation", answer: "Asymptotic tight bound: bounds the running time within a constant factor from both above and below." },
-          { question: "Auxiliary Space", answer: "The extra space or temporary memory used by an algorithm, excluding the input size space." },
-          { question: "Time-Space Tradeoff", answer: "Solving a computational problem by reducing execution time at the cost of consuming more memory, or vice versa." },
-          { question: "Recurrence Relation", answer: "An equation or inequality that defines a function in terms of its values on smaller inputs (e.g. T(n) = 2T(n/2) + O(n))." }
+          { question: "\\( \\Theta(g(n)) \\) Mathematical Definition", answer: "\\( c_1 \\cdot g(n) \\le f(n) \\le c_2 \\cdot g(n) \\) for all \\( n \\ge n_0 \\) (where \\( c_1, c_2, n_0 > 0 \\)). It is a tight bound." },
+          { question: "Master Theorem Standard Form", answer: "\\( T(n) = aT(n/b) + f(n) \\), where \\( a \\ge 1 \\) (number of subproblems) and \\( b > 1 \\) (division factor of the problem size)." },
+          { question: "\\( o(g(n)) \\) vs \\( O(g(n)) \\)", answer: "Big-O (\\( O \\)) is an inclusive upper bound (\\( \\le \\)). Little-o (\\( o \\)) is a strict upper bound (\\( < \\)). In Little-o, \\( f(n) \\) becomes insignificant relative to \\( g(n) \\) as \\( n \\to \\infty \\)." },
+          { question: "Recurrence Tree Method Application", answer: "Best used to generate a good 'guess' for the time complexity bound, which must then usually be proven rigorously using the Substitution Method." },
+          { question: "\\( \\Omega(g(n)) \\) Mathematical Definition", answer: "\\( 0 \\le c \\cdot g(n) \\le f(n) \\) for all \\( n \\ge n_0 \\). It represents an asymptotic lower bound." },
+          { question: "Time-Space Trade-off Example", answer: "Lookup tables or caching (Memoization). You use extra space (memory) to store precomputed results, saving time (CPU cycles) by not recalculating them." }
         ]
       }
     }

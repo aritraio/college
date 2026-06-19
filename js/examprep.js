@@ -73,6 +73,7 @@
 
     // 1. RENDER EXAM PREP DASHBOARD
     renderDashboard: function (container) {
+      const self = this;
       const subjects = window.appState && window.appState.subjects ? window.appState.subjects : [];
       
       let subjectTabsHTML = `
@@ -109,7 +110,9 @@
 
         <!-- Modules Grid Container -->
         <div id="prepModulesGrid" style="display: flex; flex-direction: column; gap: var(--space-xl); width: 100%;">
-          <!-- Dynamically populated -->
+          <div class="card text-center" style="padding: var(--space-xl) 0; width: 100%;">
+            <p style="color: var(--text-muted);">Loading revision modules...</p>
+          </div>
         </div>
       `;
 
@@ -118,19 +121,21 @@
         tab.addEventListener('click', () => {
           container.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
           tab.classList.add('active');
-          this.activeSubjectFilter = tab.dataset.subject;
-          this.filterAndRenderGrid(container);
+          self.activeSubjectFilter = tab.dataset.subject;
+          self.filterAndRenderGrid(container);
         });
       });
 
       // Event listener for search
       const searchInput = container.querySelector('#prepSearchInput');
       searchInput.addEventListener('input', () => {
-        this.filterAndRenderGrid(container, searchInput.value.trim());
+        self.filterAndRenderGrid(container, searchInput.value.trim());
       });
 
-      // Initial grid render
-      this.filterAndRenderGrid(container);
+      // Preload all module data, then render the grid
+      window.ExamPrepData.preloadAll().then(() => {
+        self.filterAndRenderGrid(container);
+      });
     },
 
     // Filter and update modules grid
@@ -243,7 +248,18 @@
         return;
       }
 
-      const prepData = window.ExamPrepData.getModuleData(subjectId, moduleId);
+      // Show loading state while data is fetched
+      container.innerHTML = `<div class="card text-center" style="padding: var(--space-xxl) 0;"><p style="color: var(--text-muted);">Loading revision content...</p></div>`;
+
+      // Load data async, then render
+      window.ExamPrepData.loadModuleData(subjectId, moduleId).then(function (prepData) {
+        self._renderModuleContent(container, subjectId, moduleId, subRoute, subj, mod, prepData);
+      });
+    },
+
+    // Internal: render module content once data is loaded
+    _renderModuleContent: function (container, subjectId, moduleId, subRoute, subj, mod, prepData) {
+      const self = this;
       const progress = self.getModuleProgress(subjectId, moduleId, prepData);
       const key = `examprep_progress_${subjectId}_${moduleId}`;
       const savedData = () => localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : { oneLinersRead: [], mcqsAnswered: {}, flashcardsViewed: [] };

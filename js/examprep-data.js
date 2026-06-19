@@ -308,7 +308,7 @@
     // Otherwise, generate standard realistic dummy data dynamically using vocabulary definitions
     const subVocab = vocab[subjectId] || vocab.se;
     const numTopics = subVocab.topics.length;
-    
+
     // 1. One-Liners
     const oneLiners = [];
     for (let i = 0; i < 6; i++) {
@@ -333,9 +333,9 @@
       const topicIdx = (moduleId * 3 + i) % numTopics;
       const topic = subVocab.topics[topicIdx];
       const formula = subVocab.formulas[i % subVocab.formulas.length];
-      
+
       const isFormulaQ = i % 3 === 0;
-      
+
       if (isFormulaQ) {
         mcqs.push({
           question: `Which formula or representation is mathematically associated with ${topic} evaluation in academic exams?`,
